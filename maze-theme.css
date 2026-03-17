@@ -197,7 +197,7 @@ button, input, select { font:inherit; }
 .universe-stage__quadrants { display:none !important; }
 .quadrant-tooltip {
   position:absolute;
-  z-index:20;
+  z-index:12;
   width:min(340px, calc(100% - 28px));
   padding:14px 16px;
   border-radius:18px;
@@ -304,7 +304,7 @@ button, input, select { font:inherit; }
 .universe-stage.is-dragging { cursor:grabbing; }
 .universe-stage.is-dragging::before { opacity:.92; }
 .universe-stage__viewport { position:absolute; inset:0; overflow:hidden; }
-.universe-stage__axis { position:absolute; background:rgba(127,193,255,.12); }
+.universe-stage__axis { position:absolute; z-index:1; background:rgba(127,193,255,.12); }
 .universe-stage__axis--x { top:50%; left:8%; right:8%; height:1px; }
 .universe-stage__axis--y { left:50%; top:10%; bottom:12%; width:1px; }
 .universe-stage__quadrants {
@@ -347,10 +347,11 @@ button, input, select { font:inherit; }
 .quadrant-card--bottom-left { border-color:rgba(255,176,116,.22); }
 .quadrant-marker--bottom-right,
 .quadrant-card--bottom-right { border-color:rgba(154,247,194,.22); }
-.universe-stage__canvas { position:absolute; left:50%; top:50%; width:1800px; height:1400px; transform:translate(-50%, -50%) scale(1); transform-origin:center center; transition:transform 260ms cubic-bezier(.2,.8,.2,1); }
+.universe-stage__canvas { position:absolute; left:50%; top:50%; z-index:24; width:1800px; height:1400px; transform:translate(-50%, -50%) scale(1); transform-origin:center center; transition:transform 260ms cubic-bezier(.2,.8,.2,1); }
 .universe-stage__canvas[data-zoom-state="close"] .occupation-node__label { opacity:.96; transform:translateX(-50%) translateY(0); }
 .occupation-node {
   position:absolute; left:50%; top:50%; width:20px; height:20px; border:0; background:transparent; padding:0; cursor:pointer; color:inherit;
+  transform:translate(var(--node-x, 0px), var(--node-y, 0px)) scale(var(--node-scale, 1));
   transition:transform 680ms cubic-bezier(.2,.82,.2,1), width 680ms cubic-bezier(.2,.82,.2,1), height 680ms cubic-bezier(.2,.82,.2,1), opacity 220ms ease;
   will-change:transform;
   isolation:isolate;
