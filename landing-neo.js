@@ -727,6 +727,7 @@ function updateCanvasTransform() {
     camera.offsetY = camera.targetOffsetY;
     camera.initialized = true;
     els.occupationCanvas.style.transform = `translate(-50%, -50%) translate(${camera.offsetX}px, ${camera.offsetY}px) scale(${camera.zoom})`;
+    els.occupationCanvas.style.setProperty("--node-scale", `${(1 / Math.max(camera.zoom, 0.0001)).toFixed(5)}`);
     els.occupationCanvas.dataset.zoomState = camera.zoom > 1.45 ? "close" : "far";
     els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
     queueQuadrantTooltipOverlapSync();
@@ -743,6 +744,7 @@ function stepCamera() {
   camera.offsetY += (camera.targetOffsetY - camera.offsetY) * lerp;
 
   els.occupationCanvas.style.transform = `translate(-50%, -50%) translate(${camera.offsetX}px, ${camera.offsetY}px) scale(${camera.zoom})`;
+  els.occupationCanvas.style.setProperty("--node-scale", `${(1 / Math.max(camera.zoom, 0.0001)).toFixed(5)}`);
   els.occupationCanvas.dataset.zoomState = camera.zoom > 1.45 ? "close" : "far";
   els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
   queueQuadrantTooltipOverlapSync();
@@ -757,6 +759,7 @@ function stepCamera() {
     camera.offsetX = camera.targetOffsetX;
     camera.offsetY = camera.targetOffsetY;
     els.occupationCanvas.style.transform = `translate(-50%, -50%) translate(${camera.offsetX}px, ${camera.offsetY}px) scale(${camera.zoom})`;
+    els.occupationCanvas.style.setProperty("--node-scale", `${(1 / Math.max(camera.zoom, 0.0001)).toFixed(5)}`);
     els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
     queueQuadrantTooltipOverlapSync();
     cameraFrame = 0;
@@ -772,7 +775,8 @@ function updateNodeElement(node, row) {
   node.dataset.soc = row.socCode;
   node.style.width = `${row.size}px`;
   node.style.height = `${row.size}px`;
-  node.style.transform = `translate(${row.x - row.size / 2}px, ${row.y - row.size / 2}px)`;
+  node.style.setProperty("--node-x", `${row.x - row.size / 2}px`);
+  node.style.setProperty("--node-y", `${row.y - row.size / 2}px`);
   node.style.zIndex = `${row.zIndex}`;
   node.style.setProperty("--node-fill", palette.fill);
   node.style.setProperty("--node-edge", palette.edge);
