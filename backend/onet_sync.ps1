@@ -226,17 +226,15 @@ $meta = [pscustomobject]@{
 Write-JsonFile -Path $MetaPath -Value $meta
 
 if (-not $SkipRebuild) {
-  $args = @(
-    "-ExecutionPolicy", "Bypass",
-    "-File", $UsajobsSyncPath,
-    "-UseExistingHistoryOnly:`$true",
-    "-OnetDataDir", $OnetDataDir
-  )
-  if ($OutputPath) { $args += @("-OutputPath", $OutputPath) }
-  if ($HistoryPath) { $args += @("-HistoryPath", $HistoryPath) }
-  if ($BaselinePath) { $args += @("-BaselinePath", $BaselinePath) }
+  $invokeArgs = @{
+    UseExistingHistoryOnly = $true
+    OnetDataDir = $OnetDataDir
+  }
+  if ($OutputPath) { $invokeArgs.OutputPath = $OutputPath }
+  if ($HistoryPath) { $invokeArgs.HistoryPath = $HistoryPath }
+  if ($BaselinePath) { $invokeArgs.BaselinePath = $BaselinePath }
 
-  & powershell @args
+  & $UsajobsSyncPath @invokeArgs
 }
 
 Write-Host "O*NET sync complete. Version: $($resolved.version). Files: $($copiedFiles.Count). Directory: $OnetDataDir"
