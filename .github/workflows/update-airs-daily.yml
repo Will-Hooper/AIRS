@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: Validate USAJOBS secrets
-        shell: pwsh
+        shell: powershell
         env:
           USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
           USAJOBS_USER_EMAIL: ${{ secrets.USAJOBS_USER_EMAIL }}
@@ -36,7 +36,7 @@ jobs:
           }
 
       - name: Rebuild AIRS data from latest USAJOBS data
-        shell: pwsh
+        shell: powershell
         env:
           USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
           USAJOBS_USER_EMAIL: ${{ secrets.USAJOBS_USER_EMAIL }}
@@ -46,7 +46,7 @@ jobs:
             -UserEmail $env:USAJOBS_USER_EMAIL
 
       - name: Commit updated JSON data
-        shell: pwsh
+        shell: powershell
         run: |
           $paths = @(
             "backend/data/airs_data.json",
