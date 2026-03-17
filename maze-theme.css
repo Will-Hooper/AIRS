@@ -197,7 +197,7 @@ button, input, select { font:inherit; }
 .universe-stage__quadrants { display:none !important; }
 .quadrant-tooltip {
   position:absolute;
-  z-index:2;
+  z-index:20;
   width:min(340px, calc(100% - 28px));
   padding:14px 16px;
   border-radius:18px;
@@ -213,6 +213,10 @@ button, input, select { font:inherit; }
 .quadrant-tooltip.is-visible {
   opacity:1;
   transform:translateY(0) scale(1);
+}
+.quadrant-tooltip.is-overlapped {
+  background:rgba(8,12,18,.52);
+  border-color:rgba(127,193,255,.12);
 }
 .quadrant-tooltip span {
   color:var(--muted);
@@ -349,13 +353,16 @@ button, input, select { font:inherit; }
   position:absolute; left:50%; top:50%; width:20px; height:20px; border:0; background:transparent; padding:0; cursor:pointer; color:inherit;
   transition:transform 680ms cubic-bezier(.2,.82,.2,1), width 680ms cubic-bezier(.2,.82,.2,1), height 680ms cubic-bezier(.2,.82,.2,1), opacity 220ms ease;
   will-change:transform;
+  isolation:isolate;
 }
+.occupation-node:hover,
+.occupation-node.is-selected { z-index:40 !important; }
 .occupation-node__halo, .occupation-node__core { position:absolute; inset:0; border-radius:999px; }
 .occupation-node__halo { background:radial-gradient(circle, var(--node-glow) 0%, transparent 70%); transform:scale(2.2); opacity:.56; pointer-events:none; }
 .occupation-node__core { background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.96), var(--node-fill) 58%, var(--node-edge)); box-shadow:0 14px 26px rgba(0,0,0,.36), inset 0 0 0 1px rgba(255,255,255,.18); transition:transform 200ms ease, box-shadow 200ms ease; }
 .occupation-node:hover .occupation-node__core, .occupation-node.is-selected .occupation-node__core { transform:scale(1.18); box-shadow:0 18px 36px rgba(0,0,0,.42), 0 0 0 4px rgba(255,255,255,.08); }
 .occupation-node__label {
-  position:absolute; left:50%; top:calc(100% + 14px); min-width:168px; max-width:220px; padding:10px 12px; border-radius:16px; border:1px solid var(--line); background:rgba(10,14,20,.94); box-shadow:var(--shadow-soft); opacity:0; transform:translateX(-50%) translateY(8px); transition:opacity 200ms ease, transform 200ms ease; text-align:center; pointer-events:none;
+  position:absolute; left:50%; top:calc(100% + 14px); z-index:3; min-width:168px; max-width:220px; padding:10px 12px; border-radius:16px; border:1px solid var(--line); background:rgba(10,14,20,.94); box-shadow:var(--shadow-soft); opacity:0; transform:translateX(-50%) translateY(8px); transition:opacity 200ms ease, transform 200ms ease; text-align:center; pointer-events:none;
 }
 .occupation-node:hover .occupation-node__label, .occupation-node.is-selected .occupation-node__label { opacity:.98; transform:translateX(-50%) translateY(0); }
 .occupation-node__label strong { display:block; font-size:.9rem; line-height:1.35; }
