@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="airs-environment" content="production">
+  <meta name="airs-strict-data-mode" content="false">
+  <title>AIRS 职业全景</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="maze-theme.css">
+</head>
+<body class="maze-page maze-page--home">
+  <div class="maze-ambient maze-ambient--home" aria-hidden="true"></div>
+  <section class="risk-ribbon">
+    <span class="risk-ribbon__label" data-copy="ticker_label">实时风险流</span>
+    <div class="risk-ribbon__viewport">
+      <div class="risk-ribbon__track" id="riskTickerTrack"></div>
+    </div>
+  </section>
+
+  <header class="maze-nav">
+    <div class="maze-nav__inner">
+      <a class="maze-brand" href="#top" aria-label="AIRS 首页" data-i18n-aria-label="home.homeAria">
+        <span class="maze-brand__mark"></span>
+        <div>
+          <p class="kicker">AIRS</p>
+          <strong data-i18n="home.brandTitle">美国全部职业</strong>
+        </div>
+      </a>
+
+      <nav class="maze-nav__links" aria-label="页面分区导航" data-i18n-aria-label="home.sectionNavAria">
+        <a href="#overview" data-i18n="home.navOverview">概览</a>
+        <a href="#universe" data-i18n="home.navUniverse">职业场</a>
+        <a href="#signals" data-i18n="home.navSignals">信号</a>
+        <a href="#detail-entry" data-i18n="home.navDetail">详情</a>
+      </nav>
+
+      <div class="maze-nav__actions">
+        <a class="maze-nav__cta" href="#universe" data-copy="nav_cta">查看实时视图</a>
+        <div class="lang-switch">
+          <span class="lang-switch__label" data-i18n="home.language">语言</span>
+          <div class="lang-switch__actions">
+            <button class="lang-switch__button" data-lang-option="en" type="button">EN</button>
+            <button class="lang-switch__button" data-lang-option="zh" type="button">中文</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="maze-home" id="top">
+    <section class="airs-intro" id="overview">
+      <div class="airs-intro__media" aria-hidden="true">
+        <img
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/Edouard%20Manet,%20A%20Bar%20at%20the%20Folies-Berg%C3%A8reFXD.jpg"
+          alt="Edouard Manet painting at the Folies-Bergere bar"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        >
+      </div>
+      <div class="airs-intro__content">
+        <div class="airs-intro__panel">
+          <p class="kicker" data-i18n="home.airsIntroKicker">AIRS 是什么</p>
+          <h1 id="airsIntroTitle" data-i18n="home.airsIntroTitle">AIRS 把招聘侧真实信号，转成一张可以直接读懂的 AI 影响图。</h1>
+          <p class="hero-copy__text airs-intro__text" data-i18n="home.airsIntroText">它不是在猜某个职业未来会不会消失，而是在回答一个更直接的问题：当 AI 进入工作流程后，企业现在是否已经开始减少招聘、简化岗位，或重组这个职业的用人方式。</p>
+          <div class="airs-intro__grid">
+            <article class="airs-intro__card">
+              <span data-i18n="home.airsIntroScaleTitle">分数怎么读</span>
+              <strong data-i18n="home.airsIntroScaleValue">0 到 100 分</strong>
+              <p data-i18n="home.airsIntroScaleText">越接近 0 分，说明 AI 对该职业招聘的压缩越明显；越接近 100 分，说明当前招聘仍主要由人工岗位驱动。</p>
+            </article>
+            <article class="airs-intro__card">
+              <span data-i18n="home.airsIntroSignalTitle">分数看什么</span>
+              <strong data-i18n="home.airsIntroSignalValue">招聘侧真实信号</strong>
+              <p data-i18n="home.airsIntroSignalText">AIRS 综合岗位发布量、技能要求变化、任务重写迹象等招聘侧信号，再映射到 BLS SOC 职业分类。</p>
+            </article>
+            <article class="airs-intro__card">
+              <span data-i18n="home.airsIntroUsageTitle">这个页面怎么用</span>
+              <strong data-i18n="home.airsIntroUsageValue">先看全局，再看职业</strong>
+              <p data-i18n="home.airsIntroUsageText">先看整个职业市场的分布，再缩放到某一个职业，并把 AIRS 分数和当前招聘热度放在一起理解，而不是把分数单独当成预测。</p>
+            </article>
+          </div>
+          <p class="airs-intro__credit" data-i18n="home.airsIntroCredit">头图：Edouard Manet《A Bar at the Folies-Bergere》，1882。使用 Wikimedia Commons 的公有领域版本。</p>
+        </div>
+      </div>
+    </section>
+    <section id="pageAlert" class="page-alert" hidden>
+      <span class="page-alert__eyebrow">AIRS</span>
+      <strong id="pageAlertTitle">实时数据暂时不可用</strong>
+      <p id="pageAlertText">当前已启用严格数据模式，页面不会自动回退到演示数据。</p>
+    </section>
+
+    <section class="maze-lab" id="live-field">
+      <section class="maze-lab__frame">
+          <div class="maze-lab__head">
+          <div>
+            <p class="kicker" data-i18n="home.liveUniverse">实时职业场</p>
+          </div>
+
+            <div class="time-card">
+              <span class="time-card__label" data-i18n="home.visitorLocalTime">你所在地区时间</span>
+              <strong id="visitorTime">--:--:--</strong>
+              <span id="visitorPlace" data-i18n="home.detectingTimezone">正在识别时区...</span>
+            </div>
+          </div>
+
+          <div class="maze-lab__spotlight">
+            <div>
+              <span class="maze-lab__caption" data-i18n="home.currentFocus">当前聚焦职业</span>
+              <strong id="heroFocusTitle">--</strong>
+            </div>
+            <div class="maze-lab__score">
+              <span id="heroFocusScore">--</span>
+              <small id="heroFocusLabel">--</small>
+            </div>
+          </div>
+
+          <div class="universe-stage" id="occupationUniverse">
+            <div class="universe-stage__viewport">
+              <div class="universe-stage__axis universe-stage__axis--x"></div>
+              <div class="universe-stage__axis universe-stage__axis--y"></div>
+              <div class="universe-stage__quadrants" aria-hidden="true">
+                <div class="quadrant-marker quadrant-marker--top-left">
+                  <strong data-i18n="home.quadrantTopLeftTitle">AI 压缩更强，招聘也偏弱</strong>
+                  <span data-i18n="home.quadrantTopLeftShort">低 AIRS + 低招聘热度</span>
+                </div>
+                <div class="quadrant-marker quadrant-marker--top-right">
+                  <strong data-i18n="home.quadrantTopRightTitle">AI 影响较小，但招聘偏弱</strong>
+                  <span data-i18n="home.quadrantTopRightShort">高 AIRS + 低招聘热度</span>
+                </div>
+                <div class="quadrant-marker quadrant-marker--bottom-left">
+                  <strong data-i18n="home.quadrantBottomLeftTitle">仍在招聘，但岗位已受 AI 挤压</strong>
+                  <span data-i18n="home.quadrantBottomLeftShort">低 AIRS + 高招聘热度</span>
+                </div>
+                <div class="quadrant-marker quadrant-marker--bottom-right">
+                  <strong data-i18n="home.quadrantBottomRightTitle">需求较强，AI 影响也相对较小</strong>
+                  <span data-i18n="home.quadrantBottomRightShort">高 AIRS + 高招聘热度</span>
+                </div>
+              </div>
+              <div class="quadrant-tooltip" id="quadrantTooltip" hidden>
+                <span id="quadrantTooltipTag">--</span>
+                <strong id="quadrantTooltipTitle">--</strong>
+                <p id="quadrantTooltipText">--</p>
+              </div>
+              <div class="universe-stage__canvas" id="occupationCanvas"></div>
+            </div>
+          </div>
+
+          <div class="axis-copy">
+            <span data-i18n="home.axisLow">0 分 = AI 已基本替代该职业的人力需求</span>
+            <span data-i18n="home.axisHigh">100 分 = AI 目前对该职业招聘影响较小</span>
+          </div>
+          <section class="quadrant-guide">
+            <div class="quadrant-guide__head">
+              <p class="kicker" data-i18n="home.quadrantGuideKicker">四象限说明</p>
+              <h3 data-i18n="home.quadrantGuideTitle">这张图不是只看 AIRS 高低，还同时告诉你当前招聘热度是强还是弱。</h3>
+            </div>
+            <div class="quadrant-guide__axes">
+              <article class="quadrant-axis-card">
+                <strong data-i18n="home.axisHorizontalTitle">横轴：AIRS 分数</strong>
+                <p data-i18n="home.axisHorizontalText">越靠左，说明 AI 对该职业招聘压缩越明显；越靠右，说明 AI 当前影响越小。</p>
+              </article>
+              <article class="quadrant-axis-card">
+                <strong data-i18n="home.axisVerticalTitle">纵轴：当前招聘热度</strong>
+                <p data-i18n="home.axisVerticalText">越靠上，说明岗位量更少或近 12 个月走弱；越靠下，说明岗位量更大或近期更活跃。</p>
+              </article>
+            </div>
+            <div class="quadrant-guide__grid">
+              <article class="quadrant-card quadrant-card--top-left">
+                <span data-i18n="home.quadrantTopLeftShort">低 AIRS + 低招聘热度</span>
+                <strong data-i18n="home.quadrantTopLeftTitle">AI 压缩更强，招聘也偏弱</strong>
+                <p data-i18n="home.quadrantTopLeftText">这类职业通常最值得优先关注，说明 AI 已经明显改写招聘需求，而且当前新增岗位也不活跃。</p>
+              </article>
+              <article class="quadrant-card quadrant-card--top-right">
+                <span data-i18n="home.quadrantTopRightShort">高 AIRS + 低招聘热度</span>
+                <strong data-i18n="home.quadrantTopRightTitle">AI 影响较小，但招聘偏弱</strong>
+                <p data-i18n="home.quadrantTopRightText">这类职业不一定是被 AI 直接压缩，也可能只是当前市场周期较冷、招聘需求本身偏弱。</p>
+              </article>
+              <article class="quadrant-card quadrant-card--bottom-left">
+                <span data-i18n="home.quadrantBottomLeftShort">低 AIRS + 高招聘热度</span>
+                <strong data-i18n="home.quadrantBottomLeftTitle">仍在招聘，但岗位已受 AI 挤压</strong>
+                <p data-i18n="home.quadrantBottomLeftText">这类职业往往还在持续招人，但岗位内容、人数结构或技能要求已经明显受到 AI 重写。</p>
+              </article>
+              <article class="quadrant-card quadrant-card--bottom-right">
+                <span data-i18n="home.quadrantBottomRightShort">高 AIRS + 高招聘热度</span>
+                <strong data-i18n="home.quadrantBottomRightTitle">需求较强，AI 影响也相对较小</strong>
+                <p data-i18n="home.quadrantBottomRightText">这类职业通常是当前相对稳健的区域，说明招聘还活跃，同时 AI 对岗位数量的压缩并不明显。</p>
+              </article>
+            </div>
+          </section>
+      </section>
+    </section>
+
+    <section class="maze-hero">
+      <div class="maze-hero__copy">
+        <p class="kicker" data-i18n="home.heroKicker">AI 对招聘影响指数</p>
+        <h1 data-i18n="home.heroTitle">把美国全部职业放在一张实时图里，看 AI 对招聘影响最深的是哪些职业。</h1>
+        <p class="hero-copy__text" data-i18n="home.heroText">
+          分数越低，说明 AI 对该职业招聘的压缩越明显；分数越高，说明当前影响越小。你可以先看全局，再缩放到单个职业。
+        </p>
+
+        <div class="hero-band__links">
+          <a class="apple-link apple-link--primary" href="#universe" data-i18n="home.jumpUniverse">查看职业分布</a>
+          <a class="apple-link" href="#signals" data-i18n="home.jumpSignals">查看关键信号</a>
+        </div>
+
+        <div class="hero-inline-meta">
+          <div class="meta-pill">
+            <span id="lastUpdatedLabel">更新于 --</span>
+            <span id="dataModeLabel">模式 --</span>
+            <span id="environmentLabel">环境 --</span>
+          </div>
+          <p class="hero-scroll-copy" data-i18n="home.scrollHint">滚动页面、滚轮缩放，从整体市场一路看到单个职业。</p>
+        </div>
+      </div>
+
+      <div class="hero-stat-grid">
+          <article class="hero-stat">
+            <span data-i18n="home.averageAirs">平均分</span>
+            <strong id="avgAirs">--</strong>
+          </article>
+          <article class="hero-stat">
+            <span data-i18n="home.highRisk">高风险职业数</span>
+            <strong id="highRiskCount">--</strong>
+          </article>
+          <article class="hero-stat">
+            <span data-i18n="home.occupations">职业总数</span>
+            <strong id="occupationCount">--</strong>
+          </article>
+          <article class="hero-stat">
+            <span data-i18n="home.zoom">缩放比例</span>
+            <strong id="zoomIndicator">100%</strong>
+          </article>
+      </div>
+    </section>
+
+    <section class="maze-pressure">
+      <article class="pressure-card">
+        <span class="pressure-card__index">01</span>
+        <h2 data-copy="pressure_title_a">风险不是平均分布，而是集中在少数职业。</h2>
+        <strong id="restructuringRate">--</strong>
+        <p data-copy="pressure_text_a">目前 AI 对招聘结构的冲击，主要集中在少数职业，不是所有职业一起同步变化。</p>
+      </article>
+      <article class="pressure-card">
+        <span class="pressure-card__index">02</span>
+        <h2 data-copy="pressure_title_b">不少职业不是停止招人，而是先改写工作方式。</h2>
+        <strong id="augmentingRate">--</strong>
+        <p data-copy="pressure_text_b">很多岗位仍然在招人，但工作内容已经转向 AI 辅助执行，用人规模和岗位要求也在变化。</p>
+      </article>
+      <article class="pressure-card">
+        <span class="pressure-card__index">03</span>
+        <h2 data-copy="pressure_title_c">最早的变化，往往先出现在招聘信息里。</h2>
+        <strong id="mostChangedOccupation">--</strong>
+        <p id="mostChangedDelta" class="pressure-card__meta">--</p>
+      </article>
+    </section>
+
+    <section class="control-ribbon">
+      <div class="control-ribbon__meta">
+        <div>
+          <p class="kicker" data-copy="view_kicker">视图切换</p>
+          <h3 data-copy="view_title">可按整体市场、BLS 职业大类或风险聚类查看职业分布。</h3>
+        </div>
+
+        <div class="view-switch" role="tablist" aria-label="职业场视图切换" data-i18n-aria-label="home.viewModesAria">
+          <button class="view-switch__button is-active" data-view-mode="market" type="button" data-copy="view_market">整体市场</button>
+          <button class="view-switch__button" data-view-mode="group" type="button" data-copy="view_group">职业大类</button>
+          <button class="view-switch__button" data-view-mode="risk" type="button" data-copy="view_risk">风险聚类</button>
+        </div>
+      </div>
+
+      <div class="control-dock">
+        <label class="control">
+          <span data-i18n="home.date">日期</span>
+          <select id="dateSelect"></select>
+        </label>
+        <label class="control">
+          <span data-i18n="home.region">地区</span>
+          <select id="regionSelect"></select>
+        </label>
+        <label class="control">
+          <span data-i18n="home.group">职业大类</span>
+          <select id="majorGroupSelect"></select>
+        </label>
+        <label class="control">
+          <span data-i18n="home.label">影响类型</span>
+          <select id="labelSelect"></select>
+        </label>
+        <label class="control control--search">
+          <span data-i18n="home.search">搜索</span>
+          <input id="searchInput" type="search" placeholder="输入 SOC 代码或职业名称" data-i18n-placeholder="home.searchPlaceholder">
+        </label>
+      </div>
+    </section>
+
+    <section class="story-deck" id="story">
+      <aside class="story-lead">
+        <p class="kicker" data-copy="story_kicker">阅读路径</p>
+        <h2 id="storyStageTitle">先看整个市场的总体分布。</h2>
+        <p id="storyStageText" class="story-panel__text">把全部职业放到同一张 AIRS 图上，先看哪些职业更稳定，哪些职业的招聘已开始被压缩。</p>
+
+        <div class="story-lead__meta">
+          <div class="story-step-pill">
+            <strong id="storyStageIndex">01</strong>
+            <span id="storyStageTotal">/ 04</span>
+          </div>
+          <p class="story-lead__hint" data-copy="story_hint">用滚轮缩放，按住拖拽平移；随着页面向下滚动，视图会自动切换到不同分析层级。</p>
+        </div>
+
+        <div class="story-mini-grid">
+          <article>
+            <span data-copy="story_metric_a_label">当前视角</span>
+            <strong id="storyStageView">整体市场</strong>
+          </article>
+          <article>
+            <span data-copy="story_metric_b_label">操作方式</span>
+            <strong data-copy="story_metric_b_value">滚轮 + 拖拽</strong>
+          </article>
+        </div>
+      </aside>
+
+      <div class="story-rail">
+        <article class="story-step-card" data-story-step="market">
+          <div class="story-step-card__meta">
+            <span class="story-step-card__index">01</span>
+            <span class="story-step-card__view" data-copy="view_market">整体市场</span>
+          </div>
+          <h3 data-copy="story_stage_market_title">先看整个市场的总体分布。</h3>
+          <p data-copy="story_stage_market_text">把全部职业放到同一张 AIRS 图上，先看哪些职业更稳定，哪些职业的招聘已开始被压缩。</p>
+        </article>
+
+        <article class="story-step-card" data-story-step="group">
+          <div class="story-step-card__meta">
+            <span class="story-step-card__index">02</span>
+            <span class="story-step-card__view" data-copy="view_group">职业大类</span>
+          </div>
+          <h3 data-copy="story_stage_group_title">再按 BLS 职业大类拆开看。</h3>
+          <p data-copy="story_stage_group_text">同一批职业会按 SOC 大类重新排布，方便看出压力主要集中在哪些职业板块。</p>
+        </article>
+
+        <article class="story-step-card" data-story-step="risk">
+          <div class="story-step-card__meta">
+            <span class="story-step-card__index">03</span>
+            <span class="story-step-card__view" data-copy="view_risk">风险聚类</span>
+          </div>
+          <h3 data-copy="story_stage_risk_title">再按受影响方式重新聚类。</h3>
+          <p data-copy="story_stage_risk_text">把替代压力、AI 辅助和招聘变化相近的职业放到一起，更容易看出相似职业群。</p>
+        </article>
+
+        <article class="story-step-card" data-story-step="focus">
+          <div class="story-step-card__meta">
+            <span class="story-step-card__index">04</span>
+            <span class="story-step-card__view" data-copy="story_focus_view">职业聚焦</span>
+          </div>
+          <h3 data-copy="story_stage_focus_title">最后聚焦到一个具体职业。</h3>
+          <p data-copy="story_stage_focus_text">选中某个职业后，镜头会收紧到这个节点，并把当前筛选条件一起带入详情页。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="maze-method" id="universe">
+      <article class="maze-method__copy">
+        <p class="kicker" data-copy="method_kicker">数据流程</p>
+        <h2 data-copy="method_title">AIRS 如何把招聘数据转成可实时浏览的职业影响图。</h2>
+        <p class="story-panel__text" data-copy="method_text">系统会接入外部招聘数据，映射到 BLS SOC 职业分类，计算 AI 影响分数，并支持一直下钻到单个职业。</p>
+
+        <div class="method-steps">
+          <article class="method-step">
+            <span class="method-step__index">01</span>
+            <div>
+              <h3 data-copy="step_title_1">接入最新招聘数据</h3>
+              <p data-copy="step_text_1">从外部数据源获取最新的岗位需求和职业信号。</p>
+            </div>
+          </article>
+          <article class="method-step">
+            <span class="method-step__index">02</span>
+            <div>
+              <h3 data-copy="step_title_2">映射到 SOC 职业体系</h3>
+              <p data-copy="step_text_2">把数据统一到 BLS 职业大类和具体职业级别。</p>
+            </div>
+          </article>
+          <article class="method-step">
+            <span class="method-step__index">03</span>
+            <div>
+              <h3 data-copy="step_title_3">计算 AI 影响分数</h3>
+              <p data-copy="step_text_3">综合替代压力、AI 辅助程度、招聘变化和历史趋势，得出 AIRS 读数。</p>
+            </div>
+          </article>
+          <article class="method-step">
+            <span class="method-step__index">04</span>
+            <div>
+              <h3 data-copy="step_title_4">从整体市场下钻到单个职业</h3>
+              <p data-copy="step_text_4">通过筛选、缩放和跳转详情，在不重置分析上下文的情况下继续下钻。</p>
+            </div>
+          </article>
+        </div>
+      </article>
+
+      <aside class="focus-card" id="detail-entry">
+        <p class="kicker" data-i18n="home.selectedOccupation">已选职业</p>
+        <h2 id="detailTitle" data-i18n="home.selectNode">请选择一个职业节点</h2>
+
+        <div class="focus-card__score">
+          <strong id="detailScore">--</strong>
+          <span>AIRS</span>
+        </div>
+
+        <span id="detailLabel" class="score-pill">--</span>
+        <p id="detailSummary" class="focus-card__summary" data-i18n="home.selectNodeSummary">点击任意职业节点，查看这个职业当前受到 AI 影响的程度和招聘状态。</p>
+        <p id="detailSoc" class="focus-card__meta">SOC --</p>
+
+        <div class="focus-highlights">
+          <article>
+            <span data-i18n="home.focusGroup">大类</span>
+            <strong id="focusGroup">--</strong>
+          </article>
+          <article>
+            <span data-i18n="detail.openPostings">在招岗位数</span>
+            <strong id="focusPostings">--</strong>
+          </article>
+          <article>
+            <span data-i18n="detail.twelveMonthDelta">12m movement</span>
+            <strong id="focusDelta">--</strong>
+          </article>
+        </div>
+
+        <div class="metric-stack">
+          <div class="metric-stack__row">
+            <span data-i18n="home.replacement">替代压力</span>
+            <div class="metric-bar"><div id="replacementBar"></div></div>
+            <strong id="replacementValue">--</strong>
+          </div>
+          <div class="metric-stack__row">
+            <span data-i18n="home.augmentation">AI 辅助</span>
+            <div class="metric-bar"><div id="augmentationBar"></div></div>
+            <strong id="augmentationValue">--</strong>
+          </div>
+          <div class="metric-stack__row">
+            <span data-i18n="home.hiring">招聘变化</span>
+            <div class="metric-bar"><div id="hiringBar"></div></div>
+            <strong id="hiringValue">--</strong>
+          </div>
+          <div class="metric-stack__row">
+            <span data-i18n="home.historical">历史趋势</span>
+            <div class="metric-bar"><div id="historicalBar"></div></div>
+            <strong id="historicalValue">--</strong>
+          </div>
+        </div>
+
+        <div class="focus-card__actions">
+          <a id="detailLink" class="apple-button" href="occupation-view.html" data-i18n="home.openDetail">查看详情</a>
+          <button id="portalButton" class="apple-button apple-button--ghost" type="button" data-i18n="home.smoothEnter">平滑进入</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="signal-grid" id="signals">
+      <article class="signal-panel">
+        <p class="kicker" data-i18n="home.signalNowKicker">当前解读</p>
+        <h2 id="signalSelectionTitle">--</h2>
+        <p id="signalSelectionSummary" class="signal-panel__text">--</p>
+      </article>
+
+      <article class="signal-panel">
+        <p class="kicker" data-copy="signal_kicker_b">为什么这很重要</p>
+        <h2 data-copy="signal_title_b">关键不只是 AI 是否进入了这个职业，而是它有没有开始减少岗位数量、改变招聘方式。</h2>
+        <p class="signal-panel__text" data-copy="signal_text_b">很多宏观看板只能看到“AI 是否出现”，但 AIRS 更关注“招聘是否已经被改写”。</p>
+      </article>
+
+      <article class="signal-panel">
+        <p class="kicker" data-copy="signal_kicker_c">下一步</p>
+        <h2 data-copy="signal_title_c">点开一个职业，把当前分析上下文直接带入详情页。</h2>
+        <p class="signal-panel__text" data-copy="signal_text_c">当前选中的职业、日期、地区和语言都会被保留，详情页不会重置你的分析状态。</p>
+      </article>
+    </section>
+
+    <section class="release-notes" id="release-notes">
+      <div class="release-notes__head">
+        <p class="kicker" data-i18n="home.dataInfoKicker">数据说明</p>
+        <h2 data-i18n="home.dataInfoTitle">这个网站展示什么，以及应该如何解读</h2>
+      </div>
+
+      <div class="release-notes__grid">
+        <article class="release-card">
+          <p class="kicker" data-i18n="home.dataInfoStatusTitle">当前状态</p>
+          <h3 data-i18n="home.dataInfoStatusText">这里会直接显示当前运行环境、数据模式、最近更新时间，以及页面是否处于正式发布状态。</h3>
+          <dl class="release-card__list">
+            <div>
+              <dt data-i18n="home.statusEnvironment">运行环境</dt>
+              <dd id="releaseEnvironment">--</dd>
+            </div>
+            <div>
+              <dt data-i18n="home.statusDataMode">数据模式</dt>
+              <dd id="releaseDataMode">--</dd>
+            </div>
+            <div>
+              <dt data-i18n="home.statusUpdatedAt">最近更新</dt>
+              <dd id="releaseUpdatedAt">--</dd>
+            </div>
+            <div>
+              <dt data-i18n="home.statusCoverage">覆盖范围</dt>
+              <dd id="releaseCoverage">--</dd>
+            </div>
+            <div>
+              <dt data-i18n="home.statusSource">数据来源</dt>
+              <dd id="releaseSource">--</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="release-card">
+          <p class="kicker" data-i18n="home.dataInfoCoverageTitle">适用范围</p>
+          <h3 data-i18n="home.dataInfoCoverageText">当前结果仅覆盖美国，并按 BLS SOC 职业分类标准组织全部职业。</h3>
+        </article>
+
+        <article class="release-card">
+          <p class="kicker" data-i18n="home.dataInfoScoreTitle">分数含义</p>
+          <h3 data-i18n="home.dataInfoScoreText">分数越接近 100，表示 AI 当前对该职业招聘影响越小；分数越接近 0，表示该职业的人力需求已更明显地受到 AI 替代压缩。</h3>
+        </article>
+
+        <article class="release-card">
+          <p class="kicker" data-i18n="home.dataInfoDisclaimerTitle">免责声明</p>
+          <h3 data-i18n="home.dataInfoDisclaimerText">AIRS 反映的是招聘侧观察到的变化信号，不是官方就业预测，适合用作分析参考。</h3>
+        </article>
+      </div>
+    </section>
+
+    <button id="downButton" class="down-button" type="button" aria-label="进入详情页" data-i18n-aria-label="home.enterDetail">
+      <span></span>
+    </button>
+  </main>
+
+  <script type="module" src="landing-neo.js"></script>
+</body>
+</html>

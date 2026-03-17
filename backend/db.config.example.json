@@ -1,0 +1,14 @@
+{
+  "provider": "SqlServer",
+  "connectionString": "Server=localhost;Database=airs;Integrated Security=true;TrustServerCertificate=true",
+  "commandTimeoutSeconds": 30,
+  "tables": {
+    "daily": "mart_airs_daily_api",
+    "evidence": "mart_airs_evidence_api",
+    "tasks": "mart_airs_task_exposure_api"
+  },
+  "metadata": {
+    "regions": ["National", "West", "Midwest", "South", "Northeast"],
+    "labels": ["stable", "light", "augmenting", "restructuring", "high_risk"]
+  }
+}

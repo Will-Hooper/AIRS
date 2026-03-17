@@ -1,0 +1,3262 @@
+﻿{
+    "source":  "USAJOBS",
+    "lastRun":  "2026-03-11",
+    "series":  [
+                   {
+                       "code":  "0006",
+                       "name":  "Correctional Institution Administration",
+                       "majorGroup":  "Correctional Institution Administration",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0007",
+                       "name":  "Correctional Officer",
+                       "majorGroup":  "Office and Administrative Support",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0017",
+                       "name":  "Explosives Safety Series",
+                       "majorGroup":  "Explosives Safety Series",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0018",
+                       "name":  "Safety and Occupational Health Management",
+                       "majorGroup":  "Safety and Occupational Health Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  8
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0020",
+                       "name":  "Community Planning ",
+                       "majorGroup":  "Community Planning ",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0025",
+                       "name":  "Park Ranger",
+                       "majorGroup":  "Park Ranger",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0028",
+                       "name":  "Environmental Protection Specialist",
+                       "majorGroup":  "Environmental Protection Specialist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0030",
+                       "name":  "Sports Specialist",
+                       "majorGroup":  "Sports Specialist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0060",
+                       "name":  "Chaplain",
+                       "majorGroup":  "Chaplain",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0080",
+                       "name":  "Security Administration",
+                       "majorGroup":  "Security Administration",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  10
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0081",
+                       "name":  "Fire Protection and Prevention",
+                       "majorGroup":  "Fire Protection and Prevention",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  9
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0083",
+                       "name":  "Police",
+                       "majorGroup":  "Police",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0085",
+                       "name":  "Security Guard",
+                       "majorGroup":  "Security Guard",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0086",
+                       "name":  "Security Clerical and Assistance",
+                       "majorGroup":  "Security Clerical and Assistance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0089",
+                       "name":  "Emergency Management Specialist",
+                       "majorGroup":  "Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0090",
+                       "name":  "Guide",
+                       "majorGroup":  "Guide",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0099",
+                       "name":  "General Student Trainee",
+                       "majorGroup":  "General Student Trainee",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0101",
+                       "name":  "Social Science",
+                       "majorGroup":  "Social Science",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0102",
+                       "name":  "Social Science Aid and Technician",
+                       "majorGroup":  "Social Science Aid and Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0105",
+                       "name":  "Social Insurance Administration",
+                       "majorGroup":  "Social Insurance Administration",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0110",
+                       "name":  "Economist",
+                       "majorGroup":  "Economist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0119",
+                       "name":  "Economics Assistant",
+                       "majorGroup":  "Economics Assistant",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0130",
+                       "name":  "Foreign Affairs",
+                       "majorGroup":  "Foreign Affairs",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0132",
+                       "name":  "Intelligence",
+                       "majorGroup":  "Intelligence",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  8
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0150",
+                       "name":  "Geography",
+                       "majorGroup":  "Geography",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0170",
+                       "name":  "History",
+                       "majorGroup":  "History",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0180",
+                       "name":  "Psychology",
+                       "majorGroup":  "Psychology",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  6
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0181",
+                       "name":  "Psychology Aid And Technician",
+                       "majorGroup":  "Psychology Aid And Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0182",
+                       "name":  "Marriage and Family Therapist",
+                       "majorGroup":  "Marriage and Family Therapist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0183",
+                       "name":  "Licensed Professional Mental Health Counselor",
+                       "majorGroup":  "Licensed Professional Mental Health Counselor",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0185",
+                       "name":  "Social Work",
+                       "majorGroup":  "Social Work",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  12
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0186",
+                       "name":  "Social Services Aid And Assistant",
+                       "majorGroup":  "Social Services Aid And Assistant",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0187",
+                       "name":  "Social Services",
+                       "majorGroup":  "Social Services",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0188",
+                       "name":  "Recreation Specialist",
+                       "majorGroup":  "Recreation Specialist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0189",
+                       "name":  "Recreation Aid And Assistant",
+                       "majorGroup":  "Recreation Aid And Assistant",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  16
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0193",
+                       "name":  "Archeology",
+                       "majorGroup":  "Archeology",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0201",
+                       "name":  "Human Resources Management",
+                       "majorGroup":  "Human Resources Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  12
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0203",
+                       "name":  "Human Resources Assistance",
+                       "majorGroup":  "Human Resources Assistance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0260",
+                       "name":  "Equal Employment Opportunity",
+                       "majorGroup":  "Equal Employment Opportunity",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0301",
+                       "name":  "Miscellaneous Administration And Program",
+                       "majorGroup":  "Miscellaneous Administration And Program",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  60
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0303",
+                       "name":  "Miscellaneous Clerk And Assistant",
+                       "majorGroup":  "Miscellaneous Clerk And Assistant",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  23
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0305",
+                       "name":  "Mail And File",
+                       "majorGroup":  "Mail And File",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0306",
+                       "name":  "Government Information Specialist",
+                       "majorGroup":  "Government Information Specialist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0308",
+                       "name":  "Records \u0026 Information Management",
+                       "majorGroup":  "Records \u0026 Information Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0318",
+                       "name":  "Secretary",
+                       "majorGroup":  "Secretary",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0326",
+                       "name":  "Office Automation Clerical And Assistance",
+                       "majorGroup":  "Office Automation Clerical And Assistance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0335",
+                       "name":  "Computer Clerk And Assistant",
+                       "majorGroup":  "Computer Clerk And Assistant",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0340",
+                       "name":  "Program Management",
+                       "majorGroup":  "Program Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  14
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0341",
+                       "name":  "Administrative Officer",
+                       "majorGroup":  "Administrative Officer",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  7
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0342",
+                       "name":  "Support Services Administration",
+                       "majorGroup":  "Support Services Administration",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0343",
+                       "name":  "Management And Program Analysis",
+                       "majorGroup":  "Management And Program Analysis",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  31
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0344",
+                       "name":  "Management And Program Clerical And Assistance",
+                       "majorGroup":  "Management And Program Clerical And Assistance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0346",
+                       "name":  "Logistics Management",
+                       "majorGroup":  "Logistics Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  9
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0360",
+                       "name":  "Equal Opportunity Compliance",
+                       "majorGroup":  "Equal Opportunity Compliance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0382",
+                       "name":  "Telephone Operating",
+                       "majorGroup":  "Telephone Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0390",
+                       "name":  "Telecommunications Processing",
+                       "majorGroup":  "Telecommunications Processing",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0391",
+                       "name":  "Telecommunications",
+                       "majorGroup":  "Telecommunications",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0399",
+                       "name":  "Administration And Office Support Student Trainee",
+                       "majorGroup":  "Office and Administrative Support",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0401",
+                       "name":  "General Natural Resources Management And Biological Sciences",
+                       "majorGroup":  "General Natural Resources Management And Biological Sciences",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0403",
+                       "name":  "Microbiology",
+                       "majorGroup":  "Microbiology",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0404",
+                       "name":  "Biological Science Technician",
+                       "majorGroup":  "Biological Science Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0405",
+                       "name":  "Pharmacology",
+                       "majorGroup":  "Pharmacology",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0414",
+                       "name":  "Entomology",
+                       "majorGroup":  "Entomology",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0455",
+                       "name":  "Range Technician",
+                       "majorGroup":  "Range Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0456",
+                       "name":  "Wildland Fire Management",
+                       "majorGroup":  "Wildland Fire Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0462",
+                       "name":  "Forestry Technician",
+                       "majorGroup":  "Forestry Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  20
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0482",
+                       "name":  "Fish Biology",
+                       "majorGroup":  "Fish Biology",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0486",
+                       "name":  "Wildlife Biology",
+                       "majorGroup":  "General Natural Resources Management And Biological Sciences",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0501",
+                       "name":  "Financial Administration And Program",
+                       "majorGroup":  "Financial Administration And Program",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  16
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0503",
+                       "name":  "Financial Clerical And Assistance",
+                       "majorGroup":  "Financial Clerical And Assistance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0505",
+                       "name":  "Financial Management",
+                       "majorGroup":  "Financial Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0510",
+                       "name":  "Accounting",
+                       "majorGroup":  "Accounting",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0511",
+                       "name":  "Auditing",
+                       "majorGroup":  "Auditing",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0525",
+                       "name":  "Accounting Technician",
+                       "majorGroup":  "Accounting Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0530",
+                       "name":  "Cash Processing",
+                       "majorGroup":  "Cash Processing",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0560",
+                       "name":  "Budget Analysis",
+                       "majorGroup":  "Budget Analysis",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  8
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0561",
+                       "name":  "Budget Clerical And Assistance",
+                       "majorGroup":  "Budget Clerical And Assistance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0601",
+                       "name":  "General Health Science",
+                       "majorGroup":  "General Health Science",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  7
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0602",
+                       "name":  "Medical Officer",
+                       "majorGroup":  "Medical Officer",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  23
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0603",
+                       "name":  "Physician Assistant",
+                       "majorGroup":  "Physician Assistant",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0610",
+                       "name":  "Nurse",
+                       "majorGroup":  "Nurse",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  44
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0620",
+                       "name":  "Practical Nurse",
+                       "majorGroup":  "Practical Nurse",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  6
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0621",
+                       "name":  "Nursing Assistant",
+                       "majorGroup":  "Nursing Assistant",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  13
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0622",
+                       "name":  "Medical Supply Aide And Technician",
+                       "majorGroup":  "Medical Supply Aide And Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0630",
+                       "name":  "Dietitian And Nutritionist",
+                       "majorGroup":  "Dietitian And Nutritionist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0631",
+                       "name":  "Occupational Therapist",
+                       "majorGroup":  "Occupational Therapist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0633",
+                       "name":  "Physical Therapist",
+                       "majorGroup":  "Physical Therapist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0638",
+                       "name":  "Recreation/Creative Arts Therapist",
+                       "majorGroup":  "Recreation/Creative Arts Therapist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0640",
+                       "name":  "Health Aid And Technician",
+                       "majorGroup":  "Health Aid And Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  8
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0642",
+                       "name":  "Nuclear Medicine Technician",
+                       "majorGroup":  "Nuclear Medicine Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0644",
+                       "name":  "Clinical Laboratory Science",
+                       "majorGroup":  "Clinical Laboratory Science",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0645",
+                       "name":  "Medical Technician",
+                       "majorGroup":  "Medical Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  6
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0647",
+                       "name":  "Diagnostic Radiologic Technologist",
+                       "majorGroup":  "Diagnostic Radiologic Technologist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0648",
+                       "name":  "Therapeutic Radiologic Technologist",
+                       "majorGroup":  "Therapeutic Radiologic Technologist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0649",
+                       "name":  "Medical Instrument Technician",
+                       "majorGroup":  "Medical Instrument Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  7
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0660",
+                       "name":  "Pharmacist",
+                       "majorGroup":  "Pharmacist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0661",
+                       "name":  "Pharmacy Technician",
+                       "majorGroup":  "Pharmacy Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0662",
+                       "name":  "Optometrist",
+                       "majorGroup":  "Optometrist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0665",
+                       "name":  "Speech Pathology And Audiology",
+                       "majorGroup":  "Speech Pathology And Audiology",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0667",
+                       "name":  "Orthotist And Prosthetist",
+                       "majorGroup":  "Orthotist And Prosthetist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0668",
+                       "name":  "Podiatrist",
+                       "majorGroup":  "Podiatrist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0669",
+                       "name":  "Medical Records Administration",
+                       "majorGroup":  "Medical Records Administration",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0670",
+                       "name":  "Health System Administration",
+                       "majorGroup":  "Health System Administration",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0671",
+                       "name":  "Health System Specialist",
+                       "majorGroup":  "Health System Specialist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0673",
+                       "name":  "Hospital Housekeeping Management",
+                       "majorGroup":  "Hospital Housekeeping Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0675",
+                       "name":  "Medical Records Technician",
+                       "majorGroup":  "Medical Records Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  9
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0679",
+                       "name":  "Medical Support Assistance",
+                       "majorGroup":  "Medical Support Assistance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  25
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0680",
+                       "name":  "Dental Officer",
+                       "majorGroup":  "Dental Officer",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0681",
+                       "name":  "Dental Assistant",
+                       "majorGroup":  "Dental Assistant",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0682",
+                       "name":  "Dental Hygiene",
+                       "majorGroup":  "Dental Hygiene",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0683",
+                       "name":  "Dental Laboratory Aid And Technician",
+                       "majorGroup":  "Dental Laboratory Aid And Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0685",
+                       "name":  "Public Health Program Specialist",
+                       "majorGroup":  "Healthcare Practitioners and Technical",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0690",
+                       "name":  "Industrial Hygiene",
+                       "majorGroup":  "Industrial Hygiene",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0696",
+                       "name":  "Consumer Safety",
+                       "majorGroup":  "Consumer Safety",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0701",
+                       "name":  "Veterinary Medical Science",
+                       "majorGroup":  "Veterinary Medical Science",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0704",
+                       "name":  "Animal Health Technician",
+                       "majorGroup":  "Animal Health Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0801",
+                       "name":  "General Engineering",
+                       "majorGroup":  "General Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  23
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0802",
+                       "name":  "Engineering Technical",
+                       "majorGroup":  "Engineering Technical",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  7
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0804",
+                       "name":  "Fire Protection Engineering",
+                       "majorGroup":  "Fire Protection Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0806",
+                       "name":  "Materials Engineering",
+                       "majorGroup":  "Architecture and Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0808",
+                       "name":  "Architecture",
+                       "majorGroup":  "General Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0809",
+                       "name":  "Construction Control Technical",
+                       "majorGroup":  "Construction and Extraction",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0810",
+                       "name":  "Civil Engineering",
+                       "majorGroup":  "Civil Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0819",
+                       "name":  "Environmental Engineering",
+                       "majorGroup":  "Environmental Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0830",
+                       "name":  "Mechanical Engineering",
+                       "majorGroup":  "Mechanical Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  6
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0840",
+                       "name":  "Nuclear Engineering",
+                       "majorGroup":  "Nuclear Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0850",
+                       "name":  "Electrical Engineering",
+                       "majorGroup":  "Civil Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0855",
+                       "name":  "Electronics Engineering",
+                       "majorGroup":  "Electronics Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0856",
+                       "name":  "Electronics Technical",
+                       "majorGroup":  "Electronics Technical",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0858",
+                       "name":  "Bioengineering and Biomedical Engineering",
+                       "majorGroup":  "Architecture and Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0861",
+                       "name":  "Aerospace Engineering",
+                       "majorGroup":  "Aerospace Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0871",
+                       "name":  "Naval Architecture",
+                       "majorGroup":  "Naval Architecture",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0873",
+                       "name":  "Marine Survey Technical",
+                       "majorGroup":  "Marine Survey Technical",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0893",
+                       "name":  "Chemical Engineering",
+                       "majorGroup":  "Architecture and Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0895",
+                       "name":  "Industrial Engineering Technical",
+                       "majorGroup":  "Industrial Engineering Technical",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0896",
+                       "name":  "Industrial Engineering",
+                       "majorGroup":  "Community Planning Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0901",
+                       "name":  "General Legal And Kindred Administration",
+                       "majorGroup":  "General Legal And Kindred Administration",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  17
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0905",
+                       "name":  "Attorney",
+                       "majorGroup":  "Attorney",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  11
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0950",
+                       "name":  "Paralegal Specialist",
+                       "majorGroup":  "Paralegal Specialist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0962",
+                       "name":  "Contact Representative",
+                       "majorGroup":  "Contact Representative",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0967",
+                       "name":  "Passport And Visa Examining",
+                       "majorGroup":  "Passport And Visa Examining",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0986",
+                       "name":  "Legal Assistance",
+                       "majorGroup":  "Legal Assistance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "0999",
+                       "name":  "Legal Occupations Student Trainee",
+                       "majorGroup":  "Legal Occupations Student Trainee",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1001",
+                       "name":  "General Arts And Information",
+                       "majorGroup":  "General Arts And Information",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1008",
+                       "name":  "Interior Design",
+                       "majorGroup":  "Interior Design",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1016",
+                       "name":  "Museum Specialist And Technician",
+                       "majorGroup":  "Museum Specialist And Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1020",
+                       "name":  "Illustrating",
+                       "majorGroup":  "Illustrating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1035",
+                       "name":  "Public Affairs",
+                       "majorGroup":  "Public Affairs",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1051",
+                       "name":  "Music Specialist",
+                       "majorGroup":  "Music Specialist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1054",
+                       "name":  "Theater Specialist",
+                       "majorGroup":  "Theater Specialist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1071",
+                       "name":  "Audiovisual Production",
+                       "majorGroup":  "Audiovisual Production",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1082",
+                       "name":  "Writing And Editing",
+                       "majorGroup":  "Writing And Editing",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1084",
+                       "name":  "Visual Information",
+                       "majorGroup":  "Visual Information",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1101",
+                       "name":  "General Business And Industry",
+                       "majorGroup":  "General Business And Industry",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  31
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1102",
+                       "name":  "Contracting",
+                       "majorGroup":  "Contracting",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  7
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1104",
+                       "name":  "Property Disposal",
+                       "majorGroup":  "Property Disposal",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1105",
+                       "name":  "Purchasing",
+                       "majorGroup":  "Purchasing",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1106",
+                       "name":  "Procurement Clerical And Technician",
+                       "majorGroup":  "Procurement Clerical And Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1152",
+                       "name":  "Production Control",
+                       "majorGroup":  "Production Control",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1170",
+                       "name":  "Realty",
+                       "majorGroup":  "Realty",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1173",
+                       "name":  "Housing Management",
+                       "majorGroup":  "Housing Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  6
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1176",
+                       "name":  "Building Management",
+                       "majorGroup":  "Building Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1199",
+                       "name":  "Business And Industry Student Trainee",
+                       "majorGroup":  "Business And Industry Student Trainee",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1301",
+                       "name":  "General Physical Science",
+                       "majorGroup":  "General Physical Science",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1306",
+                       "name":  "Health Physics",
+                       "majorGroup":  "Health Physics",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1310",
+                       "name":  "Physics",
+                       "majorGroup":  "Physics",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1320",
+                       "name":  "Chemistry",
+                       "majorGroup":  "Chemistry",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1340",
+                       "name":  "Meteorology",
+                       "majorGroup":  "Meteorology",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1341",
+                       "name":  "Meteorological Technician",
+                       "majorGroup":  "Meteorological Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1350",
+                       "name":  "Geology",
+                       "majorGroup":  "Environmental Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1360",
+                       "name":  "Oceanography",
+                       "majorGroup":  "General Physical Science",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1410",
+                       "name":  "Librarian",
+                       "majorGroup":  "Librarian",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1411",
+                       "name":  "Library Technician",
+                       "majorGroup":  "Library Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1515",
+                       "name":  "Operations Research",
+                       "majorGroup":  "General Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1529",
+                       "name":  "Mathematical Statistics",
+                       "majorGroup":  "Mathematical Statistics",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1530",
+                       "name":  "Statistics",
+                       "majorGroup":  "Statistics",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1550",
+                       "name":  "Computer Science",
+                       "majorGroup":  "General Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1560",
+                       "name":  "Data Science Series",
+                       "majorGroup":  "General Engineering",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1601",
+                       "name":  "Equipment Facilities, And Services",
+                       "majorGroup":  "Equipment Facilities, And Services",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1603",
+                       "name":  "Equipment, Facilities, And Services Assistance",
+                       "majorGroup":  "Equipment, Facilities, And Services Assistance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1630",
+                       "name":  "Cemetery Administration Services",
+                       "majorGroup":  "Cemetery Administration Services",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1640",
+                       "name":  "Facility Operations Services",
+                       "majorGroup":  "Facility Operations Services",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1667",
+                       "name":  "Food Services",
+                       "majorGroup":  "Food Services",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1670",
+                       "name":  "Equipment Services",
+                       "majorGroup":  "Equipment Services",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1701",
+                       "name":  "General Education And Training",
+                       "majorGroup":  "General Education And Training",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  12
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1702",
+                       "name":  "Education And Training Technician",
+                       "majorGroup":  "Education And Training Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  27
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1710",
+                       "name":  "Education And Vocational Training",
+                       "majorGroup":  "Education And Vocational Training",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  9
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1712",
+                       "name":  "Training Instruction",
+                       "majorGroup":  "Training Instruction",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  6
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1720",
+                       "name":  "Education Program",
+                       "majorGroup":  "Education Program",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1740",
+                       "name":  "Education Services",
+                       "majorGroup":  "Education Services",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1750",
+                       "name":  "Instructional Systems",
+                       "majorGroup":  "Instructional Systems",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1801",
+                       "name":  "General Inspection, Investigation, Enforcement, And Compliance Series",
+                       "majorGroup":  "General Inspection, Investigation, Enforcement, And Compliance Series",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  8
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1802",
+                       "name":  "Compliance Inspection And Support",
+                       "majorGroup":  "Compliance Inspection And Support",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1805",
+                       "name":  "Investigative Analysis",
+                       "majorGroup":  "Investigative Analysis",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1810",
+                       "name":  "General Investigation",
+                       "majorGroup":  "General Investigation",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1811",
+                       "name":  "Criminal Investigation",
+                       "majorGroup":  "Criminal Investigation",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1825",
+                       "name":  "Aviation Safety",
+                       "majorGroup":  "Aviation Safety",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  12
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1862",
+                       "name":  "Consumer Safety Inspection",
+                       "majorGroup":  "Consumer Safety Inspection",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1895",
+                       "name":  "Customs And Border Protection",
+                       "majorGroup":  "Customs And Border Protection",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1896",
+                       "name":  "Border Patrol Enforcement Series",
+                       "majorGroup":  "Border Patrol Enforcement Series",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "1910",
+                       "name":  "Quality Assurance",
+                       "majorGroup":  "Quality Assurance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2001",
+                       "name":  "General Supply",
+                       "majorGroup":  "General Supply",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2003",
+                       "name":  "Supply Program Management",
+                       "majorGroup":  "Supply Program Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2005",
+                       "name":  "Supply Clerical And Technician",
+                       "majorGroup":  "Supply Clerical And Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  13
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2010",
+                       "name":  "Inventory Management",
+                       "majorGroup":  "Inventory Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2091",
+                       "name":  "Sales Store Clerical",
+                       "majorGroup":  "Sales Store Clerical",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2101",
+                       "name":  "Transportation Specialist",
+                       "majorGroup":  "Transportation Specialist",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  7
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2102",
+                       "name":  "Transportation Clerk And Assistant",
+                       "majorGroup":  "Transportation Clerk And Assistant",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2123",
+                       "name":  "Motor Carrier Safety",
+                       "majorGroup":  "Motor Carrier Safety",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2130",
+                       "name":  "Traffic Management",
+                       "majorGroup":  "Traffic Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2150",
+                       "name":  "Transportation Operations",
+                       "majorGroup":  "Transportation Operations",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2151",
+                       "name":  "Dispatching",
+                       "majorGroup":  "Dispatching",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2152",
+                       "name":  "Air Traffic Control",
+                       "majorGroup":  "Air Traffic Control",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  17
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2181",
+                       "name":  "Aircraft Operation",
+                       "majorGroup":  "Aircraft Operation",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2185",
+                       "name":  "Aircrew Technician",
+                       "majorGroup":  "Aircrew Technician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2210",
+                       "name":  "Information Technology Management",
+                       "majorGroup":  "Information Technology Management",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  26
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2299",
+                       "name":  "Information Technology Student Trainee",
+                       "majorGroup":  "Information Technology Student Trainee",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2602",
+                       "name":  "Electronic Measurement Equipment Mechanic",
+                       "majorGroup":  "Electronic Measurement Equipment Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2604",
+                       "name":  "Electronics Mechanic",
+                       "majorGroup":  "Electronics Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  6
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2606",
+                       "name":  "Electronic Industrial Controls Mechanic",
+                       "majorGroup":  "Electronic Industrial Controls Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2610",
+                       "name":  "Electronic Integrated Systems Mechanic",
+                       "majorGroup":  "Electronic Integrated Systems Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2805",
+                       "name":  "Electrician",
+                       "majorGroup":  "Electrician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2810",
+                       "name":  "High Voltage Electrician",
+                       "majorGroup":  "High Voltage Electrician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "2892",
+                       "name":  "Aircraft Electrician",
+                       "majorGroup":  "Aircraft Electrician",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3359",
+                       "name":  "Instrument Mechanic",
+                       "majorGroup":  "Instrument Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3378",
+                       "name":  "Precision Measurement Equipment Calibrating",
+                       "majorGroup":  "Precision Measurement Equipment Calibrating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3414",
+                       "name":  "Machining",
+                       "majorGroup":  "Machining",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3416",
+                       "name":  "Toolmaking",
+                       "majorGroup":  "Toolmaking",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3502",
+                       "name":  "Laboring",
+                       "majorGroup":  "Laboring",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3511",
+                       "name":  "Laboratory Working",
+                       "majorGroup":  "Laboratory Working",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3566",
+                       "name":  "Custodial Working",
+                       "majorGroup":  "Custodial Working",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  9
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3603",
+                       "name":  "Masonry",
+                       "majorGroup":  "Masonry",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3703",
+                       "name":  "Welding",
+                       "majorGroup":  "Welding",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3705",
+                       "name":  "Non-Destructive Testing",
+                       "majorGroup":  "Non-Destructive Testing",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3711",
+                       "name":  "Electroplating",
+                       "majorGroup":  "Electroplating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3806",
+                       "name":  "Sheet Metal Mechanic",
+                       "majorGroup":  "Sheet Metal Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "3820",
+                       "name":  "Shipfitting",
+                       "majorGroup":  "Computer and Mathematical",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4102",
+                       "name":  "Painting",
+                       "majorGroup":  "Painting",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4204",
+                       "name":  "Pipefitting",
+                       "majorGroup":  "Pipefitting",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4206",
+                       "name":  "Plumbing",
+                       "majorGroup":  "Plumbing",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4255",
+                       "name":  "Fuel Distribution System Mechanic",
+                       "majorGroup":  "Fuel Distribution System Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4352",
+                       "name":  "Composite/Plastic Fabricating",
+                       "majorGroup":  "Computer and Mathematical",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4406",
+                       "name":  "Letterpress Operating",
+                       "majorGroup":  "Letterpress Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4607",
+                       "name":  "Carpentry",
+                       "majorGroup":  "Carpentry",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4701",
+                       "name":  "Miscellaneous General Maintenance and Operations Work",
+                       "majorGroup":  "Miscellaneous General Maintenance and Operations Work",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4714",
+                       "name":  "Model Making",
+                       "majorGroup":  "Model Making",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4742",
+                       "name":  "Utility Systems Repairing-Operating",
+                       "majorGroup":  "Utility Systems Repairing-Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4749",
+                       "name":  "Maintenance Mechanic",
+                       "majorGroup":  "Maintenance Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  7
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4754",
+                       "name":  "Cemetery Caretaking",
+                       "majorGroup":  "Cemetery Caretaking",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4804",
+                       "name":  "Locksmithing",
+                       "majorGroup":  "Computer and Mathematical",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "4819",
+                       "name":  "Bowling Equipment Repairing",
+                       "majorGroup":  "Bowling Equipment Repairing",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5001",
+                       "name":  "Miscellaneous Plant And Animal Work",
+                       "majorGroup":  "Miscellaneous Plant And Animal Work",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5003",
+                       "name":  "Gardening",
+                       "majorGroup":  "Gardening",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5026",
+                       "name":  "Pest Controlling",
+                       "majorGroup":  "Pest Controlling",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5031",
+                       "name":  "Insects Production Working",
+                       "majorGroup":  "Insects Production Working",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5201",
+                       "name":  "Miscellaneous Occupations",
+                       "majorGroup":  "Miscellaneous Occupations",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5210",
+                       "name":  "Rigging",
+                       "majorGroup":  "Rigging",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5301",
+                       "name":  "Miscellaneous Industrial Equipment Maintenance",
+                       "majorGroup":  "Installation, Maintenance, and Repair",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5306",
+                       "name":  "Air Conditioning Equipment Mechanic",
+                       "majorGroup":  "Air Conditioning Equipment Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5334",
+                       "name":  "Marine Machinery Mechanic",
+                       "majorGroup":  "Marine Machinery Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5352",
+                       "name":  "Industrial Equipment Mechanic",
+                       "majorGroup":  "Industrial Equipment Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5378",
+                       "name":  "Powered Support Systems Mechanic",
+                       "majorGroup":  "Powered Support Systems Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5402",
+                       "name":  "Boiler Plant Operating",
+                       "majorGroup":  "Boiler Plant Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5406",
+                       "name":  "Utility Systems Operating",
+                       "majorGroup":  "Computer and Mathematical",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5413",
+                       "name":  "Fuel Distribution System Operating",
+                       "majorGroup":  "Fuel Distribution System Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5415",
+                       "name":  "Air Conditioning Equipment Operating",
+                       "majorGroup":  "Air Conditioning Equipment Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5703",
+                       "name":  "Motor Vehicle Operating",
+                       "majorGroup":  "Motor Vehicle Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5705",
+                       "name":  "Tractor Operating",
+                       "majorGroup":  "Tractor Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5716",
+                       "name":  "Engineering Equipment Operating",
+                       "majorGroup":  "Engineering Equipment Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5729",
+                       "name":  "Drill Rig Operating",
+                       "majorGroup":  "Drill Rig Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5786",
+                       "name":  "Small Craft Operating",
+                       "majorGroup":  "Small Craft Operating",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5801",
+                       "name":  "Miscellaneous Transportation/Mobile Equipment Maintenance",
+                       "majorGroup":  "Miscellaneous Transportation/Mobile Equipment Maintenance",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  11
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5803",
+                       "name":  "Heavy Mobile Equipment Mechanic",
+                       "majorGroup":  "Heavy Mobile Equipment Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "5823",
+                       "name":  "Automotive Mechanic",
+                       "majorGroup":  "Automotive Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "6501",
+                       "name":  "Miscellaneous Ammunitions, Explosives, and Toxic Matter Work",
+                       "majorGroup":  "Miscellaneous Ammunitions, Explosives, and Toxic Matter Work",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "6601",
+                       "name":  "Miscellaneous Armament Work",
+                       "majorGroup":  "Miscellaneous Armament Work",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "6610",
+                       "name":  "Small Arms Repairing",
+                       "majorGroup":  "Small Arms Repairing",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "6641",
+                       "name":  "Ordnance Equipment Mechanic",
+                       "majorGroup":  "Ordnance Equipment Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "6901",
+                       "name":  "Miscellaneous Warehousing and Stock Handling",
+                       "majorGroup":  "Miscellaneous Warehousing and Stock Handling",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "6904",
+                       "name":  "Tools And Parts Attending",
+                       "majorGroup":  "Tools And Parts Attending",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "6907",
+                       "name":  "Materials Handler",
+                       "majorGroup":  "Materials Handler",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  5
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "6912",
+                       "name":  "Materials Examining And Identifying",
+                       "majorGroup":  "Materials Examining And Identifying",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "6914",
+                       "name":  "Store Working",
+                       "majorGroup":  "Store Working",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  2
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "7002",
+                       "name":  "Packing",
+                       "majorGroup":  "Packing",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "7401",
+                       "name":  "Miscellaneous Food Preparation and Serving",
+                       "majorGroup":  "Miscellaneous Food Preparation and Serving",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "7404",
+                       "name":  "Cooking",
+                       "majorGroup":  "Cooking",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  7
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "7405",
+                       "name":  "Bartending",
+                       "majorGroup":  "Bartending",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "7407",
+                       "name":  "Meatcutting",
+                       "majorGroup":  "Meatcutting",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "7408",
+                       "name":  "Food Service Working",
+                       "majorGroup":  "Food Service Working",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  9
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "7420",
+                       "name":  "Waiter",
+                       "majorGroup":  "Waiter",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "8255",
+                       "name":  "Pneudraulic Systems Mechanic",
+                       "majorGroup":  "Pneudraulic Systems Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "8268",
+                       "name":  "Aircraft Pneudraulic Systems Mechanic",
+                       "majorGroup":  "Aircraft Pneudraulic Systems Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "8602",
+                       "name":  "Aircraft Engine Mechanic",
+                       "majorGroup":  "Aircraft Engine Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  4
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "8801",
+                       "name":  "Miscellaneous Aircraft Overhaul",
+                       "majorGroup":  "Miscellaneous Aircraft Overhaul",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "8852",
+                       "name":  "Aircraft Mechanic",
+                       "majorGroup":  "Aircraft Mechanic",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  3
+                                     }
+                                 ]
+                   },
+                   {
+                       "code":  "9904",
+                       "name":  "Ship Pilot",
+                       "majorGroup":  "Ship Pilot",
+                       "daily":  [
+                                     {
+                                         "date":  "2026-03-11",
+                                         "count":  1
+                                     }
+                                 ]
+                   }
+               ]
+}
