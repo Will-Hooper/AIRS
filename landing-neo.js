@@ -63,6 +63,7 @@ const els = {
   focusGroup: document.getElementById("focusGroup"),
   focusPostings: document.getElementById("focusPostings"),
   focusDelta: document.getElementById("focusDelta"),
+  occupationLabelLayer: document.getElementById("occupationLabelLayer"),
   replacementBar: document.getElementById("replacementBar"),
   augmentationBar: document.getElementById("augmentationBar"),
   hiringBar: document.getElementById("hiringBar"),
@@ -113,6 +114,7 @@ const camera = {
 };
 const numberFrames = new WeakMap();
 const nodeElements = new Map();
+const labelElements = new Map();
 const dragState = {
   active: false,
   moved: false,
@@ -272,6 +274,66 @@ function hideQuadrantTooltip() {
   state.hoverQuadrant = null;
 }
 
+function getOrCreateLabelElement(row) {
+  if (!els.occupationLabelLayer) return null;
+  let label = labelElements.get(row.socCode);
+  if (label) return label;
+
+  label = document.createElement("div");
+  label.className = "occupation-node__label";
+  label.innerHTML = `
+    <strong></strong>
+    <span></span>`;
+  els.occupationLabelLayer.appendChild(label);
+  labelElements.set(row.socCode, label);
+  return label;
+}
+
+function labelShouldBeVisible(node) {
+  if (!node) return false;
+  return (
+    node.classList.contains("is-selected") ||
+    node.matches(":hover") ||
+    els.occupationCanvas?.dataset.zoomState === "close"
+  );
+}
+
+function updateFloatingLabel(node, row) {
+  if (!node || !row || !els.occupationUniverse) return;
+  const label = getOrCreateLabelElement(row);
+  if (!label) return;
+
+  const strong = label.querySelector("strong");
+  const sub = label.querySelector("span");
+  if (strong) strong.textContent = displayTitle(row);
+  if (sub) sub.textContent = `${row.socCode} - AIRS ${row.airs.toFixed(0)}`;
+
+  const universeRect = els.occupationUniverse.getBoundingClientRect();
+  const nodeRect = node.getBoundingClientRect();
+  const centerX = nodeRect.left - universeRect.left + (nodeRect.width / 2);
+  const top = nodeRect.top - universeRect.top - 14;
+  label.style.left = `${centerX}px`;
+  label.style.top = `${top}px`;
+  label.classList.toggle("is-visible", labelShouldBeVisible(node));
+}
+
+function syncFloatingLabels() {
+  if (!els.occupationLabelLayer) return;
+  const rowsBySoc = new Map(state.rows.map((row) => [row.socCode, row]));
+
+  nodeElements.forEach((node, socCode) => {
+    const row = rowsBySoc.get(socCode);
+    if (!row) return;
+    updateFloatingLabel(node, row);
+  });
+
+  labelElements.forEach((label, socCode) => {
+    if (rowsBySoc.has(socCode) && nodeElements.has(socCode)) return;
+    label.remove();
+    labelElements.delete(socCode);
+  });
+}
+
 function rectsOverlap(a, b) {
   if (!a || !b) return false;
   return !(
@@ -290,13 +352,10 @@ function syncQuadrantTooltipOverlap() {
     return;
   }
 
-  const hasOverlap = [...nodeElements.values()].some((node) => {
-    if (!(node.classList.contains("is-selected") || node.matches(":hover"))) {
+  const hasOverlap = [...labelElements.values()].some((label) => {
+    if (!label.classList.contains("is-visible")) {
       return false;
     }
-
-    const label = node.querySelector(".occupation-node__label");
-    if (!label) return false;
 
     const style = window.getComputedStyle(label);
     if (style.display === "none" || style.visibility === "hidden" || Number(style.opacity || 0) < 0.05) {
@@ -318,6 +377,7 @@ function queueQuadrantTooltipOverlapSync() {
   if (quadrantOverlapFrame) return;
   quadrantOverlapFrame = requestAnimationFrame(() => {
     quadrantOverlapFrame = 0;
+    syncFloatingLabels();
     syncQuadrantTooltipOverlap();
   });
 }
@@ -782,12 +842,7 @@ function updateNodeElement(node, row) {
   node.style.setProperty("--node-edge", palette.edge);
   node.style.setProperty("--node-glow", palette.glow);
   node.setAttribute("aria-label", `${displayTitle(row)} AIRS ${row.airs.toFixed(0)}`);
-
-  const label = node.querySelector(".occupation-node__label");
-  const strong = label?.querySelector("strong");
-  const sub = label?.querySelector("span");
-  if (strong) strong.textContent = displayTitle(row);
-  if (sub) sub.textContent = `${row.socCode} - AIRS ${row.airs.toFixed(0)}`;
+  updateFloatingLabel(node, row);
   queueQuadrantTooltipOverlapSync();
 }
 
@@ -797,11 +852,7 @@ function createNodeElement(row) {
   node.type = "button";
   node.innerHTML = `
     <span class="occupation-node__halo"></span>
-    <span class="occupation-node__core"></span>
-    <span class="occupation-node__label">
-      <strong></strong>
-      <span></span>
-    </span>`;
+    <span class="occupation-node__core"></span>`;
   node.addEventListener("click", () => {
     if (dragState.moved) return;
     state.selectedSocCode = node.dataset.soc;
@@ -827,6 +878,10 @@ function renderUniverse() {
   if (!state.rows.length) {
     state.selectedSocCode = null;
     nodeElements.clear();
+    labelElements.clear();
+    if (els.occupationLabelLayer) {
+      els.occupationLabelLayer.replaceChildren();
+    }
     els.occupationCanvas.replaceChildren();
     updateCanvasTransform();
     return;
@@ -854,6 +909,11 @@ function renderUniverse() {
     if (!seen.has(socCode)) {
       node.remove();
       nodeElements.delete(socCode);
+      const label = labelElements.get(socCode);
+      if (label) {
+        label.remove();
+        labelElements.delete(socCode);
+      }
     }
   });
 
