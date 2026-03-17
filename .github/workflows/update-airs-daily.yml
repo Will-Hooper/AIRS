@@ -3,7 +3,7 @@ name: Update AIRS Data Daily
 "on":
   schedule:
     - cron: "30 2 * * *"
-  workflow_dispatch:
+    workflow_dispatch:
 
 permissions:
   contents: write
