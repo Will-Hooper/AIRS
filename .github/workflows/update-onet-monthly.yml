@@ -1,13 +1,48 @@
 name: Update O-NET Data Monthly
-on: workflow_dispatch
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 3 1 * *'
 
 permissions:
   contents: write
 
+concurrency:
+  group: airs-data-sync
+  cancel-in-progress: false
+
 jobs:
   update-onet:
     runs-on: windows-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - shell: pwsh
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Refresh local O-NET files and rebuild AIRS JSON
+        shell: pwsh
         run: ./backend/onet_sync.ps1 -Force
+
+      - name: Commit updated O-NET and AIRS data
+        shell: pwsh
+        run: |
+          $paths = @(
+            "backend/data/onet",
+            "backend/data/airs_data.json",
+            "backend/data/usajobs_history.json",
+            "backend/data/airs_baseline.json"
+          )
+          $pending = git status --porcelain -- $paths
+          if (-not $pending) {
+            Write-Host "No O-NET changes to commit."
+            exit 0
+          }
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- $paths
+          git commit -m "chore(data): monthly O-NET refresh"
+          git push
