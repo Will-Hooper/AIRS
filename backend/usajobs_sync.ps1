@@ -29,8 +29,29 @@ if (-not $BaselinePath) { $BaselinePath = Join-Path $DataDir "airs_baseline.json
 if (-not $OnetDataDir) { $OnetDataDir = Join-Path $DataDir "onet" }
 $MapPath = Join-Path $DataDir "usajobs_soc_map.json"
 
+function Normalize-SecretValue {
+  param([string]$Value)
+
+  if ($null -eq $Value) { return "" }
+
+  $text = [string]$Value
+  $text = ($text -replace "[\r\n\t]", "").Trim()
+
+  if ($text.Length -ge 2) {
+    $first = $text[0]
+    $last = $text[$text.Length - 1]
+    if (($first -eq '"' -and $last -eq '"') -or ($first -eq "'" -and $last -eq "'")) {
+      $text = $text.Substring(1, $text.Length - 2).Trim()
+    }
+  }
+
+  return $text
+}
+
 if (-not $ApiKey) { $ApiKey = $env:USAJOBS_API_KEY }
 if (-not $UserEmail) { $UserEmail = $env:USAJOBS_USER_EMAIL }
+$ApiKey = Normalize-SecretValue -Value $ApiKey
+$UserEmail = Normalize-SecretValue -Value $UserEmail
 
 if ((-not $UseExistingHistoryOnly) -and (-not $ApiKey -or -not $UserEmail)) {
   throw "Missing USAJOBS credentials. Set -ApiKey/-UserEmail or env USAJOBS_API_KEY/USAJOBS_USER_EMAIL."
@@ -40,7 +61,6 @@ if ($ResultsPerPage -gt 500) { $ResultsPerPage = 500 }
 if ($ResultsPerPage -lt 1) { $ResultsPerPage = 25 }
 
 $Headers = @{
-  "Host" = "data.usajobs.gov"
   "User-Agent" = $UserEmail
   "Authorization-Key" = $ApiKey
 }
