@@ -101,6 +101,7 @@ let loadToken = 0;
 let revealObserver = null;
 let storyObserver = null;
 let cameraFrame = 0;
+let quadrantOverlapFrame = 0;
 const camera = {
   initialized: false,
   zoom: 1,
@@ -267,8 +268,58 @@ function copy(language, key) {
 function hideQuadrantTooltip() {
   if (!els.quadrantTooltip) return;
   els.quadrantTooltip.hidden = true;
-  els.quadrantTooltip.classList.remove("is-visible");
+  els.quadrantTooltip.classList.remove("is-visible", "is-overlapped");
   state.hoverQuadrant = null;
+}
+
+function rectsOverlap(a, b) {
+  if (!a || !b) return false;
+  return !(
+    a.right <= b.left ||
+    a.left >= b.right ||
+    a.bottom <= b.top ||
+    a.top >= b.bottom
+  );
+}
+
+function syncQuadrantTooltipOverlap() {
+  if (!els.quadrantTooltip || els.quadrantTooltip.hidden) return;
+  const tooltipRect = els.quadrantTooltip.getBoundingClientRect();
+  if (!tooltipRect.width || !tooltipRect.height) {
+    els.quadrantTooltip.classList.remove("is-overlapped");
+    return;
+  }
+
+  const hasOverlap = [...nodeElements.values()].some((node) => {
+    if (!(node.classList.contains("is-selected") || node.matches(":hover"))) {
+      return false;
+    }
+
+    const label = node.querySelector(".occupation-node__label");
+    if (!label) return false;
+
+    const style = window.getComputedStyle(label);
+    if (style.display === "none" || style.visibility === "hidden" || Number(style.opacity || 0) < 0.05) {
+      return false;
+    }
+
+    const labelRect = label.getBoundingClientRect();
+    if (!labelRect.width || !labelRect.height) {
+      return false;
+    }
+
+    return rectsOverlap(tooltipRect, labelRect);
+  });
+
+  els.quadrantTooltip.classList.toggle("is-overlapped", hasOverlap);
+}
+
+function queueQuadrantTooltipOverlapSync() {
+  if (quadrantOverlapFrame) return;
+  quadrantOverlapFrame = requestAnimationFrame(() => {
+    quadrantOverlapFrame = 0;
+    syncQuadrantTooltipOverlap();
+  });
 }
 
 function quadrantFromPointer(x, y) {
@@ -297,6 +348,7 @@ function renderQuadrantTooltip(quadrant, clientX, clientY) {
   const top = clamp((clientY - rect.top) + 18, 14, Math.max(14, rect.height - tooltipHeight - 14));
   els.quadrantTooltip.style.left = `${left}px`;
   els.quadrantTooltip.style.top = `${top}px`;
+  queueQuadrantTooltipOverlapSync();
 }
 
 function renderModeLabel(mode) {
@@ -677,6 +729,7 @@ function updateCanvasTransform() {
     els.occupationCanvas.style.transform = `translate(-50%, -50%) translate(${camera.offsetX}px, ${camera.offsetY}px) scale(${camera.zoom})`;
     els.occupationCanvas.dataset.zoomState = camera.zoom > 1.45 ? "close" : "far";
     els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
+    queueQuadrantTooltipOverlapSync();
     return;
   }
 
@@ -692,6 +745,7 @@ function stepCamera() {
   els.occupationCanvas.style.transform = `translate(-50%, -50%) translate(${camera.offsetX}px, ${camera.offsetY}px) scale(${camera.zoom})`;
   els.occupationCanvas.dataset.zoomState = camera.zoom > 1.45 ? "close" : "far";
   els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
+  queueQuadrantTooltipOverlapSync();
 
   const settled =
     Math.abs(camera.targetZoom - camera.zoom) < 0.01 &&
@@ -704,6 +758,7 @@ function stepCamera() {
     camera.offsetY = camera.targetOffsetY;
     els.occupationCanvas.style.transform = `translate(-50%, -50%) translate(${camera.offsetX}px, ${camera.offsetY}px) scale(${camera.zoom})`;
     els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
+    queueQuadrantTooltipOverlapSync();
     cameraFrame = 0;
     return;
   }
@@ -729,6 +784,7 @@ function updateNodeElement(node, row) {
   const sub = label?.querySelector("span");
   if (strong) strong.textContent = displayTitle(row);
   if (sub) sub.textContent = `${row.socCode} - AIRS ${row.airs.toFixed(0)}`;
+  queueQuadrantTooltipOverlapSync();
 }
 
 function createNodeElement(row) {
@@ -753,6 +809,10 @@ function createNodeElement(row) {
     renderUniverse();
     updateSelectedPanel();
   });
+  node.addEventListener("pointerenter", queueQuadrantTooltipOverlapSync);
+  node.addEventListener("pointerleave", queueQuadrantTooltipOverlapSync);
+  node.addEventListener("focus", queueQuadrantTooltipOverlapSync);
+  node.addEventListener("blur", queueQuadrantTooltipOverlapSync);
   updateNodeElement(node, row);
   return node;
 }
