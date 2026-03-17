@@ -1,1 +1,66 @@
+name: Update AIRS Data Daily
 
+"on":
+  schedule:
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: airs-data-sync
+  cancel-in-progress: false
+
+jobs:
+  update-usajobs:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate USAJOBS secrets
+        shell: pwsh
+        env:
+          USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
+          USAJOBS_USER_EMAIL: ${{ secrets.USAJOBS_USER_EMAIL }}
+        run: |
+          if (-not $env:USAJOBS_API_KEY) {
+            throw "Missing repository secret: USAJOBS_API_KEY"
+          }
+          if (-not $env:USAJOBS_USER_EMAIL) {
+            throw "Missing repository secret: USAJOBS_USER_EMAIL"
+          }
+
+      - name: Rebuild AIRS data from latest USAJOBS data
+        shell: pwsh
+        env:
+          USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
+          USAJOBS_USER_EMAIL: ${{ secrets.USAJOBS_USER_EMAIL }}
+        run: |
+          ./backend/usajobs_sync.ps1 `
+            -ApiKey $env:USAJOBS_API_KEY `
+            -UserEmail $env:USAJOBS_USER_EMAIL
+
+      - name: Commit updated JSON data
+        shell: pwsh
+        run: |
+          $paths = @(
+            "backend/data/airs_data.json",
+            "backend/data/usajobs_history.json",
+            "backend/data/airs_baseline.json"
+          )
+          $pending = git status --porcelain -- $paths
+          if (-not $pending) {
+            Write-Host "No AIRS data changes to commit."
+            exit 0
+          }
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- $paths
+          git commit -m "chore(data): daily AIRS update"
+          git push
