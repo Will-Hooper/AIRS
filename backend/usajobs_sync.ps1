@@ -1173,7 +1173,18 @@ function Invoke-USAJOBSPage {
   $uri = "https://data.usajobs.gov/api/search?DatePosted=$DatePosted&ResultsPerPage=$ResultsPerPage&Page=$Page"
   for ($attempt = 1; $attempt -le $RetryCount; $attempt += 1) {
     try {
-      return Invoke-RestMethod -Method Get -Uri $uri -Headers $Headers -TimeoutSec $TimeoutSeconds -ErrorAction Stop
+      $invokeArgs = @{
+        Method = "Get"
+        Uri = $uri
+        Headers = $Headers
+        TimeoutSec = $TimeoutSeconds
+        ErrorAction = "Stop"
+      }
+      $command = Get-Command Invoke-RestMethod
+      if ($null -ne $command -and $command.Parameters.ContainsKey("SkipHeaderValidation")) {
+        $invokeArgs.SkipHeaderValidation = $true
+      }
+      return Invoke-RestMethod @invokeArgs
     }
     catch {
       if ($attempt -ge $RetryCount) {
