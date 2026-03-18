@@ -68,12 +68,16 @@ const MAJOR_GROUP_ZH = new Map([
 
 const SEARCH_ALIAS_RULES = [
   {
-    pattern: /computer science|data science|information technology management|information technology student trainee|information technology|computer clerk/i,
-    aliases: ["程序员", "软件工程师", "开发", "开发工程师", "前端", "后端", "算法", "数据分析", "数据岗", "信息技术", "计算机", "码农", "IT"]
+    pattern: /computer programmers?|software developers?|web developers?|computer systems analysts?|software quality assurance analysts?|database administrators?|database architects?/i,
+    aliases: ["程序员", "软件工程师", "开发", "开发工程师", "前端", "后端", "算法", "系统分析师", "数据库管理员", "数据库架构师", "码农", "IT"]
   },
   {
-    pattern: /management and program analysis|program management|information technology management|support services administration/i,
-    aliases: ["产品经理", "项目经理", "项目管理", "项目专员"]
+    pattern: /computer science teachers?|data scientists?|information technology management|information technology student trainee|information technology|computer clerk/i,
+    aliases: ["信息技术", "计算机", "数据分析", "数据岗", "IT", "计算机教师", "数据科学"]
+  },
+  {
+    pattern: /management and program analysis|program management|project management specialists?|business operations specialists?|computer and information systems managers?|marketing managers?/i,
+    aliases: ["产品经理", "项目经理", "项目管理", "项目专员", "业务分析", "产品运营"]
   },
   {
     pattern: /support services administration|logistics management|transportation operations|facility operations services|social insurance administration/i,
@@ -89,11 +93,11 @@ const SEARCH_ALIAS_RULES = [
   },
   {
     pattern: /music specialist|theater specialist|museum specialist|general arts and information|audiovisual production/i,
-    aliases: ["艺术", "文娱", "演艺", "展馆", "博物馆"]
+    aliases: ["艺术", "文娱", "演艺", "展馆", "博物馆", "艺术家", "演员", "表演", "导演", "编导", "摄影师", "剪辑师", "策展"]
   },
   {
     pattern: /sports specialist|recreation specialist|recreation aid/i,
-    aliases: ["体育", "康乐", "文体"]
+    aliases: ["体育", "康乐", "文体", "教练", "球探", "体能"]
   },
   {
     pattern: /contact representative/i,
@@ -105,23 +109,27 @@ const SEARCH_ALIAS_RULES = [
   },
   {
     pattern: /account|budget|finance|financial|purchasing|procurement|property disposal|contracting|accounting/i,
-    aliases: ["财务", "会计", "出纳", "审计", "预算", "采购", "招采", "合同管理", "商务"]
+    aliases: ["财务", "会计", "会计师", "出纳", "审计", "审计师", "预算", "采购", "招采", "合同管理", "商务", "记账", "薪酬"]
   },
   {
     pattern: /legal|attorney|paralegal|law/i,
     aliases: ["法务", "律师", "法律", "法务专员", "合规法务"]
   },
   {
-    pattern: /teacher|education|training|instructional|library|librarian/i,
-    aliases: ["老师", "教师", "讲师", "培训", "教培", "教育", "图书馆"]
+    pattern: /teacher|education|training|instructional|professor|postsecondary/i,
+    aliases: ["老师", "教师", "讲师", "教授", "培训", "教培", "教育", "教务", "高校教师"]
   },
   {
-    pattern: /practical nurse|nursing assistant|nurse/i,
-    aliases: ["护士", "护理", "护工"]
+    pattern: /library|librarian/i,
+    aliases: ["图书馆", "图书馆员", "图书管理员", "图书馆技术员"]
+  },
+  {
+    pattern: /registered nurse|licensed practical nurse|nursing assistant|nurse practitioner|nurse/i,
+    aliases: ["护士", "注册护士", "执业护士", "护理", "护工"]
   },
   {
     pattern: /medical|health|physician|therap|pharmacist|dental|radiologic|laboratory|optometrist|audiology/i,
-    aliases: ["医生", "药师", "医技", "医疗", "康复", "治疗师", "临床", "口腔", "检验"]
+    aliases: ["医生", "药师", "医技", "医疗", "康复", "治疗师", "临床", "口腔", "检验", "医师助理", "放射技师", "药剂师"]
   },
   {
     pattern: /mechanic|maintenance|repair|electrician|machining|equipment mechanic|industrial equipment|technician/i,
@@ -132,12 +140,48 @@ const SEARCH_ALIAS_RULES = [
     aliases: ["保安", "安保", "警察", "警务", "执法", "调查", "消防", "巡逻"]
   },
   {
-    pattern: /transportation specialist|materials handler|packing|logistics management|inventory management|store working|warehousing|transportation/i,
+    pattern: /materials handler|packing|logistics management|inventory management|store working|warehousing|shipping|receiving|stockers?|order fillers?|logisticians?|storage and distribution/i,
     aliases: ["物流", "仓储", "运输", "配送", "分拣", "搬运", "调度", "仓管", "物料", "仓库管理员"]
+  },
+  {
+    pattern: /shipping, receiving, and inventory clerks|stockers and order fillers|logisticians|transportation, storage, and distribution managers|laborers and freight, stock, and material movers, hand/i,
+    aliases: ["仓库管理员", "仓管", "仓储管理", "库管", "理货", "收发货", "库存管理员", "物流师"]
   },
   {
     pattern: /chemistry|physics|meteorology|biology|social science|economics|geography|history|intelligence|foreign affairs|industrial hygiene/i,
     aliases: ["研究员", "科研", "科学家", "理科", "社会科学", "经济学", "情报", "外交", "研究岗"]
+  },
+  {
+    pattern: /artist|designer|illustrat|media|communication|writer|editor|journalist|public relations|reporter|performer|entertain/i,
+    aliases: ["艺术家", "设计师", "插画师", "编辑", "记者", "媒体人", "传播", "公关", "主持人", "主播", "演员", "表演", "新媒体", "内容运营"]
+  },
+  {
+    pattern: /developer|programmer|systems analyst|web developer|software|database administrator|database architect/i,
+    aliases: ["程序员", "软件工程师", "开发工程师", "系统分析师", "数据库管理员", "数据库架构师", "IT工程师"]
+  },
+  {
+    pattern: /engineer|architect/i,
+    aliases: ["工程师", "建筑师", "技术工程"]
+  },
+  {
+    pattern: /accountant|auditor|bookkeeping|payroll|tax/i,
+    aliases: ["会计", "会计师", "审计", "审计师", "税务", "记账", "薪酬"]
+  },
+  {
+    pattern: /architect|planner|draft/i,
+    aliases: ["建筑师", "规划师", "制图员", "城市规划", "设计院"]
+  },
+  {
+    pattern: /teacher|professor|instructor/i,
+    aliases: ["教师", "老师", "教授", "讲师", "高校教师"]
+  },
+  {
+    pattern: /librarian|library technician/i,
+    aliases: ["图书馆员", "图书管理员", "图书馆技术员"]
+  },
+  {
+    pattern: /registered nurse|nurse practitioner|physician assistant/i,
+    aliases: ["注册护士", "护士", "执业护士", "医师助理"]
   },
   {
     pattern: /construction|carpentry|masonry|plumbing|welding|rigging|drill rig/i,
@@ -154,7 +198,7 @@ const SEARCH_ALIAS_RULES = [
 ];
 
 const QUERY_EXPANSION_RULES = [
-  { pattern: /程序员|软件工程师|开发|前端|后端|码农|算法|it/i, terms: ["computer", "software", "information technology", "data science", "信息技术", "计算机"] },
+  { pattern: /程序员|软件工程师|开发|前端|后端|码农|算法|it/i, terms: ["computer programmer", "software developer", "web developer", "systems analyst", "database administrator", "计算机"] },
   { pattern: /产品经理|项目经理|项目管理/i, terms: ["program management", "management and program analysis", "information technology management", "项目管理", "项目分析"] },
   { pattern: /运营/i, terms: ["support services administration", "transportation operations", "facility operations services", "logistics management", "运营"] },
   { pattern: /设计师|平面设计|视觉设计|插画|美工|ui/i, terms: ["design", "visual information", "illustrating", "interior design", "设计"] },
@@ -165,10 +209,68 @@ const QUERY_EXPANSION_RULES = [
   { pattern: /护士|护理/i, terms: ["nurse", "nursing assistant", "practical nurse", "护理"] },
   { pattern: /医生|医疗|医技|药师|检验/i, terms: ["medical", "health", "pharmacist", "laboratory", "therapist", "医疗"] },
   { pattern: /保安|安保|警察|消防|执法/i, terms: ["security guard", "security administration", "police", "protective", "fire"] },
-  { pattern: /物流|仓储|仓库管理员|仓管|配送|分拣|搬运/i, terms: ["logistics", "materials handler", "packing", "inventory management", "warehouse", "transportation"] },
-  { pattern: /老师|教师|讲师|培训/i, terms: ["education", "instructional", "training", "librarian", "teacher"] },
+  { pattern: /物流|仓储|仓库管理员|仓管|配送|分拣|搬运/i, terms: ["logistics", "materials handler", "packing", "inventory management", "warehouse", "shipping", "receiving", "stockers", "order fillers"] },
+  { pattern: /老师|教师|讲师|培训/i, terms: ["education", "instructional", "training", "teacher", "professor"] },
+  { pattern: /图书馆员|图书管理员|图书馆技术员/i, terms: ["librarian", "library technician", "library"] },
   { pattern: /采购|招采|合同/i, terms: ["purchasing", "procurement", "contracting", "property disposal"] },
-  { pattern: /科研|研究员|科学家/i, terms: ["science", "research", "physics", "chemistry", "biology", "economics", "psychology"] }
+  { pattern: /科研|研究员|科学家/i, terms: ["science", "research", "physics", "chemistry", "biology", "economics", "psychology"] },
+  { pattern: /艺术家|演员|表演|导演|编导|摄影师|剪辑师|主持人|主播/i, terms: ["artist", "performer", "entertainment", "media", "communication", "producer", "director", "audiovisual"] },
+  { pattern: /工程师/i, terms: ["engineer", "engineering", "systems analyst"] },
+  { pattern: /建筑师/i, terms: ["architect", "architecture", "naval architect", "landscape architect"] },
+  { pattern: /规划师/i, terms: ["planner", "planning", "urban planner"] },
+  { pattern: /制图员/i, terms: ["drafter", "drafting"] },
+  { pattern: /会计师|会计|记账/i, terms: ["accountant", "bookkeeping", "auditor"] },
+  { pattern: /审计师|审计/i, terms: ["auditor", "audit", "accountant"] },
+  { pattern: /税务/i, terms: ["tax", "revenue", "accountant"] },
+  { pattern: /护士|护理/i, terms: ["registered nurse", "nurse practitioner", "nursing assistant", "licensed practical nurse", "nurse"] }
+];
+
+const QUERY_INTENT_RULES = [
+  {
+    pattern: /程序员|软件工程师|开发|前端|后端|码农|算法/i,
+    match: /computer programmers?|software developers?|web developers?|computer systems analysts?|database administrators?|database architects?|software quality assurance analysts?|data scientists?/i,
+    boost: 110
+  },
+  {
+    pattern: /产品经理|项目经理|项目管理/i,
+    match: /project management specialists?|management analysts?|business operations specialists?|computer and information systems managers?|marketing managers?/i,
+    boost: 145
+  },
+  {
+    pattern: /艺术家|演员|表演/i,
+    match: /artists?|actors?|performers?|entertainers?|producers? and directors?|art directors?/i,
+    boost: 105
+  },
+  {
+    pattern: /导演|编导/i,
+    match: /producers? and directors?|art directors?|camera operators?|editors?|media and communication workers?/i,
+    boost: 105
+  },
+  {
+    pattern: /建筑师/i,
+    match: /architects?|landscape architects?|naval architects?/i,
+    boost: 120
+  },
+  {
+    pattern: /会计师|会计|审计|审计师/i,
+    match: /accountants? and auditors?|bookkeeping.*clerks?|tax examiners?|financial examiners?/i,
+    boost: 120
+  },
+  {
+    pattern: /护士|护理/i,
+    match: /registered nurses?|licensed practical.*nurses?|nurse practitioners?|nursing assistants?/i,
+    boost: 120
+  },
+  {
+    pattern: /图书馆员|图书管理员|图书馆技术员/i,
+    match: /librarians?|library technicians?|library assistants?|media collections specialists?/i,
+    boost: 120
+  },
+  {
+    pattern: /仓库管理员|仓管|仓储/i,
+    match: /shipping.*clerks?|stockers? and order fillers?|material movers?|packers? and packagers?|storage and distribution managers?|logisticians?/i,
+    boost: 165
+  }
 ];
 
 function normalizeSearchText(value: unknown) {
@@ -314,13 +416,32 @@ function expandSearchQueries(query) {
 
 function rankRowsByQuery(rows: OccupationRow[], query: string) {
   const queryCandidates = expandSearchQueries(query);
+  const queryCompact = compactSearchText(query);
   const scored = rows
     .map((row) => ({
       row,
-      score: Math.max(
-        ...queryCandidates.flatMap((queryCandidate) => (row.searchIndex || []).map((candidate) => scoreSearchValue(queryCandidate, candidate))),
-        0
-      )
+      score: (() => {
+        const aliasScore = Math.max(
+          ...queryCandidates.flatMap((queryCandidate) => {
+            const weight = compactSearchText(queryCandidate) === queryCompact ? 1 : 0.72;
+            return (row.searchIndex || []).map((candidate) => scoreSearchValue(queryCandidate, candidate) * weight);
+          }),
+          0
+        );
+        const titleZhScore = scoreSearchValue(query, row.titleZh);
+        const titleEnScore = scoreSearchValue(query, row.title);
+        const exactBoost = compactSearchText(row.titleZh) === queryCompact
+          ? 120
+          : compactSearchText(row.titleZh).includes(queryCompact) && queryCompact
+            ? 55
+            : 0;
+        const intentBoost = QUERY_INTENT_RULES.reduce((best, rule) => {
+          if (!rule.pattern.test(String(query || ""))) return best;
+          return rule.match.test(`${row.title} ${row.titleZh}`) ? Math.max(best, rule.boost) : best;
+        }, 0);
+
+        return Math.max(aliasScore, titleZhScore + exactBoost + intentBoost, titleEnScore + intentBoost);
+      })()
     }))
     .filter((entry) => entry.score > 0)
     .sort((left, right) =>
@@ -389,6 +510,21 @@ function chineseDemandPhrase(summary = "") {
   return "处于中性区间";
 }
 
+function chineseGroupLabel(group = "") {
+  return MAJOR_GROUP_ZH.get(group) || "其他";
+}
+
+function chineseLabelText(label = "") {
+  const labelMap = new Map([
+    ["stable", "影响较小"],
+    ["light", "轻度影响"],
+    ["augmenting", "以 AI 辅助为主"],
+    ["restructuring", "招聘结构调整中"],
+    ["high_risk", "替代风险高"]
+  ]);
+  return labelMap.get(label) || "待观察";
+}
+
 function chineseDriverLabel(row: JsonRegionMetrics & { majorGroup?: string }) {
   const pairs = [
     ["replacement", "替代压力"],
@@ -408,15 +544,24 @@ function extractDemandPercentile(evidence: string[] = []) {
   return match ? `${match[1]}%` : "—";
 }
 
-function buildChineseSummary(row: JsonRegionMetrics & { majorGroup?: string }, englishSummary: string) {
-  return `该职业当前得分主要受${chineseDriverLabel(row)}影响；相对同类岗位，招聘${chineseDemandPhrase(englishSummary)}。`;
+function chineseImpactSentence(row: JsonRegionMetrics & { label?: string }) {
+  if (row.label === "high_risk") return "岗位数量和岗位结构都已经出现更明显的 AI 压缩迹象";
+  if (row.label === "restructuring") return "岗位仍在存在，但招聘要求和岗位结构已经开始被 AI 重写";
+  if (row.label === "augmenting") return "岗位还在持续招聘，但工作方式更像是向 AI 协同执行转移";
+  if (row.label === "light") return "AI 已进入这类岗位，但当前对招聘规模的压缩还相对有限";
+  return "当前招聘总体仍相对稳定，AI 对岗位数量的直接压缩尚不明显";
 }
 
-function buildChineseEvidence(row: JsonRegionMetrics & { majorGroup?: string; postings?: number }, englishEvidence: string[]) {
+function buildChineseSummary(row: OccupationRow, englishSummary: string) {
+  return `${row.titleZh || row.title} 属于${chineseGroupLabel(row.majorGroup)}，当前 AIRS 为 ${Number(row.airs || 0).toFixed(1)}，处于“${chineseLabelText(row.label)}”区间。整体看，${chineseImpactSentence(row)}；相对同类岗位，招聘${chineseDemandPhrase(englishSummary)}。`;
+}
+
+function buildChineseEvidence(row: OccupationRow, englishEvidence: string[]) {
   return [
-    `标准化 BLS 职业大类：${row.majorGroup || "Other"}`,
-    `当前招聘数：${Number(row.postings || 0)}；同类岗位招聘热度分位：${extractDemandPercentile(englishEvidence)}`,
-    `替代压力 ${percentLabel(row.replacement)}，岗位改写 ${percentLabel(row.augmentation)}，招聘兑现 ${percentLabel(row.hiring)}，历史累计渗透 ${percentLabel(row.historical)}。`
+    `职业对应：${row.titleZh || row.title}（SOC ${row.socCode}；英文名称：${row.title}），归属于${chineseGroupLabel(row.majorGroup)}。`,
+    `当前招聘信号：全国相关招聘数约 ${Number(row.postings || 0)}；在同类岗位中的招聘热度分位约为 ${extractDemandPercentile(englishEvidence)}。`,
+    `影响拆解：替代压力 ${percentLabel(row.replacement)}，岗位改写 ${percentLabel(row.augmentation)}，招聘兑现 ${percentLabel(row.hiring)}，历史累计渗透 ${percentLabel(row.historical)}。`,
+    `一句话判断：${chineseImpactSentence(row)}。`
   ];
 }
 
@@ -424,37 +569,36 @@ function mapJsonOccupation(occupation: JsonDatasetOccupation, region: string): O
   const metrics = regionMetricsFor(occupation, region);
   const englishSummary = occupation.summary || "";
   const englishEvidence = occupation.evidence || [];
-  const zhRow = {
-    ...metrics,
-    majorGroup: occupation.majorGroup
-  };
-  const summaryZh = buildChineseSummary(zhRow, englishSummary);
-  const evidenceZh = buildChineseEvidence(zhRow, englishEvidence);
-
-  const row = withTranslatedOccupationTitle({
+  const translatedRow = withTranslatedOccupationTitle({
     socCode: occupation.socCode,
     title: occupation.title,
     titleZh: occupation.titleZh,
     majorGroup: occupation.majorGroup,
     label: occupation.label,
     summary: englishSummary,
-    summaryZh: summaryZh || occupation.summaryZh || englishSummary,
+    summaryZh: occupation.summaryZh || englishSummary,
     monthlyAirs: occupation.monthlyAirs || [],
     evidence: englishEvidence,
-    evidenceZh: evidenceZh.length ? evidenceZh : (occupation.evidenceZh || englishEvidence),
+    evidenceZh: occupation.evidenceZh || englishEvidence,
     tasks: occupation.tasks || [],
     regionMetrics: occupation.regions || {},
     ...metrics
   });
 
+  const summaryZh = buildChineseSummary(translatedRow, englishSummary);
+  const evidenceZh = buildChineseEvidence(translatedRow, englishEvidence);
+
   return {
-    ...row,
-    searchIndex: buildSearchAliases(row)
+    ...translatedRow,
+    summaryZh: summaryZh || occupation.summaryZh || englishSummary,
+    evidenceZh: evidenceZh.length ? evidenceZh : (occupation.evidenceZh || englishEvidence),
+    searchIndex: buildSearchAliases(translatedRow)
   };
 }
 
 function applyClientFilters(rows: OccupationRow[], params: OccupationQueryParams = {}) {
-  let nextRows = rows.slice();
+  const baseRows = rows.slice();
+  let nextRows = baseRows;
 
   if (params.majorGroup && params.majorGroup !== "all") {
     nextRows = nextRows.filter((row) => row.majorGroup === params.majorGroup);
@@ -463,7 +607,8 @@ function applyClientFilters(rows: OccupationRow[], params: OccupationQueryParams
     nextRows = nextRows.filter((row) => row.label === params.label);
   }
   if (params.q) {
-    nextRows = rankRowsByQuery(nextRows, params.q);
+    const rankedWithinFilter = rankRowsByQuery(nextRows, params.q);
+    nextRows = rankedWithinFilter.length ? rankedWithinFilter : rankRowsByQuery(baseRows, params.q);
   }
 
   return nextRows;
