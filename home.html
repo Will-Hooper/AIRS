@@ -292,7 +292,8 @@
         </label>
         <label class="control control--search">
           <span data-i18n="home.search">搜索</span>
-          <input id="searchInput" type="search" placeholder="输入 SOC 代码或职业名称" data-i18n-placeholder="home.searchPlaceholder">
+          <input id="searchInput" type="search" autocomplete="off" placeholder="输入 SOC 代码或职业名称" data-i18n-placeholder="home.searchPlaceholder">
+          <div id="searchSuggestions" class="search-suggestions" hidden></div>
         </label>
       </div>
     </section>
