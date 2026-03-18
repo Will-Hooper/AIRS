@@ -1,16 +1,26 @@
 param(
   [string]$OnetDataDir = "",
+  [string]$DatabasePageUrl = "",
+  [string]$ArchivePageUrl = "",
+  [string]$DownloadUrl = "",
+  [string]$ZipPath = "",
   [switch]$Force,
-  [switch]$SkipRebuild
+  [switch]$SkipRebuild,
+  [string]$OutputPath = "",
+  [string]$HistoryPath = "",
+  [string]$BaselinePath = ""
 )
 
-$args = @(
-  "-ExecutionPolicy", "Bypass",
-  "-File", (Join-Path $PSScriptRoot "backend\onet_sync.ps1")
-)
+$invokeArgs = @{}
+if ($OnetDataDir) { $invokeArgs.OnetDataDir = $OnetDataDir }
+if ($DatabasePageUrl) { $invokeArgs.DatabasePageUrl = $DatabasePageUrl }
+if ($ArchivePageUrl) { $invokeArgs.ArchivePageUrl = $ArchivePageUrl }
+if ($DownloadUrl) { $invokeArgs.DownloadUrl = $DownloadUrl }
+if ($ZipPath) { $invokeArgs.ZipPath = $ZipPath }
+if ($Force) { $invokeArgs.Force = $true }
+if ($SkipRebuild) { $invokeArgs.SkipRebuild = $true }
+if ($OutputPath) { $invokeArgs.OutputPath = $OutputPath }
+if ($HistoryPath) { $invokeArgs.HistoryPath = $HistoryPath }
+if ($BaselinePath) { $invokeArgs.BaselinePath = $BaselinePath }
 
-if ($OnetDataDir) { $args += @("-OnetDataDir", $OnetDataDir) }
-if ($Force) { $args += "-Force:`$true" }
-if ($SkipRebuild) { $args += "-SkipRebuild:`$true" }
-
-& powershell @args
+& (Join-Path $PSScriptRoot "backend\onet_sync.ps1") @invokeArgs

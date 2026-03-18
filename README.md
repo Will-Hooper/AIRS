@@ -1,12 +1,13 @@
 # AIRS 可视化网站
 
-这是一个可直接演示和继续接后端的 AIRS 网站骨架，现已包含：
+这是一个可直接演示、可静态发布、并带自动数据同步链路的 AIRS 网站，现已包含：
 
 - 总览仪表盘
 - 日期/地区/SOC 大类/标签筛选
 - 职业详情页
-- mock 数据回退机制
-- 可直接接真实 API 的数据层
+- 纯前端 JSON 数据读取
+- TypeScript 前端运行时
+- TypeScript 数据同步 CLI（USAJOBS / O*NET）
 
 ## 页面
 
@@ -16,40 +17,60 @@
 
 ## 核心文件
 
-- [apple-theme.css](E:\Codex\apple-theme.css)：新版视觉主题
-- [styles.css](E:\Codex\styles.css)：旧版样式
-- [landing-apple.js](E:\Codex\landing-apple.js)：新版首页交互
-- [occupation-apple.js](E:\Codex\occupation-apple.js)：新版详情页交互
-- [dashboard-app.js](E:\Codex\dashboard-app.js)：总览台逻辑
-- [occupation-app.js](E:\Codex\occupation-app.js)：详情页逻辑
-- [api-client.js](E:\Codex\api-client.js)：前端接口适配层
-- [mock-data-v2.js](E:\Codex\mock-data-v2.js)：前端示例数据
-- [backend/server.ps1](E:\Codex\backend\server.ps1)：本地 API 与静态文件服务
-- [backend/data/airs_data.json](E:\Codex\backend\data\airs_data.json)：后端示例数据
+- [src](E:\Codex\src)：前端 TypeScript 源码
+- [dist](E:\Codex\dist)：前端编译产物
+- [src-node](E:\Codex\src-node)：Node + TypeScript 数据同步源码
+- [backend/data/airs_data.json](E:\Codex\backend\data\airs_data.json)：网站当前读取的数据文件
+- [backend/usajobs_sync.ps1](E:\Codex\backend\usajobs_sync.ps1)：PowerShell 兼容入口，会优先转发到 Node CLI
+- [backend/onet_sync.ps1](E:\Codex\backend\onet_sync.ps1)：PowerShell 兼容入口，会优先转发到 Node CLI
 - [sql/api_queries.sql](E:\Codex\sql\api_queries.sql)：API 查询示例
 - [sql/warehouse_views.sql](E:\Codex\sql\warehouse_views.sql)：数仓视图示例
 
 ## 运行
 
-建议直接在 `E:\Codex` 下启动本地服务：
+先编译前端与 Node CLI：
 
 ```powershell
-.\start.ps1
+npm install
+npm run build
 ```
 
-如果你要模拟正式发布时“真实数据不可用就直接报错”的行为，可用：
+本地预览站：
 
 ```powershell
-.\start.ps1 -StrictDataMode
+.\preview.ps1
 ```
 
-然后访问 [http://localhost:8080](http://localhost:8080)。
+前端数据重建：
+
+```powershell
+npm run sync:usajobs -- --useExistingHistoryOnly
+npm run sync:onet -- --force
+```
+
+如果你习惯 PowerShell 旧入口，也可以继续用：
+
+```powershell
+.\backend\usajobs_sync.ps1 -UseExistingHistoryOnly
+.\sync_onet.ps1 -Force
+```
+
+然后访问 [http://localhost:8090/home.html](http://localhost:8090/home.html)。
 
 当前根路由默认打开 [home.html](E:\Codex\home.html)。
 
-## API 约定
+## 数据说明
 
-前端会优先请求真实接口；如果失败，会自动回退到 `mock-data-v2.js`。
+当前网站为纯前端静态站，直接读取：
+
+- [backend/data/airs_data.json](E:\Codex\backend\data\airs_data.json)
+
+GitHub Actions 已接入两条自动同步链路：
+
+1. `Update AIRS Data Daily`
+2. `Update O-NET Data Monthly`
+
+## API 约定
 
 建议提供以下接口：
 

@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "npm run build:frontend && npm run build:node",
+    "build:frontend": "tsc -p tsconfig.json",
+    "build:node": "tsc -p tsconfig.node.json",
+    "typecheck": "npm run typecheck:frontend && npm run typecheck:node",
+    "typecheck:frontend": "tsc -p tsconfig.json --noEmit",
+    "typecheck:node": "tsc -p tsconfig.node.json --noEmit",
+    "sync:usajobs": "node ./dist-node/src-node/usajobs-sync.js",
+    "sync:onet": "node ./dist-node/src-node/onet-sync.js"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "csv-parse": "^6.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.1",
+    "typescript": "^5.9.3"
+  }
+}
