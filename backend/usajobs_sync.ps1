@@ -206,6 +206,33 @@ function Normalize-Text {
   return (($Value.ToLowerInvariant() -replace "[^a-z0-9\-/ ]", " ") -replace "\s+", " ").Trim()
 }
 
+function Test-TextTerm {
+  param(
+    [string]$Text,
+    [string]$Term
+  )
+
+  if (-not $Text -or -not $Term) { return $false }
+
+  $pattern = [Regex]::Escape($Term).Replace("\ ", "\s+")
+  return [Regex]::IsMatch($Text, "(?<![a-z0-9])$pattern(?![a-z0-9])")
+}
+
+function Test-TextTerms {
+  param(
+    [string]$Text,
+    [string[]]$Terms
+  )
+
+  foreach ($term in @($Terms)) {
+    if (Test-TextTerm -Text $Text -Term $term) {
+      return $true
+    }
+  }
+
+  return $false
+}
+
 function Read-TabFile {
   param([string]$Path)
 
@@ -685,31 +712,149 @@ function Get-TitleMajorGroupHint {
   $text = Normalize-Text -Value $Title
   if (-not $text) { return "" }
 
-  if ($text.Contains("dental") -or $text.Contains("nurse") -or $text.Contains("nursing") -or $text.Contains("medical") -or $text.Contains("health") -or $text.Contains("physician") -or $text.Contains("therap")) {
+  $exactTitleHints = @{
+    "aviation safety" = "Transportation and Material Moving"
+    "business and industry student trainee" = "Business and Financial Operations"
+    "boiler plant operating" = "Production"
+    "cash processing" = "Office and Administrative Support"
+    "cemetery caretaking" = "Building and Grounds Cleaning and Maintenance"
+    "compliance inspection and support" = "Protective Service"
+    "consumer safety" = "Protective Service"
+    "consumer safety inspection" = "Protective Service"
+    "contact representative" = "Office and Administrative Support"
+    "drill rig operating" = "Construction and Extraction"
+    "electroplating" = "Production"
+    "explosives safety series" = "Protective Service"
+    "foreign affairs" = "Life, Physical, and Social Science"
+    "fuel distribution system operating" = "Production"
+    "gardening" = "Building and Grounds Cleaning and Maintenance"
+    "general business and industry" = "Business and Financial Operations"
+    "general inspection investigation enforcement and compliance series" = "Protective Service"
+    "general inspection investigation enforcement and compliance" = "Protective Service"
+    "general investigation" = "Protective Service"
+    "general supply" = "Business and Financial Operations"
+    "guide" = "Personal Care and Service"
+    "industrial hygiene" = "Life, Physical, and Social Science"
+    "intelligence" = "Life, Physical, and Social Science"
+    "laboratory working" = "Life, Physical, and Social Science"
+    "letterpress operating" = "Production"
+    "mail and file" = "Office and Administrative Support"
+    "marine survey technical" = "Architecture and Engineering"
+    "materials examining and identifying" = "Production"
+    "materials handler" = "Transportation and Material Moving"
+    "meatcutting" = "Production"
+    "miscellaneous aircraft overhaul" = "Installation, Maintenance, and Repair"
+    "miscellaneous armament work" = "Production"
+    "miscellaneous plant and animal work" = "Farming, Fishing, and Forestry"
+    "miscellaneous warehousing and stock handling" = "Transportation and Material Moving"
+    "model making" = "Production"
+    "motor carrier safety" = "Protective Service"
+    "non destructive testing" = "Production"
+    "non-destructive testing" = "Production"
+    "packing" = "Transportation and Material Moving"
+    "passport and visa examining" = "Office and Administrative Support"
+    "pest controlling" = "Building and Grounds Cleaning and Maintenance"
+    "property disposal" = "Business and Financial Operations"
+    "purchasing" = "Business and Financial Operations"
+    "realty" = "Sales and Related"
+    "rigging" = "Construction and Extraction"
+    "secretary" = "Office and Administrative Support"
+    "store working" = "Transportation and Material Moving"
+    "tools and parts attending" = "Transportation and Material Moving"
+    "tractor operating" = "Transportation and Material Moving"
+  }
+  $exactHint = $exactTitleHints[$text]
+  if ($exactHint) { return $exactHint }
+
+  if (Test-TextTerms -Text $text -Terms @(
+    "dental", "nurse", "nursing", "medical", "health", "physician", "therapist",
+    "optometrist", "orthotist", "prosthetist", "podiatrist", "pharmacist",
+    "dietitian", "nutritionist", "pathology", "audiology", "radiologic",
+    "laboratory science", "medical technician", "clinical laboratory"
+  )) {
     return "Healthcare Practitioners and Technical"
   }
-  if ($text.Contains("social service") -or $text.Contains("social worker") -or $text.Contains("counsel")) {
+  if (Test-TextTerms -Text $text -Terms @(
+    "social service", "social worker", "counselor", "counseling", "chaplain"
+  )) {
     return "Community and Social Service"
   }
-  if ($text.Contains("police") -or $text.Contains("fire") -or $text.Contains("correction") -or $text.Contains("security") -or $text.Contains("ranger")) {
+  if (Test-TextTerms -Text $text -Terms @(
+    "police", "fire", "correction", "ranger", "security guard",
+    "security administration", "border patrol", "criminal investigation",
+    "investigative", "customs and border protection"
+  )) {
     return "Protective Service"
   }
-  if ($text.Contains("teacher") -or $text.Contains("instructor") -or $text.Contains("library")) {
+  if (Test-TextTerms -Text $text -Terms @(
+    "teacher", "instructor", "library", "librarian", "education", "training", "instructional"
+  )) {
     return "Educational Instruction and Library"
   }
-  if ($text.Contains("attorney") -or $text.Contains("lawyer") -or $text.Contains("judge") -or $text.Contains("legal")) {
+  if (Test-TextTerms -Text $text -Terms @(
+    "telecommunications", "telecommunications processing", "telephone operating",
+    "security clerical and assistance"
+  )) {
+    return "Office and Administrative Support"
+  }
+  if (Test-TextTerms -Text $text -Terms @(
+    "attorney", "lawyer", "judge", "legal", "paralegal"
+  )) {
     return "Legal"
   }
-  if ($text.Contains("maintenance") -or $text.Contains("mechanic") -or $text.Contains("repair") -or $text.Contains("technician")) {
+  if (Test-TextTerms -Text $text -Terms @(
+    "art", "artist", "arts", "design", "designer", "music", "musician",
+    "museum", "curator", "public affairs", "government information",
+    "visual information", "visual", "audiovisual", "audio visual", "video",
+    "broadcast", "media", "editor", "editing", "writer", "writing",
+    "photographer", "photography", "journal", "recreation", "sports",
+    "athletic", "theater", "theatre", "illustrating", "illustration", "entertainment"
+  )) {
+    return "Arts, Design, Entertainment, Sports, and Media"
+  }
+  if (Test-TextTerms -Text $text -Terms @(
+    "statistics", "statistical", "mathematical statistics", "data science"
+  )) {
+    return "Computer and Mathematical"
+  }
+  if (Test-TextTerms -Text $text -Terms @(
+    "physics", "chemistry", "meteorology", "meteorological", "biology", "biological",
+    "microbiology", "pharmacology", "entomology", "archeology", "archaeology",
+    "geography", "psychology", "economist", "economics", "history", "social science"
+  )) {
+    return "Life, Physical, and Social Science"
+  }
+  if (Test-TextTerms -Text $text -Terms @(
+    "food service", "food services", "cooking", "cook", "waiter", "bartending", "bartender"
+  )) {
+    return "Food Preparation and Serving Related"
+  }
+  if (Test-TextTerms -Text $text -Terms @(
+    "transportation", "traffic", "dispatching", "motor vehicle", "ship pilot",
+    "small craft", "air traffic control", "aircraft operation"
+  )) {
+    return "Transportation and Material Moving"
+  }
+  if (Test-TextTerms -Text $text -Terms @(
+    "maintenance", "mechanic", "repair", "technician", "machining", "toolmaking",
+    "calibrating", "instrument mechanic"
+  )) {
     return "Installation, Maintenance, and Repair"
   }
-  if ($text.Contains("construction") -or $text.Contains("carpenter") -or $text.Contains("electric") -or $text.Contains("plumb")) {
+  if (Test-TextTerms -Text $text -Terms @(
+    "construction", "carpentry", "carpenter", "electrician", "plumbing", "plumber",
+    "pipefitting", "masonry", "welding", "sheet metal", "painting"
+  )) {
     return "Construction and Extraction"
   }
-  if ($text.Contains("engineer") -or $text.Contains("architect")) {
+  if (Test-TextTerms -Text $text -Terms @(
+    "engineer", "engineering", "architect", "electronics technical"
+  )) {
     return "Architecture and Engineering"
   }
-  if ($text.Contains("software") -or $text.Contains("computer") -or $text.Contains("data") -or $text.Contains("cyber") -or $text.Contains("information technology")) {
+  if (Test-TextTerms -Text $text -Terms @(
+    "software", "computer", "cyber", "data", "information technology", "it specialist"
+  )) {
     return "Computer and Mathematical"
   }
 
@@ -724,11 +869,19 @@ function Get-NormalizedMajorGroup {
 
   $known = @($script:socMap.socMajorGroups)
   $titleHint = Get-TitleMajorGroupHint -Title $Title
+  $overrideableGroups = @(
+    "Office and Administrative Support",
+    "Business and Financial Operations",
+    "Other",
+    "Production",
+    "Installation, Maintenance, and Repair",
+    "Computer and Mathematical"
+  )
   if ($RawMajorGroup -and $known -contains $RawMajorGroup) {
     if (
       $titleHint -and
       $titleHint -ne $RawMajorGroup -and
-      @("Office and Administrative Support", "Business and Financial Operations", "Other") -contains $RawMajorGroup
+      $overrideableGroups -contains $RawMajorGroup
     ) {
       return $titleHint
     }
@@ -741,7 +894,7 @@ function Get-NormalizedMajorGroup {
       if (
         $titleHint -and
         $titleHint -ne $mapped -and
-        @("Office and Administrative Support", "Business and Financial Operations", "Other") -contains $mapped
+        $overrideableGroups -contains $mapped
       ) {
         return $titleHint
       }
