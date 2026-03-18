@@ -35,6 +35,7 @@ const els = {
     majorGroupSelect: byId("majorGroupSelect"),
     labelSelect: byId("labelSelect"),
     searchInput: byId("searchInput"),
+    searchSuggestions: byId("searchSuggestions"),
     visitorTime: byId("visitorTime"),
     visitorPlace: byId("visitorPlace"),
     lastUpdatedLabel: byId("lastUpdatedLabel"),
@@ -98,6 +99,7 @@ const els = {
 };
 let clockTimer = null;
 let searchTimer = null;
+let searchSuggestionHideTimer = null;
 let loadToken = 0;
 let revealObserver = null;
 let storyObserver = null;
@@ -163,6 +165,9 @@ const HOME_COPY = {
         step_text_3: "Combine replacement, augmentation, hiring and historical pressure into a single AIRS reading.",
         step_title_4: "Move from market to one role",
         step_text_4: "Filter, zoom and open the occupation page without leaving the current analytical context.",
+        search_panel_title: "Closest occupations",
+        search_panel_hint: "Matches combine SOC codes, English titles, Chinese titles, and similar U.S. occupation names.",
+        search_panel_empty: "No close occupation is available under the current filters.",
         signal_kicker_b: "Why this matters",
         signal_title_b: "The key signal is not whether AI exists in a role, but whether it is compressing the number and shape of hires.",
         signal_text_b: "That distinction is where macro labor-market dashboards usually fail. AIRS keeps the labor signal tied to the occupation structure itself.",
@@ -208,6 +213,9 @@ const HOME_COPY = {
         step_text_3: "\u7efc\u5408\u66ff\u4ee3\u538b\u529b\u3001AI \u8f85\u52a9\u7a0b\u5ea6\u3001\u62db\u8058\u53d8\u5316\u548c\u5386\u53f2\u8d8b\u52bf\uff0c\u5f97\u51fa AIRS \u8bfb\u6570\u3002",
         step_title_4: "\u4ece\u6574\u4f53\u5e02\u573a\u4e0b\u94bb\u5230\u5355\u4e2a\u804c\u4e1a",
         step_text_4: "\u901a\u8fc7\u7b5b\u9009\u3001\u7f29\u653e\u548c\u8df3\u8f6c\u8be6\u60c5\uff0c\u5728\u4e0d\u91cd\u7f6e\u5206\u6790\u4e0a\u4e0b\u6587\u7684\u60c5\u51b5\u4e0b\u7ee7\u7eed\u4e0b\u94bb\u3002",
+        search_panel_title: "\u6700\u63a5\u8fd1\u7684\u804c\u4e1a",
+        search_panel_hint: "\u7cfb\u7edf\u4f1a\u540c\u65f6\u5339\u914d SOC \u4ee3\u7801\u3001\u82f1\u6587\u804c\u4e1a\u540d\u3001\u4e2d\u6587\u804c\u4e1a\u540d\u548c\u7f8e\u56fd\u76f8\u8fd1\u804c\u4e1a\u3002",
+        search_panel_empty: "\u5f53\u524d\u7b5b\u9009\u6761\u4ef6\u4e0b\u6ca1\u6709\u627e\u5230\u63a5\u8fd1\u7684\u804c\u4e1a\u3002",
         signal_kicker_b: "\u4e3a\u4ec0\u4e48\u8fd9\u5f88\u91cd\u8981",
         signal_title_b: "\u5173\u952e\u4e0d\u53ea\u662f AI \u662f\u5426\u8fdb\u5165\u4e86\u8fd9\u4e2a\u804c\u4e1a\uff0c\u800c\u662f\u5b83\u6709\u6ca1\u6709\u5f00\u59cb\u51cf\u5c11\u5c97\u4f4d\u6570\u91cf\u3001\u6539\u53d8\u62db\u8058\u65b9\u5f0f\u3002",
         signal_text_b: "\u5f88\u591a\u5b8f\u89c2\u770b\u677f\u53ea\u80fd\u770b\u5230\u201cAI \u662f\u5426\u51fa\u73b0\u201d\uff0c\u4f46 AIRS \u66f4\u5173\u6ce8\u201c\u62db\u8058\u662f\u5426\u5df2\u7ecf\u88ab\u6539\u5199\u201d\u3002",
@@ -255,6 +263,84 @@ function locale() { return state.lang === "zh" ? "zh-CN" : "en-US"; }
 function number(value) { return Number(value || 0).toLocaleString(locale()); }
 function displayTitle(row) { return state.lang === "zh" ? (row.titleZh || row.title) : row.title; }
 function displaySummary(row) { return state.lang === "zh" ? (row.summaryZh || row.summary) : row.summary; }
+function searchSuggestionSecondary(row) {
+    if (state.lang === "zh")
+        return `${row.socCode} · ${row.title}`;
+    return `${row.socCode} · ${groupText(state.lang, row.majorGroup)}`;
+}
+function clearSearchSuggestionHideTimer() {
+    if (searchSuggestionHideTimer) {
+        window.clearTimeout(searchSuggestionHideTimer);
+        searchSuggestionHideTimer = null;
+    }
+}
+function searchSuggestionRows() {
+    if (!state.q || state.loadError)
+        return [];
+    return state.rows.slice(0, 8);
+}
+function searchSuggestionMeta(row) {
+    const parts = [groupText(state.lang, row.majorGroup), labelText(state.lang, row.label)];
+    if (Number(row.postings || 0) > 0) {
+        parts.push(state.lang === "zh" ? `招聘 ${number(row.postings)}` : `${number(row.postings)} postings`);
+    }
+    return parts.join(" · ");
+}
+function hideSearchSuggestions() {
+    clearSearchSuggestionHideTimer();
+    if (!els.searchSuggestions)
+        return;
+    els.searchSuggestions.hidden = true;
+    els.searchSuggestions.innerHTML = "";
+}
+function chooseSearchSuggestion(socCode) {
+    const row = state.rows.find((entry) => entry.socCode === socCode);
+    if (!row)
+        return;
+    state.selectedSocCode = row.socCode;
+    state.q = displayTitle(row);
+    state.zoom = Math.max(state.zoom, 1.35);
+    state.panX = 0;
+    state.panY = 0;
+    els.searchInput.value = state.q;
+    hideSearchSuggestions();
+    load();
+}
+function renderSearchSuggestions(forceVisible = false) {
+    if (!els.searchSuggestions)
+        return;
+    const isActive = forceVisible || document.activeElement === els.searchInput;
+    if (!state.q || state.loadError || !isActive) {
+        hideSearchSuggestions();
+        return;
+    }
+    const rows = searchSuggestionRows();
+    const items = rows.length
+        ? rows.map((row) => `
+      <button class="search-suggestion" type="button" data-soc="${row.socCode}">
+        <strong class="search-suggestion__title">${displayTitle(row)}</strong>
+        <span class="search-suggestion__secondary">${searchSuggestionSecondary(row)}</span>
+        <span class="search-suggestion__meta">${searchSuggestionMeta(row)}</span>
+      </button>
+    `).join("")
+        : `<div class="search-suggestions__empty">${copy(state.lang, "search_panel_empty")}</div>`;
+    els.searchSuggestions.hidden = false;
+    els.searchSuggestions.innerHTML = `
+    <div class="search-suggestions__head">
+      <strong>${copy(state.lang, "search_panel_title")}</strong>
+      <span>${state.lang === "zh" ? `当前 ${rows.length} 个结果` : `${rows.length} results`}</span>
+    </div>
+    <div class="search-suggestions__list">${items}</div>
+    <p class="search-suggestions__hint">${copy(state.lang, "search_panel_hint")}</p>
+  `;
+    els.searchSuggestions.querySelectorAll(".search-suggestion").forEach((button) => {
+        button.addEventListener("pointerdown", (event) => {
+            event.preventDefault();
+            clearSearchSuggestionHideTimer();
+        });
+        button.addEventListener("click", () => chooseSearchSuggestion(button.dataset.soc || ""));
+    });
+}
 function toneFromAirs(airs) { return 214 - (1 - airs / 100) * 170; }
 function formatCompact(value) { return Number(value || 0).toLocaleString(locale(), { maximumFractionDigits: 0 }); }
 function copy(language, key) {
@@ -569,6 +655,7 @@ function refreshStaticLanguage() {
     }
     if (state.meta)
         renderSelectOptions();
+    renderSearchSuggestions();
 }
 function renderSelectOptions() {
     if (!state.meta)
@@ -1104,9 +1191,32 @@ function bindActions() {
     els.labelSelect.addEventListener("change", (event) => { state.label = event.currentTarget.value; load(); });
     els.searchInput.addEventListener("input", (event) => {
         state.q = event.currentTarget.value.trim();
+        clearSearchSuggestionHideTimer();
+        hideSearchSuggestions();
         if (searchTimer)
             window.clearTimeout(searchTimer);
         searchTimer = window.setTimeout(() => load(), 160);
+    });
+    els.searchInput.addEventListener("focus", () => {
+        clearSearchSuggestionHideTimer();
+        renderSearchSuggestions(true);
+    });
+    els.searchInput.addEventListener("blur", () => {
+        clearSearchSuggestionHideTimer();
+        searchSuggestionHideTimer = window.setTimeout(() => hideSearchSuggestions(), 140);
+    });
+    els.searchInput.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            hideSearchSuggestions();
+            return;
+        }
+        if (event.key === "Enter") {
+            const firstRow = searchSuggestionRows()[0];
+            if (firstRow) {
+                event.preventDefault();
+                chooseSearchSuggestion(firstRow.socCode);
+            }
+        }
     });
     els.languageButtons.forEach((button) => button.addEventListener("click", () => {
         state.lang = (button.dataset.langOption || "en");
@@ -1123,6 +1233,7 @@ function bindActions() {
         }
         updateSelectedPanel();
         renderTicker();
+        renderSearchSuggestions();
     }));
     els.viewButtons.forEach((button) => button.addEventListener("click", () => {
         setViewMode(button.dataset.viewMode);
@@ -1180,6 +1291,7 @@ async function load() {
         renderSummary(summary);
         updateSelectedPanel();
         renderTicker();
+        renderSearchSuggestions();
     }
     catch (error) {
         if (token !== loadToken)
@@ -1196,6 +1308,7 @@ async function load() {
         renderUniverse();
         updateSelectedPanel();
         renderTicker();
+        hideSearchSuggestions();
         showPageAlert();
     }
 }
