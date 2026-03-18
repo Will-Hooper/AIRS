@@ -100,7 +100,6 @@
     { "match": "counsel", "group": "Community and Social Service" },
     { "match": "media", "group": "Arts, Design, Entertainment, Sports, and Media" },
     { "match": "public affairs", "group": "Arts, Design, Entertainment, Sports, and Media" },
-    { "match": "communications", "group": "Arts, Design, Entertainment, Sports, and Media" },
     { "match": "sales", "group": "Sales and Related" },
     { "match": "marketing", "group": "Sales and Related" },
     { "match": "construction", "group": "Construction and Extraction" },
