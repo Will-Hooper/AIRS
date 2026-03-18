@@ -1,0 +1,14 @@
+{
+  "version": "30.2",
+  "sourceUrl": "https://www.onetcenter.org/dl_files/database/db_30_2_text.zip",
+  "zipFile": "D:\\a\\AIRS\\AIRS\\backend\\data\\onet\\.cache\\db_30_2_text.zip",
+  "syncedAt": "2026-03-18T15:08:21.331Z",
+  "files": [
+    "Job Zones.txt",
+    "Occupation Data.txt",
+    "Sample of Reported Titles.txt",
+    "Task Ratings.txt",
+    "Task Statements.txt",
+    "Technology Skills.txt"
+  ]
+}
