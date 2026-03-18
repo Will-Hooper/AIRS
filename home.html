@@ -195,6 +195,45 @@
       </section>
     </section>
 
+    <section class="control-ribbon">
+      <div class="control-ribbon__meta">
+        <div>
+          <p class="kicker" data-copy="view_kicker">视图切换</p>
+          <h3 data-copy="view_title">可按整体市场、BLS 职业大类或风险聚类查看职业分布。</h3>
+        </div>
+
+        <div class="view-switch" role="tablist" aria-label="职业场视图切换" data-i18n-aria-label="home.viewModesAria">
+          <button class="view-switch__button is-active" data-view-mode="market" type="button" data-copy="view_market">整体市场</button>
+          <button class="view-switch__button" data-view-mode="group" type="button" data-copy="view_group">职业大类</button>
+          <button class="view-switch__button" data-view-mode="risk" type="button" data-copy="view_risk">风险聚类</button>
+        </div>
+      </div>
+
+      <div class="control-dock">
+        <label class="control">
+          <span data-i18n="home.date">日期</span>
+          <select id="dateSelect"></select>
+        </label>
+        <label class="control">
+          <span data-i18n="home.region">地区</span>
+          <select id="regionSelect"></select>
+        </label>
+        <label class="control">
+          <span data-i18n="home.group">职业大类</span>
+          <select id="majorGroupSelect"></select>
+        </label>
+        <label class="control">
+          <span data-i18n="home.label">影响类型</span>
+          <select id="labelSelect"></select>
+        </label>
+        <label class="control control--search">
+          <span data-i18n="home.search">搜索</span>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="输入 SOC 代码或职业名称" data-i18n-placeholder="home.searchPlaceholder">
+          <div id="searchSuggestions" class="search-suggestions" hidden></div>
+        </label>
+      </div>
+    </section>
+
     <section class="maze-hero">
       <div class="maze-hero__copy">
         <p class="kicker" data-i18n="home.heroKicker">AI 对招聘影响指数</p>
@@ -257,45 +296,6 @@
         <strong id="mostChangedOccupation">--</strong>
         <p id="mostChangedDelta" class="pressure-card__meta">--</p>
       </article>
-    </section>
-
-    <section class="control-ribbon">
-      <div class="control-ribbon__meta">
-        <div>
-          <p class="kicker" data-copy="view_kicker">视图切换</p>
-          <h3 data-copy="view_title">可按整体市场、BLS 职业大类或风险聚类查看职业分布。</h3>
-        </div>
-
-        <div class="view-switch" role="tablist" aria-label="职业场视图切换" data-i18n-aria-label="home.viewModesAria">
-          <button class="view-switch__button is-active" data-view-mode="market" type="button" data-copy="view_market">整体市场</button>
-          <button class="view-switch__button" data-view-mode="group" type="button" data-copy="view_group">职业大类</button>
-          <button class="view-switch__button" data-view-mode="risk" type="button" data-copy="view_risk">风险聚类</button>
-        </div>
-      </div>
-
-      <div class="control-dock">
-        <label class="control">
-          <span data-i18n="home.date">日期</span>
-          <select id="dateSelect"></select>
-        </label>
-        <label class="control">
-          <span data-i18n="home.region">地区</span>
-          <select id="regionSelect"></select>
-        </label>
-        <label class="control">
-          <span data-i18n="home.group">职业大类</span>
-          <select id="majorGroupSelect"></select>
-        </label>
-        <label class="control">
-          <span data-i18n="home.label">影响类型</span>
-          <select id="labelSelect"></select>
-        </label>
-        <label class="control control--search">
-          <span data-i18n="home.search">搜索</span>
-          <input id="searchInput" type="search" autocomplete="off" placeholder="输入 SOC 代码或职业名称" data-i18n-placeholder="home.searchPlaceholder">
-          <div id="searchSuggestions" class="search-suggestions" hidden></div>
-        </label>
-      </div>
     </section>
 
     <section class="story-deck" id="story">
