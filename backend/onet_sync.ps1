@@ -11,6 +11,28 @@ param(
   [string]$BaselinePath = ""
 )
 
+$NodeEntry = Join-Path (Split-Path -Parent $PSScriptRoot) "dist-node\src-node\onet-sync.js"
+$NodeCommand = Get-Command node -ErrorAction SilentlyContinue
+if ($null -ne $NodeCommand -and (Test-Path -LiteralPath $NodeEntry -PathType Leaf)) {
+  $nodeArgs = @($NodeEntry)
+  if ($OnetDataDir) { $nodeArgs += @("--onetDataDir", $OnetDataDir) }
+  if ($DatabasePageUrl) { $nodeArgs += @("--databasePageUrl", $DatabasePageUrl) }
+  if ($ArchivePageUrl) { $nodeArgs += @("--archivePageUrl", $ArchivePageUrl) }
+  if ($DownloadUrl) { $nodeArgs += @("--downloadUrl", $DownloadUrl) }
+  if ($ZipPath) { $nodeArgs += @("--zipPath", $ZipPath) }
+  if ($Force) { $nodeArgs += "--force" }
+  if ($SkipRebuild) { $nodeArgs += "--skipRebuild" }
+  if ($OutputPath) { $nodeArgs += @("--outputPath", $OutputPath) }
+  if ($HistoryPath) { $nodeArgs += @("--historyPath", $HistoryPath) }
+  if ($BaselinePath) { $nodeArgs += @("--baselinePath", $BaselinePath) }
+
+  & $NodeCommand.Source @nodeArgs
+  if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+  }
+  return
+}
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 

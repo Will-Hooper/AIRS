@@ -15,6 +15,32 @@ param(
   [switch]$UseExistingHistoryOnly
 )
 
+$NodeEntry = Join-Path (Split-Path -Parent $PSScriptRoot) "dist-node\src-node\usajobs-sync.js"
+$NodeCommand = Get-Command node -ErrorAction SilentlyContinue
+if ($null -ne $NodeCommand -and (Test-Path -LiteralPath $NodeEntry -PathType Leaf)) {
+  $nodeArgs = @($NodeEntry)
+  if ($ApiKey) { $nodeArgs += @("--apiKey", $ApiKey) }
+  if ($UserEmail) { $nodeArgs += @("--userEmail", $UserEmail) }
+  if ($DatePosted) { $nodeArgs += @("--datePosted", "$DatePosted") }
+  if ($ResultsPerPage) { $nodeArgs += @("--resultsPerPage", "$ResultsPerPage") }
+  if ($MaxPages) { $nodeArgs += @("--maxPages", "$MaxPages") }
+  if ($RetryCount) { $nodeArgs += @("--retryCount", "$RetryCount") }
+  if ($RetryDelaySeconds) { $nodeArgs += @("--retryDelaySeconds", "$RetryDelaySeconds") }
+  if ($TimeoutSeconds) { $nodeArgs += @("--timeoutSeconds", "$TimeoutSeconds") }
+  if ($Region) { $nodeArgs += @("--region", $Region) }
+  if ($OutputPath) { $nodeArgs += @("--outputPath", $OutputPath) }
+  if ($HistoryPath) { $nodeArgs += @("--historyPath", $HistoryPath) }
+  if ($BaselinePath) { $nodeArgs += @("--baselinePath", $BaselinePath) }
+  if ($OnetDataDir) { $nodeArgs += @("--onetDataDir", $OnetDataDir) }
+  if ($UseExistingHistoryOnly) { $nodeArgs += "--useExistingHistoryOnly" }
+
+  & $NodeCommand.Source @nodeArgs
+  if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+  }
+  return
+}
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
