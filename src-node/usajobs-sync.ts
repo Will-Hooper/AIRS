@@ -28,7 +28,7 @@ import {
   type OnetMatch,
   type OnetProfile
 } from "./lib/onet";
-import { translateOccupationTitle } from "../src/occupation-translation";
+import { translateOccupationDefinition, translateOccupationTitle } from "../src/occupation-translation";
 import type { JsonDataset, JsonDatasetOccupation } from "../src/types/airs";
 
 interface UsaJobsSyncOptions {
@@ -1027,6 +1027,8 @@ async function main() {
       socCode: entry.socCode,
       title: entry.title,
       titleZh: translateOccupationTitle(entry.title),
+      definition: onetMatch?.occupation?.description || "",
+      definitionZh: translateOccupationDefinition(entry.title, onetMatch?.occupation?.description || ""),
       majorGroup,
       onetCode,
       onetTitle,
