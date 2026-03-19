@@ -47,6 +47,7 @@ jobs:
             "backend/data/onet",
             "backend/data/airs_data.json",
             "backend/data/usajobs_history.json",
+            "backend/data/careeronestop_history.json",
             "backend/data/airs_baseline.json"
           )
           $pending = git status --porcelain -- $paths

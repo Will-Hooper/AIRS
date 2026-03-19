@@ -1,9 +1,9 @@
-name: Update AIRS Data Daily
+name: Update AIRS Data Hourly
 
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: '30 2 * * *'
+    - cron: '15 * * * *'
 
 permissions:
   contents: write
@@ -49,11 +49,14 @@ jobs:
         shell: pwsh
         run: npm run build:node
 
-      - name: Rebuild AIRS data from latest USAJOBS data
+      - name: Rebuild AIRS data from enabled recruitment sources
         shell: pwsh
         env:
           USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
           USAJOBS_USER_EMAIL: ${{ secrets.USAJOBS_USER_EMAIL }}
+          CAREERONESTOP_API_TOKEN: ${{ secrets.CAREERONESTOP_API_TOKEN }}
+          CAREERONESTOP_USER_ID: ${{ secrets.CAREERONESTOP_USER_ID }}
+          CAREERONESTOP_LOCATION: ${{ vars.CAREERONESTOP_LOCATION }}
         run: |
           node ./dist-node/src-node/usajobs-sync.js `
             --apiKey $env:USAJOBS_API_KEY `
@@ -65,6 +68,7 @@ jobs:
           $paths = @(
             "backend/data/airs_data.json",
             "backend/data/usajobs_history.json",
+            "backend/data/careeronestop_history.json",
             "backend/data/airs_baseline.json"
           )
           $pending = git status --porcelain -- $paths
@@ -76,5 +80,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- $paths
-          git commit -m "chore(data): daily AIRS update"
+          git commit -m "chore(data): hourly AIRS update"
           git push
