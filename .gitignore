@@ -16,3 +16,12 @@ dist-node/
 .tmp_ts_airs_output.json
 .tmp_onet_ts/
 .tmp_onet_ts_output.json
+.tmp_onet_ps_wrapper/
+.tmp_onet_ps_wrapper2/
+.tmp_search_check/
+.tmp_soc867_output.json
+edge-dom-home.html
+root-home-check.png
+server-out.log
+server-err.log
+node_modules/
