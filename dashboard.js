@@ -140,7 +140,7 @@ function renderSelected(rows) {
   const row = rows.find((item) => item.socCode === state.selectedSocCode) || rows[0];
   if (!row) return;
   els.detailTitle.textContent = row.title;
-  els.detailLink.href = `occupation.html?soc=${encodeURIComponent(row.socCode)}&region=${encodeURIComponent(state.region)}&date=${encodeURIComponent(state.date)}`;
+  els.detailLink.href = `occupation-view.html?soc=${encodeURIComponent(row.socCode)}&region=${encodeURIComponent(state.region)}&date=${encodeURIComponent(state.date)}`;
   els.detailScore.textContent = row.airs.toFixed(0);
   els.detailLabel.textContent = row.label;
   els.detailSummary.textContent = row.summary;

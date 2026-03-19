@@ -3,109 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="refresh" content="0; url=occupation-view.html?v=20260319-2">
+  <script>
+    const detailUrl = new URL("occupation-view.html", window.location.href);
+    detailUrl.search = window.location.search;
+    detailUrl.searchParams.set("v", "20260319-2");
+    detailUrl.hash = window.location.hash;
+    window.location.replace(detailUrl.toString());
+  </script>
   <title>AIRS 职业详情</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="page-shell">
-    <a class="back-link" href="index.html">← 返回总览台</a>
-    <header class="hero hero--dashboard">
-      <div class="hero__content">
-        <p class="eyebrow">OCCUPATION / AIRS / EVIDENCE</p>
-        <h1 id="occupationTitle">职业详情页</h1>
-        <p id="occupationSummary" class="hero__lede">正在加载职业详情。</p>
-        <div class="hero__meta">
-          <div class="status-banner">
-            <span id="occupationSoc">--</span>
-            <span id="occupationRegion">--</span>
-            <span id="occupationDate">--</span>
-          </div>
-        </div>
-      </div>
-      <div class="hero__panel">
-        <div class="signal-card">
-          <span class="signal-card__label">AIRS</span>
-          <strong id="occupationAirs">--</strong>
-        </div>
-        <div class="signal-card">
-          <span class="signal-card__label">标签</span>
-          <strong id="occupationLabel">--</strong>
-        </div>
-        <div class="signal-card">
-          <span class="signal-card__label">岗位量级</span>
-          <strong id="occupationPostings">--</strong>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <section class="dashboard-grid dashboard-grid--split">
-        <article class="card panel">
-          <div class="panel__header">
-            <div>
-              <p class="panel__eyebrow">Breakdown</p>
-              <h3>影响分拆解</h3>
-            </div>
-          </div>
-          <div class="detail-breakdown">
-            <div class="breakdown-row">
-              <span>替代强度</span>
-              <div class="meter"><div id="replacementBar"></div></div>
-              <strong id="replacementValue">--</strong>
-            </div>
-            <div class="breakdown-row">
-              <span>增强改写</span>
-              <div class="meter"><div id="augmentationBar"></div></div>
-              <strong id="augmentationValue">--</strong>
-            </div>
-            <div class="breakdown-row">
-              <span>招聘兑现</span>
-              <div class="meter"><div id="hiringBar"></div></div>
-              <strong id="hiringValue">--</strong>
-            </div>
-            <div class="breakdown-row">
-              <span>历史累计</span>
-              <div class="meter"><div id="historicalBar"></div></div>
-              <strong id="historicalValue">--</strong>
-            </div>
-          </div>
-        </article>
-        <article class="card panel">
-          <div class="panel__header">
-            <div>
-              <p class="panel__eyebrow">Trend</p>
-              <h3>12 个月 AIRS 走势</h3>
-            </div>
-            <span id="timelineDelta" class="panel__header-note">--</span>
-          </div>
-          <svg id="timelineChart" viewBox="0 0 600 220" preserveAspectRatio="none"></svg>
-        </article>
-      </section>
-
-      <section class="card panel">
-        <div class="panel__header">
-          <div>
-            <p class="panel__eyebrow">Evidence Chain</p>
-            <h3>招聘证据与任务证据</h3>
-          </div>
-        </div>
-        <div class="evidence-grid">
-          <div>
-            <h4>招聘侧证据</h4>
-            <div id="evidenceList" class="evidence-list"></div>
-          </div>
-          <div>
-            <h4>任务替代暴露</h4>
-            <div id="taskCloud" class="task-cloud"></div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script type="module" src="occupation-app.js"></script>
 </body>
 </html>
