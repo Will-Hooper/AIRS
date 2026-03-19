@@ -1904,8 +1904,110 @@ function cleanupTranslatedTitle(text) {
     .trim();
 }
 
+const EXACT_DEFINITION_MAP = new Map([
+  [
+    "actors||play parts in stage, television, radio, video, or film productions, or other settings for entertainment, information, or instruction. interpret serious or comic role by speech, gesture, and body movement to entertain or inform audience. may dance and sing.",
+    "在 BLS SOC 中，演员是指在舞台、电视、广播、视频、电影等场景中扮演角色，并通过语言、手势和肢体动作进行表演，以完成娱乐、信息传播或教学目的的从业者；有时也包括歌舞表演。"
+  ]
+]);
+
+const DEFINITION_PHRASE_MAP = [
+  ["All ", "全部"],
+  [" not listed separately.", "中未单独列出的从业人员。"],
+  ["Plan, direct, or coordinate ", "负责规划、指挥或协调"],
+  ["Determine and formulate policies and provide overall direction of ", "负责制定政策并为"],
+  ["Develop, introduce, or enact laws and statutes ", "负责制定、提出或通过法律与法规"],
+  ["Provide overall direction of ", "为其提供总体方向"],
+  ["Assist ", "协助"],
+  ["Provide ", "负责提供"],
+  ["Interpret ", "通过诠释"],
+  ["Inspect ", "负责检查"],
+  ["Operate ", "负责操作"],
+  ["Install ", "负责安装"],
+  ["Repair ", "负责维修"],
+  ["Maintain ", "负责维护"],
+  ["Teach ", "负责教授"],
+  ["Research ", "负责研究"],
+  ["Analyze ", "负责分析"],
+  ["Collect ", "负责收集"],
+  ["Prepare ", "负责准备"],
+  ["Review ", "负责审查"],
+  ["Coordinate ", "负责协调"],
+  ["Manage ", "负责管理"],
+  ["Perform ", "负责执行"],
+  ["Play parts in ", "在"],
+  ["productions, or other settings for entertainment, information, or instruction", "等场景中进行表演、信息传播或教学活动"],
+  ["by speech, gesture, and body movement", "通过语言、手势和肢体动作"],
+  ["to entertain or inform audience", "来娱乐观众或传递信息"],
+  ["May dance and sing.", "有时也需要唱跳表演。"],
+  ["public or private sector organizations", "公私营组织"],
+  ["companies or private and public sector organizations", "企业或公私营组织"],
+  ["within guidelines set up by a board of directors or similar governing body", "并在董事会或类似治理机构设定的方针下开展工作"],
+  ["Plan, direct, or coordinate the operations of public or private sector organizations", "负责规划、指挥或协调公私营组织的运营活动"],
+  ["overseeing multiple departments or locations", "并统筹多个部门或地点的工作"],
+  ["Duties and responsibilities include", "其职责包括"],
+  ["Usually manage through subordinate supervisors.", "通常通过下属主管进行管理。"],
+  ["Excludes First-Line Supervisors.", "不包括一线主管岗位。"],
+  ["Includes only workers in elected positions.", "仅包括通过选举产生的任职人员。"]
+];
+
 function hasChinese(text) {
   return CJK_RE.test(String(text || ""));
+}
+
+function cleanupTranslatedDefinition(text) {
+  return String(text || "")
+    .replace(/\s*&\s*/g, "与")
+    .replace(/\s+/g, " ")
+    .replace(/\s*,\s*/g, "，")
+    .replace(/\s*;\s*/g, "；")
+    .replace(/\s*:\s*/g, "：")
+    .replace(/\s*\.\s*/g, "。")
+    .replace(/，。/g, "。")
+    .replace(/。。+/g, "。")
+    .replace(/，，+/g, "，")
+    .replace(/；。/g, "。")
+    .replace(/^\s*[，。；：]/, "")
+    .replace(/\s+([，。；：])/g, "$1")
+    .trim();
+}
+
+function inferOccupationDefinitionFromTitle(title, titleZh) {
+  const normalizedTitle = normalizeTitle(title);
+  const lower = normalizedTitle.toLowerCase();
+  const zh = titleZh || translateOccupationTitle(title);
+
+  const patterns: Array<[RegExp, string]> = [
+    [/accountants?|auditors?|bookkeeping|underwriters?|financial examiners?|appraisers?|assessors?|tax examiners?|budget analysts?|credit analysts?/i, `${zh}是指从事财务核算、审计、评估、承保、审查或相关金融管理工作的专业人员。`],
+    [/lawyers?|attorneys?|judges?|paralegals?|legal assistants?|legal secretaries?/i, `${zh}是指从事法律服务、案件处理、司法审查、合规支持或相关法律事务工作的人员。`],
+    [/physicians?|surgeons?|dentists?|nurses?|pharmacists?|dietitians?|therapists?|psychologists?|counselors?|midwives?|medical|health/i, `${zh}是指从事医疗、护理、康复、药学、健康管理或相关专业服务工作的人员。`],
+    [/teachers?|instructors?|professors?|librarians?|archivists?/i, `${zh}是指从事教学、课程实施、学习指导、馆藏管理或教育支持工作的专业人员。`],
+    [/engineers?|architects?|drafters?|surveyors?/i, `${zh}是指从事相关工程、系统、结构或方案设计，以及技术实施与优化工作的专业人员。`],
+    [/developers?|programmers?|data scientists?|computer systems analysts?|database administrators?|database architects?|network architects?|software|web and digital interface designers?/i, `${zh}是指从事软件、数据、系统、网络或数字产品的设计、开发、分析、维护与优化工作的专业人员。`],
+    [/scientists?|researchers?|economists?|geographers?|hydrologists?|chemists?|physicists?|sociologists?/i, `${zh}是指从事相关领域研究、实验、分析、评估或科学应用工作的专业人员。`],
+    [/analysts?|planners?|specialists?|administrators?/i, `${zh}是指从事相关业务分析、规划、协调、管理支持或专项事务处理工作的专业人员。`],
+    [/technicians?|technologists?/i, `${zh}是指从事相关设备、系统或流程的检测、操作、维护、实施与技术支持工作的技术人员。`],
+    [/assistants?|aides?|helpers?/i, `${zh}是指协助相关专业人员开展支持性、辅助性或执行性工作的辅助人员。`],
+    [/clerks?|secretaries?|typists?|keyers?|receptionists?/i, `${zh}是指负责文书处理、信息记录、事务协调、接待或日常行政支持工作的人员。`],
+    [/managers?|directors?|supervisors?/i, `${zh}是指负责相关业务、团队、项目或运营活动统筹与管理工作的管理人员。`],
+    [/inspectors?|investigators?|examiners?|compliance officers?|officers?/i, `${zh}是指从事监督检查、审查核验、调查取证、执法合规或安全管理工作的人员。`],
+    [/agents?|brokers?|salespersons?|representatives?/i, `${zh}是指从事销售、经纪、客户沟通、业务代表或相关服务协调工作的人员。`],
+    [/designers?|artists?|actors?|performers?|editors?|writers?|producers?/i, `${zh}是指从事创意策划、艺术表达、内容制作、表演或视觉传播工作的专业人员。`],
+    [/operators?|setters?|tenders?|drivers?|pilots?|attendants?/i, `${zh}是指从事设备、车辆、系统或服务流程操作、运行、值守与现场执行工作的人员。`],
+    [/mechanics?|repairers?|installers?|assemblers?|fabricators?|welders?|carpenters?/i, `${zh}是指从事设备、部件、结构或产品安装、装配、维修、加工与维护工作的技术人员。`],
+    [/workers?|laborers?|cleaners?|collectors?|sorters?|graders?|stockers?/i, `${zh}是指从事一线作业、搬运分拣、现场服务、维护清洁或体力劳动工作的人员。`],
+    [/cooks?|bakers?|chefs?|waiters?|servers?|dishwashers?/i, `${zh}是指从事餐饮制备、烹饪加工、出餐服务或后厨支持工作的人员。`]
+  ];
+
+  for (const [pattern, definition] of patterns) {
+    if (pattern.test(normalizedTitle)) return definition;
+  }
+
+  if (lower.includes("all other")) {
+    return `${zh}是指未在其他细分类目中单独列出的同类职业从业人员。`;
+  }
+
+  return `${zh}是指从事该职业对应专业工作的人员。`;
 }
 
 export function needsOccupationZhTitle(title, titleZh) {
@@ -1933,4 +2035,38 @@ export function withTranslatedOccupationTitle(row) {
     ...row,
     titleZh: translateOccupationTitle(row.title)
   };
+}
+
+export function translateOccupationDefinition(title, description) {
+  const titleZh = translateOccupationTitle(title);
+  const normalizedDescription = normalizeTitle(description);
+  if (!normalizedDescription) {
+    return `在 BLS SOC 中，${inferOccupationDefinitionFromTitle(title, titleZh)}`;
+  }
+
+  const exact = EXACT_DEFINITION_MAP.get(`${normalizeTitle(title).toLowerCase()}||${normalizedDescription.toLowerCase()}`);
+  if (exact) return exact;
+
+  const allOtherMatch = normalizedDescription.match(/^All (.+) not listed separately\.?$/i);
+  if (allOtherMatch) {
+    return `在 BLS SOC 中，${titleZh}是指未在其他细分类目中单独列出的${translateOccupationTitle(allOtherMatch[1])}岗位从业人员。`;
+  }
+
+  let translated = applyOrderedMap(normalizedDescription, DEFINITION_PHRASE_MAP);
+  translated = translateTokenizedEnglish(translated);
+  translated = cleanupTranslatedDefinition(translated);
+
+  if (!hasChinese(translated) || /[A-Za-z]{4,}/.test(translated)) {
+    return `在 BLS SOC 中，${inferOccupationDefinitionFromTitle(title, titleZh)}`;
+  }
+
+  if (!/[。！？]$/.test(translated)) {
+    translated = `${translated}。`;
+  }
+
+  if (/^(指|负责|主要|在|通过)/.test(translated)) {
+    return `在 BLS SOC 中，${titleZh}${translated}`;
+  }
+
+  return `在 BLS SOC 中，${titleZh}是指${translated}`;
 }

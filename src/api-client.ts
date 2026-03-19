@@ -1,4 +1,4 @@
-import { translateOccupationTitle, withTranslatedOccupationTitle } from "./occupation-translation.js";
+import { translateOccupationDefinition, translateOccupationTitle, withTranslatedOccupationTitle } from "./occupation-translation.js";
 import type {
   JsonDataset,
   JsonDatasetOccupation,
@@ -657,6 +657,8 @@ function mapJsonOccupation(occupation: JsonDatasetOccupation, region: string): O
     socCode: occupation.socCode,
     title: occupation.title,
     titleZh: occupation.titleZh,
+    definition: occupation.definition || "",
+    definitionZh: occupation.definitionZh || translateOccupationDefinition(occupation.title, occupation.definition || ""),
     majorGroup: occupation.majorGroup,
     label: occupation.label,
     summary: englishSummary,

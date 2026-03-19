@@ -48,6 +48,7 @@ const DETAIL_COPY = {
 
 const els = {
   occupationTitle: byId<HTMLElement>("occupationTitle"),
+  occupationDefinition: byId<HTMLElement>("occupationDefinition"),
   occupationSummary: byId<HTMLElement>("occupationSummary"),
   occupationSoc: byId<HTMLElement>("occupationSoc"),
   occupationRegion: byId<HTMLElement>("occupationRegion"),
@@ -89,6 +90,7 @@ const MONTH_LABELS = {
 
 function locale() { return state.lang === "zh" ? "zh-CN" : "en-US"; }
 function displayTitle(row: OccupationRow) { return state.lang === "zh" ? (row.titleZh || row.title) : row.title; }
+function displayDefinition(row: OccupationRow) { return state.lang === "zh" ? (row.definitionZh || row.definition || "") : (row.definition || ""); }
 function displaySummary(row: OccupationRow) { return state.lang === "zh" ? (row.summaryZh || row.summary) : row.summary; }
 function displayEvidence(row: OccupationRow) { return state.lang === "zh" ? (row.evidenceZh || row.evidence) : row.evidence; }
 function displayTaskName(task: OccupationTask) { return state.lang === "zh" ? (task.nameZh || task.name) : task.name; }
@@ -147,6 +149,7 @@ function renderErrorState() {
   state.dataSource = null;
   state.updatedAt = null;
   els.occupationTitle.textContent = t(state.lang, "detail.dataUnavailableTitle");
+  if (els.occupationDefinition) els.occupationDefinition.textContent = "--";
   els.occupationSummary.textContent = `${t(state.lang, "detail.dataUnavailableSummary")} ${t(state.lang, "home.dataUnavailableHint")}`;
   els.occupationSoc.textContent = "SOC --";
   els.occupationRegion.textContent = state.region || "--";
@@ -283,6 +286,7 @@ async function renderPage() {
     document.documentElement.style.setProperty("--selection-hue", `${toneFromAirs(row.airs).toFixed(1)}`);
 
     els.occupationTitle.textContent = displayTitle(row);
+    if (els.occupationDefinition) els.occupationDefinition.textContent = displayDefinition(row) || "--";
     els.occupationSummary.textContent = displaySummary(row);
     els.occupationSoc.textContent = row.socCode;
     els.occupationRegion.textContent = state.region;
