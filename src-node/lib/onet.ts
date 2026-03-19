@@ -57,6 +57,18 @@ export interface OnetMatch {
   matchedTitle: string;
 }
 
+export interface DetailedSocOccupation extends OnetOccupation {
+  majorGroup: string;
+}
+
+export interface DetailedSocCandidate {
+  code: string;
+  title: string;
+  normalizedTitle: string;
+  tokens: string[];
+  source: string;
+}
+
 export interface OnetProfile {
   replacement: number;
   augmentation: number;
@@ -72,6 +84,32 @@ export interface OnetProfile {
 }
 
 export interface HeuristicProfile extends OnetProfile {}
+
+const SOC_MAJOR_GROUP_BY_PREFIX: Record<string, string> = {
+  "11": "Management",
+  "13": "Business and Financial Operations",
+  "15": "Computer and Mathematical",
+  "17": "Architecture and Engineering",
+  "19": "Life, Physical, and Social Science",
+  "21": "Community and Social Service",
+  "23": "Legal",
+  "25": "Educational Instruction and Library",
+  "27": "Arts, Design, Entertainment, Sports, and Media",
+  "29": "Healthcare Practitioners and Technical",
+  "31": "Healthcare Support",
+  "33": "Protective Service",
+  "35": "Food Preparation and Serving Related",
+  "37": "Building and Grounds Cleaning and Maintenance",
+  "39": "Personal Care and Service",
+  "41": "Sales and Related",
+  "43": "Office and Administrative Support",
+  "45": "Farming, Fishing, and Forestry",
+  "47": "Construction and Extraction",
+  "49": "Installation, Maintenance, and Repair",
+  "51": "Production",
+  "53": "Transportation and Material Moving",
+  "55": "Military Specific Occupations"
+};
 
 function newEmptyOnetData(sourceDir: string): OnetData {
   return {
@@ -102,6 +140,16 @@ function addOnetTitleCandidate(onet: OnetData, code: string, title: string, sour
     onet.titleIndex[normalizedTitle] = [];
   }
   onet.titleIndex[normalizedTitle].push(candidate);
+}
+
+export function toDetailedSocCode(code: string | undefined | null) {
+  if (!code) return "";
+  return String(code).replace(/\.\d{2}$/, ".00");
+}
+
+export function getSocMajorGroupFromCode(code: string | undefined | null) {
+  const prefix = String(code || "").slice(0, 2);
+  return SOC_MAJOR_GROUP_BY_PREFIX[prefix] || "Other";
 }
 
 export async function loadOnetData(dir: string): Promise<OnetData> {
@@ -287,6 +335,126 @@ export function findOnetOccupation(onet: OnetData, title: string, preferredCode 
     score: Number(bestScore.toFixed(3)),
     source: best.source,
     matchedTitle: best.title
+  };
+}
+
+export function getDetailedSocOccupations(onet: OnetData): DetailedSocOccupation[] {
+  return Object.values(onet.occupations)
+    .filter((occupation) => occupation.code.endsWith(".00"))
+    .map((occupation) => ({
+      ...occupation,
+      majorGroup: getSocMajorGroupFromCode(occupation.code)
+    }))
+    .sort((left, right) => left.code.localeCompare(right.code));
+}
+
+export function getDetailedSocCandidates(onet: OnetData): Record<string, DetailedSocCandidate[]> {
+  const candidatesByCode: Record<string, DetailedSocCandidate[]> = {};
+
+  for (const candidate of onet.titleCandidates) {
+    const masterCode = toDetailedSocCode(candidate.code);
+    if (!masterCode || !onet.occupations[masterCode]) continue;
+    candidatesByCode[masterCode] ??= [];
+    candidatesByCode[masterCode].push({
+      code: masterCode,
+      title: candidate.title,
+      normalizedTitle: candidate.normalizedTitle,
+      tokens: candidate.tokens,
+      source: candidate.source
+    });
+  }
+
+  for (const occupation of getDetailedSocOccupations(onet)) {
+    candidatesByCode[occupation.code] ??= [];
+    if (!candidatesByCode[occupation.code].some((candidate) => candidate.normalizedTitle === normalizeTitleKey(occupation.title))) {
+      candidatesByCode[occupation.code].push({
+        code: occupation.code,
+        title: occupation.title,
+        normalizedTitle: normalizeTitleKey(occupation.title),
+        tokens: getTextTokens(occupation.title),
+        source: "occupation"
+      });
+    }
+  }
+
+  return candidatesByCode;
+}
+
+export function findDetailedSocOccupation(
+  onet: OnetData,
+  title: string,
+  majorGroup = "",
+  preferredCode = ""
+): OnetMatch | null {
+  if (!onet.available) {
+    return null;
+  }
+
+  const preferredMasterCode = toDetailedSocCode(preferredCode);
+  const preferredOccupation = preferredMasterCode ? onet.occupations[preferredMasterCode] : null;
+  if (preferredOccupation?.code?.endsWith(".00")) {
+    return {
+      occupation: preferredOccupation,
+      score: 1,
+      source: "manual",
+      matchedTitle: preferredOccupation.title
+    };
+  }
+
+  const normalized = normalizeTitleKey(title);
+  if (!normalized) return null;
+
+  const manualMappedCode = onet.manualMap[normalized];
+  const manualMasterCode = toDetailedSocCode(manualMappedCode);
+  if (manualMasterCode && onet.occupations[manualMasterCode]) {
+    return {
+      occupation: onet.occupations[manualMasterCode],
+      score: 1,
+      source: "manual_map",
+      matchedTitle: onet.occupations[manualMasterCode].title
+    };
+  }
+
+  const detailedOccupations = getDetailedSocOccupations(onet);
+  const candidatesByCode = getDetailedSocCandidates(onet);
+  const tokens = getTextTokens(title);
+
+  let bestOccupation: DetailedSocOccupation | null = null;
+  let bestCandidate: DetailedSocCandidate | null = null;
+  let bestScore = 0;
+
+  for (const occupation of detailedOccupations) {
+    if (majorGroup && occupation.majorGroup !== majorGroup) continue;
+
+    const candidates = candidatesByCode[occupation.code] || [];
+    for (const candidate of candidates) {
+      let score = getTokenSimilarity(tokens, candidate.tokens);
+      if (candidate.normalizedTitle === normalized) {
+        score = Math.max(score, 1);
+      } else if (candidate.normalizedTitle.includes(normalized) || normalized.includes(candidate.normalizedTitle)) {
+        score += 0.15;
+      }
+      if (candidate.source === "occupation") {
+        score += 0.03;
+      }
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestOccupation = occupation;
+        bestCandidate = candidate;
+      }
+    }
+  }
+
+  if (!bestOccupation || !bestCandidate || bestScore < 0.28) {
+    return null;
+  }
+
+  return {
+    occupation: bestOccupation,
+    score: Number(bestScore.toFixed(3)),
+    source: `detailed_${bestCandidate.source}`,
+    matchedTitle: bestCandidate.title
   };
 }
 
