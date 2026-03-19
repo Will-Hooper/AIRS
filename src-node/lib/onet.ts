@@ -28,6 +28,7 @@ export interface OnetTechnologySkill {
 export interface OnetOccupation {
   code: string;
   title: string;
+  description: string;
   tasks: OnetTask[];
   technologySkills: OnetTechnologySkill[];
   jobZone: number;
@@ -234,6 +235,7 @@ export async function loadOnetData(dir: string): Promise<OnetData> {
     onet.occupations[code] = {
       code,
       title,
+      description: getRowValue(row, ["Description", "Description "]),
       tasks: tasksByCode[code] || [],
       technologySkills: technologyByCode[code] || [],
       jobZone: jobZonesByCode[code] || 0
