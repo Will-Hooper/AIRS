@@ -1,6 +1,6 @@
-import { getOccupationDetail } from "./api-client.js";
-import { applyTranslations, getInitialLanguage, labelText, persistLanguage, t } from "./i18n-neo.js";
-import { getRuntimeEnvironment, isStrictDataMode } from "./runtime-config.js";
+import { getOccupationDetail } from "./api-client.js?v=20260319-1";
+import { applyTranslations, getInitialLanguage, labelText, persistLanguage, t } from "./i18n-neo.js?v=20260319-1";
+import { getRuntimeEnvironment, isStrictDataMode } from "./runtime-config.js?v=20260319-1";
 const byId = (id) => document.getElementById(id);
 const query = (selector) => document.querySelector(selector);
 const queryAll = (selector) => Array.from(document.querySelectorAll(selector));

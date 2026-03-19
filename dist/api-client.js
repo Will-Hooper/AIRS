@@ -1,4 +1,4 @@
-import { translateOccupationTitle, withTranslatedOccupationTitle } from "./occupation-translation.js";
+import { translateOccupationTitle, withTranslatedOccupationTitle } from "./occupation-translation.js?v=20260319-1";
 const DATA_URL = "./backend/data/airs_data.json";
 let datasetPromise = null;
 export class AirsDataUnavailableError extends Error {
