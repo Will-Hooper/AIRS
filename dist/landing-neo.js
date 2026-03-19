@@ -631,12 +631,16 @@ function refreshStaticLanguage() {
     updateViewButtons();
     updateStoryStagePanel();
     if (state.summary?.updatedAt) {
-        els.lastUpdatedLabel.textContent = `${t(state.lang, "home.updatedPrefix")} ${new Date(state.summary.updatedAt).toLocaleString(locale(), { hour12: false })}`;
+        if (els.lastUpdatedLabel) {
+            els.lastUpdatedLabel.textContent = `${t(state.lang, "home.updatedPrefix")} ${new Date(state.summary.updatedAt).toLocaleString(locale(), { hour12: false })}`;
+        }
     }
     else {
-        els.lastUpdatedLabel.textContent = `${t(state.lang, "home.updatedPrefix")} --`;
+        if (els.lastUpdatedLabel) {
+            els.lastUpdatedLabel.textContent = `${t(state.lang, "home.updatedPrefix")} --`;
+        }
     }
-    if (state.dataMode || state.loadError) {
+    if ((state.dataMode || state.loadError) && els.dataModeLabel) {
         els.dataModeLabel.textContent = renderModeLabel(state.dataMode);
     }
     if (!state.loadError && els.environmentLabel) {
@@ -1054,6 +1058,37 @@ function syncScrollProgress() {
     document.documentElement.style.setProperty("--intro-progress", introProgress.toFixed(3));
     els.downButton.classList.toggle("is-hidden", window.scrollY > window.innerHeight * 0.82);
 }
+function setupLayoutIndices() {
+    const selector = [
+        "#pageAlert",
+        ".airs-intro__card",
+        ".maze-lab__frame",
+        ".maze-lab__spotlight",
+        ".control-ribbon",
+        ".hero-stat",
+        ".pressure-card",
+        ".story-lead",
+        ".story-mini-grid > article",
+        ".story-step-card",
+        ".method-step",
+        ".focus-card",
+        ".focus-highlights > article",
+        ".signal-panel",
+        ".release-card"
+    ].join(", ");
+    const nodes = Array.from(document.querySelectorAll(selector));
+    nodes.forEach((node, index) => {
+        node.classList.add("layout-numbered");
+        const existing = node.querySelector(".layout-number-badge");
+        const badge = existing || document.createElement("span");
+        badge.className = "layout-number-badge";
+        badge.textContent = String(index + 1).padStart(2, "0");
+        badge.setAttribute("aria-hidden", "true");
+        if (!existing) {
+            node.appendChild(badge);
+        }
+    });
+}
 function setViewMode(mode, options = {}) {
     if (!mode)
         return;
@@ -1283,8 +1318,12 @@ async function load() {
         if ((state.date !== requestedDate || state.region !== requestedRegion) && (state.date || state.region))
             return load();
         renderSelectOptions();
-        els.lastUpdatedLabel.textContent = `${t(state.lang, "home.updatedPrefix")} ${new Date(summary.updatedAt).toLocaleString(locale(), { hour12: false })}`;
-        els.dataModeLabel.textContent = renderModeLabel(summary.mode);
+        if (els.lastUpdatedLabel) {
+            els.lastUpdatedLabel.textContent = `${t(state.lang, "home.updatedPrefix")} ${new Date(summary.updatedAt).toLocaleString(locale(), { hour12: false })}`;
+        }
+        if (els.dataModeLabel) {
+            els.dataModeLabel.textContent = renderModeLabel(summary.mode);
+        }
         syncReleaseNotes(summary.mode, summary.updatedAt, state.dataSource);
         state.rows = payload.occupations.slice();
         renderUniverse();
@@ -1301,8 +1340,12 @@ async function load() {
         state.dataMode = null;
         state.dataSource = null;
         state.rows = [];
-        els.lastUpdatedLabel.textContent = `${t(state.lang, "home.updatedPrefix")} --`;
-        els.dataModeLabel.textContent = renderModeLabel(null);
+        if (els.lastUpdatedLabel) {
+            els.lastUpdatedLabel.textContent = `${t(state.lang, "home.updatedPrefix")} --`;
+        }
+        if (els.dataModeLabel) {
+            els.dataModeLabel.textContent = renderModeLabel(null);
+        }
         syncReleaseNotes(null, null, null);
         resetSummaryStats();
         renderUniverse();
@@ -1314,6 +1357,7 @@ async function load() {
 }
 async function init() {
     refreshStaticLanguage();
+    setupLayoutIndices();
     document.body.classList.add("page-ready");
     bindActions();
     bindUniverseInteractions();

@@ -74,7 +74,7 @@ const SEARCH_ALIAS_RULES = [
     },
     {
         pattern: /music specialist|theater specialist|museum specialist|general arts and information|audiovisual production/i,
-        aliases: ["艺术", "文娱", "演艺", "展馆", "博物馆", "艺术家", "演员", "表演", "导演", "编导", "摄影师", "剪辑师", "策展"]
+        aliases: ["艺术", "文娱", "演艺", "影视", "影视表演", "展馆", "博物馆", "艺术家", "演员", "表演", "导演", "编导", "摄影师", "剪辑师", "策展"]
     },
     {
         pattern: /sports specialist|recreation specialist|recreation aid/i,
@@ -109,8 +109,12 @@ const SEARCH_ALIAS_RULES = [
         aliases: ["护士", "注册护士", "执业护士", "护理", "护工"]
     },
     {
+        pattern: /physicians?|surgeons?|general internal medicine physicians?|pediatricians?|radiologists?|pathologists?|psychiatrists?|obstetricians? and gynecologists?/i,
+        aliases: ["医生", "医师", "临床医生", "大夫", "门诊医生", "主治医生"]
+    },
+    {
         pattern: /medical|health|physician|therap|pharmacist|dental|radiologic|laboratory|optometrist|audiology/i,
-        aliases: ["医生", "药师", "医技", "医疗", "康复", "治疗师", "临床", "口腔", "检验", "医师助理", "放射技师", "药剂师"]
+        aliases: ["药师", "医技", "医疗", "康复", "治疗师", "临床", "口腔", "检验", "医师助理", "放射技师", "药剂师"]
     },
     {
         pattern: /mechanic|maintenance|repair|electrician|machining|equipment mechanic|industrial equipment|technician/i,
@@ -122,11 +126,19 @@ const SEARCH_ALIAS_RULES = [
     },
     {
         pattern: /materials handler|packing|logistics management|inventory management|store working|warehousing|shipping|receiving|stockers?|order fillers?|logisticians?|storage and distribution/i,
-        aliases: ["物流", "仓储", "运输", "配送", "分拣", "搬运", "调度", "仓管", "物料", "仓库管理员"]
+        aliases: ["物流", "仓储", "运输", "配送", "分拣", "搬运", "调度", "物料"]
     },
     {
         pattern: /shipping, receiving, and inventory clerks|stockers and order fillers|logisticians|transportation, storage, and distribution managers|laborers and freight, stock, and material movers, hand/i,
         aliases: ["仓库管理员", "仓管", "仓储管理", "库管", "理货", "收发货", "库存管理员", "物流师"]
+    },
+    {
+        pattern: /stockers and order fillers|merchandise displayers?|shipping, receiving, and inventory clerks/i,
+        aliases: ["理货员", "补货员", "上货员", "货架补货", "陈列补货"]
+    },
+    {
+        pattern: /plumbers?|pipefitters?|steamfitters?/i,
+        aliases: ["水管工", "管道工", "水暖工", "管道安装工", "管工"]
     },
     {
         pattern: /chemistry|physics|meteorology|biology|social science|economics|geography|history|intelligence|foreign affairs|industrial hygiene/i,
@@ -134,7 +146,7 @@ const SEARCH_ALIAS_RULES = [
     },
     {
         pattern: /artist|designer|illustrat|media|communication|writer|editor|journalist|public relations|reporter|performer|entertain/i,
-        aliases: ["艺术家", "设计师", "插画师", "编辑", "记者", "媒体人", "传播", "公关", "主持人", "主播", "演员", "表演", "新媒体", "内容运营"]
+        aliases: ["艺术家", "设计师", "插画师", "编辑", "记者", "媒体人", "传播", "公关", "主持人", "主播", "演员", "表演", "演艺", "影视", "影视表演", "新媒体", "内容运营"]
     },
     {
         pattern: /developer|programmer|systems analyst|web developer|software|database administrator|database architect/i,
@@ -187,14 +199,18 @@ const QUERY_EXPANSION_RULES = [
     { pattern: /客服|客户服务|前台|内勤/i, terms: ["contact representative", "office", "administrative", "passport and visa examining", "联络代表"] },
     { pattern: /法务|律师|法律/i, terms: ["legal", "attorney", "paralegal", "法律"] },
     { pattern: /护士|护理/i, terms: ["nurse", "nursing assistant", "practical nurse", "护理"] },
-    { pattern: /医生|医疗|医技|药师|检验/i, terms: ["medical", "health", "pharmacist", "laboratory", "therapist", "医疗"] },
+    { pattern: /医生|医师|临床医生|大夫/i, terms: ["physician", "doctor", "surgeon", "internal medicine", "pediatrician", "radiologist", "pathologist", "psychiatrist", "medical doctor"] },
+    { pattern: /医疗|医技|药师|检验|康复|治疗师/i, terms: ["medical", "health", "pharmacist", "laboratory", "therapist", "rehabilitation", "医疗"] },
     { pattern: /保安|安保|警察|消防|执法/i, terms: ["security guard", "security administration", "police", "protective", "fire"] },
-    { pattern: /物流|仓储|仓库管理员|仓管|配送|分拣|搬运/i, terms: ["logistics", "materials handler", "packing", "inventory management", "warehouse", "shipping", "receiving", "stockers", "order fillers"] },
+    { pattern: /物流|仓储|配送|分拣|搬运/i, terms: ["logistics", "materials handler", "packing", "inventory management", "warehouse", "shipping", "receiving", "stockers", "order fillers"] },
+    { pattern: /仓库管理员|仓管|库管|库存管理员/i, terms: ["shipping receiving inventory clerk", "inventory clerk", "warehouse", "stockers and order fillers", "storage and distribution manager", "logistician", "inventory manager"] },
+    { pattern: /理货员|补货员|上货员/i, terms: ["stockers and order fillers", "stockers", "order fillers", "inventory clerk", "merchandise"] },
+    { pattern: /水管工|管道工|水暖工|管道安装工/i, terms: ["plumbers", "pipefitters", "steamfitters", "plumbing", "plumber"] },
     { pattern: /老师|教师|讲师|培训/i, terms: ["education", "instructional", "training", "teacher", "professor"] },
     { pattern: /图书馆员|图书管理员|图书馆技术员/i, terms: ["librarian", "library technician", "library"] },
     { pattern: /采购|招采|合同/i, terms: ["purchasing", "procurement", "contracting", "property disposal"] },
     { pattern: /科研|研究员|科学家/i, terms: ["science", "research", "physics", "chemistry", "biology", "economics", "psychology"] },
-    { pattern: /艺术家|演员|表演|导演|编导|摄影师|剪辑师|主持人|主播/i, terms: ["artist", "performer", "entertainment", "media", "communication", "producer", "director", "audiovisual"] },
+    { pattern: /艺术家|演员|表演|演艺|影视|影视表演|导演|编导|摄影师|剪辑师|主持人|主播/i, terms: ["actors", "performer", "performing arts", "entertainment", "media", "communication", "producer", "director", "audiovisual"] },
     { pattern: /工程师/i, terms: ["engineer", "engineering", "systems analyst"] },
     { pattern: /建筑师/i, terms: ["architect", "architecture", "naval architect", "landscape architect"] },
     { pattern: /规划师/i, terms: ["planner", "planning", "urban planner"] },
@@ -216,9 +232,9 @@ const QUERY_INTENT_RULES = [
         boost: 145
     },
     {
-        pattern: /艺术家|演员|表演/i,
+        pattern: /艺术家|演员|表演|演艺|影视|影视表演/i,
         match: /artists?|actors?|performers?|entertainers?|producers? and directors?|art directors?/i,
-        boost: 105
+        boost: 155
     },
     {
         pattern: /导演|编导/i,
@@ -241,16 +257,68 @@ const QUERY_INTENT_RULES = [
         boost: 120
     },
     {
+        pattern: /医生|医师|临床医生|大夫/i,
+        match: /physicians?|surgeons?|general internal medicine physicians?|pediatricians?|radiologists?|pathologists?|psychiatrists?|obstetricians? and gynecologists?/i,
+        boost: 190
+    },
+    {
+        pattern: /药剂师|药师/i,
+        match: /pharmacists?|pharmacy technicians?/i,
+        boost: 150
+    },
+    {
         pattern: /图书馆员|图书管理员|图书馆技术员/i,
         match: /librarians?|library technicians?|library assistants?|media collections specialists?/i,
         boost: 120
     },
     {
         pattern: /仓库管理员|仓管|仓储/i,
-        match: /shipping.*clerks?|stockers? and order fillers?|material movers?|packers? and packagers?|storage and distribution managers?|logisticians?/i,
-        boost: 165
+        match: /shipping.*clerks?|stockers? and order fillers?|storage and distribution managers?|logisticians?/i,
+        boost: 185
+    },
+    {
+        pattern: /理货员|补货员|上货员/i,
+        match: /stockers? and order fillers?|shipping.*inventory clerks?/i,
+        boost: 195
+    },
+    {
+        pattern: /水管工|管道工|水暖工|管道安装工/i,
+        match: /plumbers?|pipefitters?|steamfitters?/i,
+        boost: 210
+    },
+    {
+        pattern: /保安|安保/i,
+        match: /security guards?|transportation security screeners?|security and fire alarm systems installers?/i,
+        boost: 140
     }
 ];
+function buildDataUrlCandidates() {
+    const candidates = new Set();
+    const addCandidate = (value) => {
+        if (!value)
+            return;
+        try {
+            candidates.add(new URL(value, window.location.href).href);
+        }
+        catch {
+            // Ignore malformed candidate URLs and continue with the remaining fallbacks.
+        }
+    };
+    addCandidate(DATA_URL);
+    const pathname = window.location.pathname || "/";
+    const directoryPath = pathname.endsWith("/")
+        ? pathname
+        : pathname.slice(0, pathname.lastIndexOf("/") + 1) || "/";
+    addCandidate(`${directoryPath}backend/data/airs_data.json`);
+    if (window.location.hostname.endsWith(".github.io")) {
+        const firstSegment = pathname.split("/").filter(Boolean)[0];
+        if (firstSegment) {
+            addCandidate(`/${firstSegment}/backend/data/airs_data.json`);
+        }
+    }
+    addCandidate("/backend/data/airs_data.json");
+    return [...candidates];
+}
 function normalizeSearchText(value) {
     return String(value || "")
         .toLowerCase()
@@ -398,7 +466,15 @@ function rankRowsByQuery(rows, query) {
                     return best;
                 return rule.match.test(`${row.title} ${row.titleZh}`) ? Math.max(best, rule.boost) : best;
             }, 0);
-            return Math.max(aliasScore, titleZhScore + exactBoost + intentBoost, titleEnScore + intentBoost);
+            const supportRolePenalty = !/助手|助理|assistant|helper|aide/i.test(String(query || "")) &&
+                /助手|助理|assistants?|helpers?|aides?/i.test(`${row.title} ${row.titleZh}`)
+                ? 85
+                : 0;
+            const warehousePenalty = /仓库管理员|仓管|库管|库存管理员/i.test(String(query || "")) &&
+                /laborers and freight, stock, and material movers, hand/i.test(row.title)
+                ? 95
+                : 0;
+            return Math.max(0, Math.max(aliasScore, titleZhScore + exactBoost + intentBoost, titleEnScore + intentBoost) - supportRolePenalty - warehousePenalty);
         })()
     }))
         .filter((entry) => entry.score > 0)
@@ -569,17 +645,30 @@ function summarizeRows(rows, updatedAt) {
 }
 async function loadDataset() {
     if (!datasetPromise) {
-        datasetPromise = fetch(DATA_URL, { cache: "no-cache" })
-            .then(async (response) => {
-            if (!response.ok) {
-                throw new AirsDataUnavailableError(`json request failed: ${response.status}`, { status: response.status });
+        datasetPromise = (async () => {
+            let lastError = null;
+            for (const url of buildDataUrlCandidates()) {
+                try {
+                    const response = await fetch(url, { cache: "no-cache" });
+                    if (!response.ok) {
+                        lastError = new AirsDataUnavailableError(`json request failed: ${response.status}`, { status: response.status });
+                        continue;
+                    }
+                    const payload = await response.json();
+                    if (!payload || !Array.isArray(payload.occupations)) {
+                        lastError = new AirsDataUnavailableError("invalid json dataset");
+                        continue;
+                    }
+                    return payload;
+                }
+                catch (error) {
+                    lastError = error;
+                }
             }
-            const payload = await response.json();
-            if (!payload || !Array.isArray(payload.occupations)) {
-                throw new AirsDataUnavailableError("invalid json dataset");
-            }
-            return payload;
-        })
+            throw lastError instanceof AirsDataUnavailableError
+                ? lastError
+                : new AirsDataUnavailableError("json request failed", { cause: lastError });
+        })()
             .catch((error) => {
             datasetPromise = null;
             if (error instanceof AirsDataUnavailableError)
