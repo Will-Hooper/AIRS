@@ -16,6 +16,11 @@ import {
   writeStep
 } from "./lib/common";
 import {
+  getCareerOneStopProviderOptions,
+  rebuildCareerOneStopHistory,
+  type CareerOneStopHistoryFile
+} from "./lib/careeronestop";
+import {
   getDetailedSocOccupations,
   findDetailedSocOccupation,
   findOnetOccupation,
@@ -28,7 +33,7 @@ import {
   type OnetMatch,
   type OnetProfile
 } from "./lib/onet";
-import { translateOccupationDefinition, translateOccupationTitle } from "../src/occupation-translation";
+import { translateOccupationDefinition, translateOccupationTask, translateOccupationTitle } from "../src/occupation-translation";
 import type { JsonDataset, JsonDatasetOccupation } from "../src/types/airs";
 
 interface UsaJobsSyncOptions {
@@ -48,6 +53,7 @@ interface UsaJobsSyncOptions {
   masterPath: string;
   useExistingHistoryOnly: boolean;
   mapPath: string;
+  careerOneStopHistoryPath: string;
 }
 
 interface SocMapRule {
@@ -713,7 +719,10 @@ function parseOptions(): UsaJobsSyncOptions {
     onetDataDir: getStringArg(args, "onetDataDir", "onetdatadir") || path.join(dataDir, "onet"),
     masterPath: getStringArg(args, "masterPath", "masterpath") || path.join(dataDir, "soc_detailed_master.json"),
     useExistingHistoryOnly,
-    mapPath: path.join(dataDir, "usajobs_soc_map.json")
+    mapPath: path.join(dataDir, "usajobs_soc_map.json"),
+    careerOneStopHistoryPath:
+      getStringArg(args, "careerOneStopHistoryPath", "careeronestophistorypath") ||
+      path.join(dataDir, "careeronestop_history.json")
   };
 }
 
@@ -821,12 +830,91 @@ async function rebuildHistory(options: UsaJobsSyncOptions, socMap: SocMap) {
   return history;
 }
 
+function collectHistoryDates(...histories: Array<HistoryFile | CareerOneStopHistoryFile | null | undefined>) {
+  const values = new Set<string>();
+
+  for (const history of histories) {
+    if (!history) continue;
+    const series = "series" in history ? history.series : [];
+    const occupations = "occupations" in history ? history.occupations : [];
+
+    for (const entry of series || []) {
+      for (const point of entry.daily || []) {
+        if (point?.date) values.add(point.date);
+      }
+    }
+
+    for (const entry of occupations || []) {
+      for (const point of entry.daily || []) {
+        if (point?.date) values.add(point.date);
+      }
+    }
+  }
+
+  return [...values].sort();
+}
+
+function addCountByDate(
+  target: Map<string, Map<string, number>>,
+  code: string,
+  date: string,
+  count: number
+) {
+  if (!target.has(code)) {
+    target.set(code, new Map());
+  }
+
+  const byDate = target.get(code)!;
+  byDate.set(date, (byDate.get(date) || 0) + Number(count || 0));
+}
+
+function addSourceCountByDate(
+  target: Map<string, Map<string, Record<string, number>>>,
+  code: string,
+  date: string,
+  source: string,
+  count: number
+) {
+  if (!target.has(code)) {
+    target.set(code, new Map());
+  }
+
+  const byDate = target.get(code)!;
+  const existing = byDate.get(date) || {};
+  existing[source] = (existing[source] || 0) + Number(count || 0);
+  byDate.set(date, existing);
+}
+
 async function main() {
   const options = parseOptions();
   const socMap = await loadSocMap(options.mapPath);
   writeStep("SOC map loaded");
   const onetData = await loadOnetData(options.onetDataDir);
   const history = await rebuildHistory(options, socMap);
+  const socMaster = await loadSocMaster(options.masterPath, onetData);
+  if (!socMaster.length) {
+    throw new Error("No SOC detailed occupation master is available. Provide O*NET files or soc_detailed_master.json.");
+  }
+
+  const careerOneStopOptions = getCareerOneStopProviderOptions(
+    options.careerOneStopHistoryPath,
+    options.useExistingHistoryOnly
+  );
+  let careerOneStopHistory: CareerOneStopHistoryFile | null = null;
+  try {
+    careerOneStopHistory = await rebuildCareerOneStopHistory(
+      socMaster.map((entry) => ({
+        socCode: entry.socCode,
+        title: entry.title,
+        majorGroup: entry.majorGroup
+      })),
+      careerOneStopOptions
+    );
+  } catch (error) {
+    console.warn(
+      `CareerOneStop source skipped: ${error instanceof Error ? error.message : String(error)}`
+    );
+  }
 
   let baseline = await readJsonFile<BaselineConfig>(options.baselinePath);
   if (!baseline) {
@@ -835,7 +923,7 @@ async function main() {
   }
   writeStep("Baseline loaded");
 
-  let dates = [...new Set((history.series || []).flatMap((entry) => (entry.daily || []).map((point) => point.date)))].sort();
+  let dates = collectHistoryDates(history, careerOneStopHistory);
   if (dates.length > 12) {
     dates = dates.slice(-12);
   }
@@ -844,10 +932,6 @@ async function main() {
   const regions = [options.region];
   const groups = socMap.socMajorGroups || [];
   const baselineDefaults = baseline.defaults || {};
-  const socMaster = await loadSocMaster(options.masterPath, onetData);
-  if (!socMaster.length) {
-    throw new Error("No SOC detailed occupation master is available. Provide O*NET files or soc_detailed_master.json.");
-  }
 
   const entrySnapshots: EntrySnapshot[] = (history.series || []).map((entry) => {
     const daily = [...(entry.daily || [])].sort((left, right) => left.date.localeCompare(right.date));
@@ -865,6 +949,7 @@ async function main() {
 
   const masterIndex = new Map(socMaster.map((entry) => [entry.socCode, entry]));
   const aggregatedDaily = new Map<string, Map<string, number>>();
+  const aggregatedSourceDaily = new Map<string, Map<string, Record<string, number>>>();
   const masterSources = new Map<string, { titles: Set<string>; seriesCodes: Set<string>; confidence: number }>();
 
   for (const entry of entrySnapshots) {
@@ -892,9 +977,9 @@ async function main() {
     if (!aggregatedDaily.has(masterCode)) {
       aggregatedDaily.set(masterCode, new Map());
     }
-    const countsByDate = aggregatedDaily.get(masterCode)!;
     for (const point of entry.daily) {
-      countsByDate.set(point.date, (countsByDate.get(point.date) || 0) + Number(point.count || 0));
+      addCountByDate(aggregatedDaily, masterCode, point.date, Number(point.count || 0));
+      addSourceCountByDate(aggregatedSourceDaily, masterCode, point.date, "USAJOBS", Number(point.count || 0));
     }
 
     if (!masterSources.has(masterCode)) {
@@ -908,6 +993,23 @@ async function main() {
     sourceEntry.titles.add(entry.title);
     sourceEntry.seriesCodes.add(entry.code);
     sourceEntry.confidence = Math.max(sourceEntry.confidence, Number(mappedMatch?.score || 0));
+  }
+
+  for (const entry of careerOneStopHistory?.occupations || []) {
+    if (!entry?.socCode || !masterIndex.has(entry.socCode)) {
+      continue;
+    }
+
+    for (const point of entry.daily || []) {
+      addCountByDate(aggregatedDaily, entry.socCode, point.date, Number(point.count || 0));
+      addSourceCountByDate(
+        aggregatedSourceDaily,
+        entry.socCode,
+        point.date,
+        "CareerOneStop",
+        Number(point.count || 0)
+      );
+    }
   }
 
   const masterSnapshots = socMaster.map((entry) => {
@@ -978,6 +1080,10 @@ async function main() {
     const label = getLabelFromAirs(airs);
     const latestPoint = entry.daily[entry.daily.length - 1];
     const postings = latestPoint ? Number(latestPoint.count || 0) : 0;
+    const latestDate = latestPoint?.date || "";
+    const postingSources = latestDate
+      ? { ...(aggregatedSourceDaily.get(entry.socCode)?.get(latestDate) || {}) }
+      : {};
     const summaryPair = getAirsSummary(replacement, augmentation, hiring, historical, hiringState.activeDemand);
     let summaryEn = summaryPair.en;
     let summaryZh = summaryPair.zh;
@@ -1016,6 +1122,9 @@ async function main() {
     const mappingEvidence = mappedSources
       ? `Mapped federal series: ${mappedSources.seriesCodes.size}; examples: ${mappedSourceList.join("; ")}; best confidence ${mappedSources.confidence.toFixed(3)}.`
       : "Mapped federal series: 0; no direct federal title match yet.";
+    const sourceBreakdown = Object.keys(postingSources).length
+      ? Object.entries(postingSources).map(([source, count]) => `${source} ${count}`).join("; ")
+      : "no active provider counts";
     const taskPreview = onetMatch?.occupation?.tasks
       ? [...onetMatch.occupation.tasks]
           .sort((left, right) => (right.importance * right.relevance) - (left.importance * left.relevance))
@@ -1044,7 +1153,8 @@ async function main() {
           augmentation: Number(augmentation.toFixed(3)),
           hiring: Number(hiring.toFixed(3)),
           historical: Number(historical.toFixed(3)),
-          postings
+          postings,
+          postingSources
         }
       },
       monthlyAirs,
@@ -1052,6 +1162,7 @@ async function main() {
         `SOC detailed occupation: ${entry.socCode}`,
         `Normalized BLS major group: ${majorGroup}`,
         `Current postings: ${postings}; peer-demand percentile: ${demandPercentile}%`,
+        `Posting source breakdown: ${sourceBreakdown}.`,
         `Replacement ${replacementPct}%, augmentation ${augmentationPct}%, hiring realization ${hiringPct}%, historical exposure ${historicalPct}%.`,
         mappingEvidence,
         sourceEvidence
@@ -1060,11 +1171,15 @@ async function main() {
         `SOC detailed occupation: ${entry.socCode}`,
         `Normalized BLS major group: ${majorGroup}`,
         `Current postings: ${postings}; peer-demand percentile: ${demandPercentile}%`,
+        `Posting source breakdown: ${sourceBreakdown}.`,
         `Replacement ${replacementPct}%, augmentation ${augmentationPct}%, hiring realization ${hiringPct}%, historical exposure ${historicalPct}%.`,
         mappingEvidence,
         sourceEvidence
       ],
-      tasks: taskPreview.map((name) => ({ name }))
+      tasks: taskPreview.map((name) => ({
+        name,
+        nameZh: translateOccupationTask(entry.title, name)
+      }))
     });
   }
 
