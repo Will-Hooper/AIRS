@@ -41,7 +41,7 @@
     <section id="pageAlert" class="page-alert" hidden>
       <span class="page-alert__eyebrow">AIRS</span>
       <strong id="pageAlertTitle">当前无法读取该职业的实时数据</strong>
-      <p id="pageAlertText">当前已启用严格数据模式，详情页不会自动回退到演示数据。</p>
+      <p id="pageAlertText">详情页没有成功加载 JSON 数据文件。请检查 backend/data/airs_data.json 是否已正确发布，然后再刷新页面。</p>
     </section>
 
     <section class="detail-hero">
@@ -169,6 +169,6 @@
     </section>
   </main>
 
-  <script type="module" src="dist/occupation-neo.js"></script>
+  <script type="module" src="dist/occupation-neo.js?v=20260319-1"></script>
 </body>
 </html>
