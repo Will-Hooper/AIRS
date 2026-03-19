@@ -7,7 +7,7 @@
 - 职业详情页
 - 纯前端 JSON 数据读取
 - TypeScript 前端运行时
-- TypeScript 数据同步 CLI（USAJOBS / O*NET）
+- TypeScript 数据同步 CLI（USAJOBS / CareerOneStop / O*NET）
 
 ## 页面
 
@@ -69,6 +69,11 @@ GitHub Actions 已接入两条自动同步链路：
 
 1. `Update AIRS Data Daily`
 2. `Update O-NET Data Monthly`
+
+其中 `Update AIRS Data Daily` 当前会默认接入：
+
+- `USAJOBS`
+- `CareerOneStop Jobs V2`（配置密钥后自动启用）
 
 ## API 约定
 
