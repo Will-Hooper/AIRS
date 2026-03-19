@@ -20,6 +20,8 @@ export interface JsonDatasetOccupation {
   socCode: string;
   title: string;
   titleZh?: string;
+  definition?: string;
+  definitionZh?: string;
   majorGroup: string;
   label: string;
   summary?: string;
@@ -44,6 +46,8 @@ export interface OccupationRow extends JsonRegionMetrics {
   socCode: string;
   title: string;
   titleZh?: string;
+  definition?: string;
+  definitionZh?: string;
   majorGroup: string;
   label: string;
   summary: string;
