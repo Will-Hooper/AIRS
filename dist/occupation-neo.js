@@ -51,6 +51,8 @@ const els = {
     timelineDelta: byId("timelineDelta"),
     evidenceList: byId("evidenceList"),
     taskCloud: byId("taskCloud"),
+    taskCount: byId("taskCount"),
+    taskIntro: byId("taskIntro"),
     pageAlert: byId("pageAlert"),
     pageAlertTitle: byId("pageAlertTitle"),
     pageAlertText: byId("pageAlertText"),
@@ -153,7 +155,10 @@ function renderErrorState() {
     [els.replacementBar, els.augmentationBar, els.hiringBar, els.historicalBar].forEach((bar) => { bar.style.width = "0%"; });
     els.timelineChart.innerHTML = "";
     els.evidenceList.innerHTML = "";
-    els.taskCloud.innerHTML = "";
+    if (els.taskCloud)
+        els.taskCloud.innerHTML = "";
+    if (els.taskCount)
+        els.taskCount.textContent = "--";
 }
 function animateNumber(element, value, options = {}) {
     if (!element)
@@ -287,12 +292,18 @@ async function renderPage() {
         <p>${item}</p>
       </article>
     `).join("");
-        els.taskCloud.innerHTML = row.tasks.map((task) => `
-      <article>
-        <h4>${displayTaskName(task)}</h4>
-        <p>${t(state.lang, "detail.exposure")} ${Number(task.score || 0).toFixed(2)}</p>
-      </article>
-    `).join("");
+        if (els.taskCloud) {
+            if (els.taskCount) {
+                els.taskCount.textContent = `${row.tasks.length} ${t(state.lang, "detail.taskCountUnit")}`;
+            }
+            els.taskCloud.innerHTML = row.tasks.map((task) => `
+        <article>
+          <span class="task-cloud__meta">${t(state.lang, "detail.taskLabel")}</span>
+          <h4>${displayTaskName(task)}</h4>
+          <p>${t(state.lang, "detail.exposure")} ${Number(task.score || 0).toFixed(2)}</p>
+        </article>
+      `).join("");
+        }
     }
     catch (error) {
         if (token !== renderToken)
