@@ -5,9 +5,11 @@
 ## 已新增的工作流
 
 - `.github/workflows/update-airs-daily.yml`
-  - 用途：每天拉取最新 USAJOBS 招聘数据，并重建 `backend/data/airs_data.json`
-  - 频率：每天一次
-  - 时间：`02:30 UTC`，即北京时间 `10:30`
+  - 用途：每小时拉取最新招聘数据，并重建 `backend/data/airs_data.json`
+  - 默认来源：`USAJOBS`
+  - 可选来源：`CareerOneStop Jobs V2`
+  - 频率：每小时一次
+  - 时间：每小时 `15` 分运行一次
 
 - `.github/workflows/update-onet-monthly.yml`
   - 用途：每月检查并更新 O-NET 数据，再重建 `backend/data/airs_data.json`
@@ -22,7 +24,7 @@
 
 `Settings -> Secrets and variables -> Actions`
 
-添加这两个 Repository secrets：
+至少添加这两个 Repository secrets：
 
 - `USAJOBS_API_KEY`
 - `USAJOBS_USER_EMAIL`
@@ -33,6 +35,23 @@
 - `USAJOBS_USER_EMAIL`：申请 USAJOBS API 时使用的邮箱
 
 如果这两个 secret 没填，日更工作流会直接失败。
+
+如果你还想启用第二招聘源 `CareerOneStop Jobs V2`，再添加：
+
+- `CAREERONESTOP_API_TOKEN`
+- `CAREERONESTOP_USER_ID`
+
+可选 Repository variable：
+
+- `CAREERONESTOP_LOCATION`
+
+说明：
+
+- `CAREERONESTOP_API_TOKEN`：CareerOneStop API token
+- `CAREERONESTOP_USER_ID`：CareerOneStop API userId
+- `CAREERONESTOP_LOCATION`：默认可设为 `US`，用于全国范围聚合
+
+如果这两个 CareerOneStop secrets 没填，工作流不会失败，只会自动跳过该来源。
 
 ## 如何手动运行
 
@@ -60,6 +79,7 @@
 日更通常会改：
 
 - `backend/data/usajobs_history.json`
+- `backend/data/careeronestop_history.json`
 - `backend/data/airs_data.json`
 
 月更通常会改：
