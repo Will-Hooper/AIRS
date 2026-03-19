@@ -13,6 +13,7 @@ export interface JsonRegionMetrics {
   hiring?: number;
   historical?: number;
   postings?: number;
+  postingSources?: Record<string, number>;
   [key: string]: unknown;
 }
 
