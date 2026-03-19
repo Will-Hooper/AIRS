@@ -1,4 +1,4 @@
-import { translateOccupationTitle, withTranslatedOccupationTitle } from "./occupation-translation.js?v=20260319-2";
+import { translateOccupationDefinition, translateOccupationTitle, withTranslatedOccupationTitle } from "./occupation-translation.js";
 const DATA_URL = "./backend/data/airs_data.json";
 let datasetPromise = null;
 export class AirsDataUnavailableError extends Error {
@@ -597,6 +597,8 @@ function mapJsonOccupation(occupation, region) {
         socCode: occupation.socCode,
         title: occupation.title,
         titleZh: occupation.titleZh,
+        definition: occupation.definition || "",
+        definitionZh: occupation.definitionZh || translateOccupationDefinition(occupation.title, occupation.definition || ""),
         majorGroup: occupation.majorGroup,
         label: occupation.label,
         summary: englishSummary,

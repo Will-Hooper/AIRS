@@ -1,6 +1,6 @@
-import { getOccupationDetail } from "./api-client.js?v=20260319-2";
-import { applyTranslations, getInitialLanguage, labelText, persistLanguage, t } from "./i18n-neo.js?v=20260319-2";
-import { getRuntimeEnvironment, isStrictDataMode } from "./runtime-config.js?v=20260319-2";
+import { getOccupationDetail } from "./api-client.js";
+import { applyTranslations, getInitialLanguage, labelText, persistLanguage, t } from "./i18n-neo.js";
+import { getRuntimeEnvironment, isStrictDataMode } from "./runtime-config.js";
 const byId = (id) => document.getElementById(id);
 const query = (selector) => document.querySelector(selector);
 const queryAll = (selector) => Array.from(document.querySelectorAll(selector));
@@ -28,6 +28,7 @@ const DETAIL_COPY = {
 };
 const els = {
     occupationTitle: byId("occupationTitle"),
+    occupationDefinition: byId("occupationDefinition"),
     occupationSummary: byId("occupationSummary"),
     occupationSoc: byId("occupationSoc"),
     occupationRegion: byId("occupationRegion"),
@@ -67,6 +68,7 @@ const MONTH_LABELS = {
 };
 function locale() { return state.lang === "zh" ? "zh-CN" : "en-US"; }
 function displayTitle(row) { return state.lang === "zh" ? (row.titleZh || row.title) : row.title; }
+function displayDefinition(row) { return state.lang === "zh" ? (row.definitionZh || row.definition || "") : (row.definition || ""); }
 function displaySummary(row) { return state.lang === "zh" ? (row.summaryZh || row.summary) : row.summary; }
 function displayEvidence(row) { return state.lang === "zh" ? (row.evidenceZh || row.evidence) : row.evidence; }
 function displayTaskName(task) { return state.lang === "zh" ? (task.nameZh || task.name) : task.name; }
@@ -134,6 +136,8 @@ function renderErrorState() {
     state.dataSource = null;
     state.updatedAt = null;
     els.occupationTitle.textContent = t(state.lang, "detail.dataUnavailableTitle");
+    if (els.occupationDefinition)
+        els.occupationDefinition.textContent = "--";
     els.occupationSummary.textContent = `${t(state.lang, "detail.dataUnavailableSummary")} ${t(state.lang, "home.dataUnavailableHint")}`;
     els.occupationSoc.textContent = "SOC --";
     els.occupationRegion.textContent = state.region || "--";
@@ -261,6 +265,8 @@ async function renderPage() {
             state.date = payload.dates[payload.dates.length - 1];
         document.documentElement.style.setProperty("--selection-hue", `${toneFromAirs(row.airs).toFixed(1)}`);
         els.occupationTitle.textContent = displayTitle(row);
+        if (els.occupationDefinition)
+            els.occupationDefinition.textContent = displayDefinition(row) || "--";
         els.occupationSummary.textContent = displaySummary(row);
         els.occupationSoc.textContent = row.socCode;
         els.occupationRegion.textContent = state.region;
