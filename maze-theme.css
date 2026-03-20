@@ -224,7 +224,6 @@ button, input, select { font:inherit; }
   background:hsla(var(--selection-hue), 60%, 24%, .24); color:var(--ink);
 }
 .axis-copy { display:flex; justify-content:space-between; gap:14px; margin:18px 4px 2px; }
-.quadrant-guide,
 .universe-stage__quadrants { display:none !important; }
 .quadrant-tooltip {
   position:absolute;
