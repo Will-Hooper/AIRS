@@ -22,6 +22,7 @@ interface HomeState extends OccupationQueryParams {
   label: string;
   q: string;
   selectedSocCode: string | null;
+  focusLockedSocCode: string | null;
   zoom: number;
   rows: OccupationRow[];
   lang: Language;
@@ -61,6 +62,7 @@ const state: HomeState = {
   label: "all",
   q: "",
   selectedSocCode: null,
+  focusLockedSocCode: null,
   zoom: 0.92,
   rows: [],
   lang: getInitialLanguage() as Language,
@@ -157,6 +159,7 @@ let revealObserver: IntersectionObserver | null = null;
 let storyObserver: IntersectionObserver | null = null;
 let cameraFrame = 0;
 let quadrantOverlapFrame = 0;
+const AUTO_LABEL_ROW_LIMIT = 140;
 const camera = {
   initialized: false,
   zoom: 1,
@@ -177,6 +180,16 @@ const dragState = {
   startY: 0,
   originPanX: 0,
   originPanY: 0
+};
+const activePointers = new Map<number, { x: number; y: number; pointerType: string }>();
+const pinchState = {
+  active: false,
+  startDistance: 0,
+  startZoom: 1,
+  startCenterX: 0,
+  startCenterY: 0,
+  startPanX: 0,
+  startPanY: 0
 };
 
 const HOME_COPY = {
@@ -351,6 +364,7 @@ function chooseSearchSuggestion(socCode: string) {
   const row = state.rows.find((entry) => entry.socCode === socCode);
   if (!row) return;
   state.selectedSocCode = row.socCode;
+  state.focusLockedSocCode = row.socCode;
   state.q = displayTitle(row);
   state.zoom = Math.max(state.zoom, 1.35);
   state.panX = 0;
@@ -425,17 +439,51 @@ function getOrCreateLabelElement(row) {
   return label;
 }
 
+function removeFloatingLabel(socCode) {
+  const label = labelElements.get(socCode);
+  if (!label) return;
+  label.remove();
+  labelElements.delete(socCode);
+}
+
+function isCompactViewport() {
+  return window.innerWidth <= 920;
+}
+
+function autoLabelsEnabled() {
+  return !isCompactViewport()
+    && els.occupationCanvas?.dataset.zoomState === "close"
+    && state.rows.length <= AUTO_LABEL_ROW_LIMIT;
+}
+
+function isTouchPointer(pointerType?: string) {
+  return pointerType === "touch" || pointerType === "pen";
+}
+
 function labelShouldBeVisible(node) {
   if (!node) return false;
   return (
     node.classList.contains("is-selected") ||
     node.matches(":hover") ||
-    els.occupationCanvas?.dataset.zoomState === "close"
+    autoLabelsEnabled()
   );
+}
+
+function projectedNodeCenter(row) {
+  if (!els.occupationUniverse) return null;
+  const universeRect = els.occupationUniverse.getBoundingClientRect();
+  const centerX = (universeRect.width / 2) + camera.offsetX + (row.x * camera.zoom);
+  const centerY = (universeRect.height / 2) + camera.offsetY + (row.y * camera.zoom);
+  return { centerX, centerY };
 }
 
 function updateFloatingLabel(node, row) {
   if (!node || !row || !els.occupationUniverse) return;
+  if (!labelShouldBeVisible(node)) {
+    removeFloatingLabel(row.socCode);
+    return;
+  }
+
   const label = getOrCreateLabelElement(row);
   if (!label) return;
 
@@ -444,27 +492,47 @@ function updateFloatingLabel(node, row) {
   if (strong) strong.textContent = displayTitle(row);
   if (sub) sub.textContent = `${row.socCode} - AIRS ${row.airs.toFixed(0)}`;
 
-  const universeRect = els.occupationUniverse.getBoundingClientRect();
-  const nodeRect = node.getBoundingClientRect();
-  const centerX = nodeRect.left - universeRect.left + (nodeRect.width / 2);
-  const top = nodeRect.top - universeRect.top - 14;
-  label.style.left = `${centerX}px`;
-  label.style.top = `${top}px`;
-  label.classList.toggle("is-visible", labelShouldBeVisible(node));
+  const projected = projectedNodeCenter(row);
+  if (!projected) return;
+
+  const labelOffset = Math.max(20, (row.size / 2) + 14);
+  label.style.left = `${projected.centerX}px`;
+  label.style.top = `${projected.centerY - labelOffset}px`;
+  label.classList.toggle("is-selected", row.socCode === state.selectedSocCode);
+  label.classList.toggle("is-muted", Boolean(state.focusLockedSocCode) && row.socCode !== state.focusLockedSocCode);
+  label.classList.add("is-visible");
 }
 
 function syncFloatingLabels() {
   if (!els.occupationLabelLayer) return;
   const rowsBySoc = new Map(state.rows.map((row) => [row.socCode, row]));
+  const visibleSocCodes = new Set<string>();
 
-  nodeElements.forEach((node, socCode) => {
-    const row = rowsBySoc.get(socCode);
-    if (!row) return;
-    updateFloatingLabel(node, row);
-  });
+  if (autoLabelsEnabled()) {
+    nodeElements.forEach((node, socCode) => {
+      const row = rowsBySoc.get(socCode);
+      if (!row) return;
+      updateFloatingLabel(node, row);
+      if (labelElements.has(socCode)) visibleSocCodes.add(socCode);
+    });
+  } else {
+    const focusSocCodes = new Set<string>();
+    if (state.selectedSocCode) focusSocCodes.add(state.selectedSocCode);
+    const hoveredNode = els.occupationCanvas?.querySelector<HTMLButtonElement>(".occupation-node:hover");
+    const hoveredSoc = hoveredNode?.dataset.soc;
+    if (hoveredSoc) focusSocCodes.add(hoveredSoc);
+
+    focusSocCodes.forEach((socCode) => {
+      const row = rowsBySoc.get(socCode);
+      const node = nodeElements.get(socCode);
+      if (!row || !node) return;
+      updateFloatingLabel(node, row);
+      if (labelElements.has(socCode)) visibleSocCodes.add(socCode);
+    });
+  }
 
   labelElements.forEach((label, socCode) => {
-    if (rowsBySoc.has(socCode) && nodeElements.has(socCode)) return;
+    if (visibleSocCodes.has(socCode)) return;
     label.remove();
     labelElements.delete(socCode);
   });
@@ -527,6 +595,10 @@ function quadrantFromPointer(x, y) {
 
 function renderQuadrantTooltip(quadrant, clientX, clientY) {
   if (!els.quadrantTooltip || !els.occupationUniverse) return;
+  if (isCompactViewport()) {
+    hideQuadrantTooltip();
+    return;
+  }
   const quadrantCopy = QUADRANT_COPY[quadrant];
   if (!quadrantCopy) return;
 
@@ -851,6 +923,22 @@ function currentSelection() {
   return state.rows.find((row) => row.socCode === state.selectedSocCode) || state.rows[0] || null;
 }
 
+function currentFocusLock() {
+  if (!state.focusLockedSocCode) return null;
+  return state.rows.find((row) => row.socCode === state.focusLockedSocCode) || null;
+}
+
+function syncFocusLockVisualState() {
+  const locked = Boolean(state.focusLockedSocCode);
+  els.occupationUniverse.classList.toggle("is-focus-locked", locked);
+
+  const detailEntry = byId<HTMLElement>("detail-entry");
+  detailEntry?.classList.toggle("is-focus-locked", locked);
+
+  const signalPanel = els.signalSelectionTitle?.closest<HTMLElement>(".signal-panel");
+  signalPanel?.classList.toggle("is-focus-locked", locked);
+}
+
 function setMeter(bar, label, value) {
   bar.style.width = `${Math.round((value || 0) * 100)}%`;
   label.textContent = Number(value || 0).toFixed(2);
@@ -917,7 +1005,7 @@ function updateSelectedPanel() {
 }
 
 function updateCanvasTransform() {
-  const row = currentSelection();
+  const row = currentFocusLock();
   const focusStrength = state.viewMode === "market" ? 0.48 : state.viewMode === "group" ? 0.62 : 0.72;
   camera.targetZoom = state.zoom;
   camera.targetOffsetX = (row ? -row.x * state.zoom * focusStrength : 0) + state.panX;
@@ -931,6 +1019,7 @@ function updateCanvasTransform() {
     els.occupationCanvas.style.transform = `translate(-50%, -50%) translate(${camera.offsetX}px, ${camera.offsetY}px) scale(${camera.zoom})`;
     els.occupationCanvas.style.setProperty("--node-scale", `${(1 / Math.max(camera.zoom, 0.0001)).toFixed(5)}`);
     els.occupationCanvas.dataset.zoomState = camera.zoom > 1.45 ? "close" : "far";
+    syncFocusLockVisualState();
     els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
     queueQuadrantTooltipOverlapSync();
     return;
@@ -948,6 +1037,7 @@ function stepCamera() {
   els.occupationCanvas.style.transform = `translate(-50%, -50%) translate(${camera.offsetX}px, ${camera.offsetY}px) scale(${camera.zoom})`;
   els.occupationCanvas.style.setProperty("--node-scale", `${(1 / Math.max(camera.zoom, 0.0001)).toFixed(5)}`);
   els.occupationCanvas.dataset.zoomState = camera.zoom > 1.45 ? "close" : "far";
+  syncFocusLockVisualState();
   els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
   queueQuadrantTooltipOverlapSync();
 
@@ -962,6 +1052,7 @@ function stepCamera() {
     camera.offsetY = camera.targetOffsetY;
     els.occupationCanvas.style.transform = `translate(-50%, -50%) translate(${camera.offsetX}px, ${camera.offsetY}px) scale(${camera.zoom})`;
     els.occupationCanvas.style.setProperty("--node-scale", `${(1 / Math.max(camera.zoom, 0.0001)).toFixed(5)}`);
+    syncFocusLockVisualState();
     els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
     queueQuadrantTooltipOverlapSync();
     cameraFrame = 0;
@@ -974,6 +1065,7 @@ function stepCamera() {
 function updateNodeElement(node, row) {
   const palette = nodePalette(row.airs);
   node.classList.toggle("is-selected", row.socCode === state.selectedSocCode);
+  node.classList.toggle("is-muted", Boolean(state.focusLockedSocCode) && row.socCode !== state.focusLockedSocCode);
   node.dataset.soc = row.socCode;
   node.style.width = `${row.size}px`;
   node.style.height = `${row.size}px`;
@@ -984,8 +1076,6 @@ function updateNodeElement(node, row) {
   node.style.setProperty("--node-edge", palette.edge);
   node.style.setProperty("--node-glow", palette.glow);
   node.setAttribute("aria-label", `${displayTitle(row)} AIRS ${row.airs.toFixed(0)}`);
-  updateFloatingLabel(node, row);
-  queueQuadrantTooltipOverlapSync();
 }
 
 function createNodeElement(row) {
@@ -997,11 +1087,15 @@ function createNodeElement(row) {
     <span class="occupation-node__core"></span>`;
   node.addEventListener("click", () => {
     if (dragState.moved) return;
-    state.selectedSocCode = node.dataset.soc;
+    const socCode = node.dataset.soc || null;
+    if (!socCode) return;
+    const isSameFocused = socCode === state.focusLockedSocCode;
+    state.selectedSocCode = socCode;
+    state.focusLockedSocCode = isSameFocused ? null : socCode;
     state.zoom = Math.max(state.zoom, 1.45);
     state.panX = 0;
     state.panY = 0;
-    state.storyStep = "focus";
+    state.storyStep = state.focusLockedSocCode ? "focus" : state.viewMode;
     updateStoryStagePanel();
     renderUniverse();
     updateSelectedPanel();
@@ -1019,6 +1113,7 @@ function renderUniverse() {
   state.rows = layout.sort((a, b) => a.airs - b.airs);
   if (!state.rows.length) {
     state.selectedSocCode = null;
+    state.focusLockedSocCode = null;
     nodeElements.clear();
     labelElements.clear();
     if (els.occupationLabelLayer) {
@@ -1030,6 +1125,9 @@ function renderUniverse() {
   }
   if (!state.selectedSocCode || !state.rows.some((row) => row.socCode === state.selectedSocCode)) {
     state.selectedSocCode = state.rows[0].socCode;
+  }
+  if (state.focusLockedSocCode && !state.rows.some((row) => row.socCode === state.focusLockedSocCode)) {
+    state.focusLockedSocCode = null;
   }
 
   const fragment = document.createDocumentFragment();
@@ -1210,7 +1308,7 @@ function activateStoryStep(stepId) {
 }
 
 function bindUniverseInteractions() {
-  const updatePointer = (event) => {
+  const updatePointer = (event, showTooltip = true) => {
     const rect = els.occupationUniverse.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width) * 100;
     const y = ((event.clientY - rect.top) / rect.height) * 100;
@@ -1220,19 +1318,79 @@ function bindUniverseInteractions() {
     state.hoverPointerY = normalizedY;
     els.occupationUniverse.style.setProperty("--pointer-x", `${normalizedX.toFixed(2)}%`);
     els.occupationUniverse.style.setProperty("--pointer-y", `${normalizedY.toFixed(2)}%`);
-    renderQuadrantTooltip(quadrantFromPointer(normalizedX, normalizedY), event.clientX, event.clientY);
+    if (showTooltip) {
+      renderQuadrantTooltip(quadrantFromPointer(normalizedX, normalizedY), event.clientX, event.clientY);
+    } else {
+      hideQuadrantTooltip();
+    }
+  };
+
+  const pointerEntries = () => [...activePointers.values()];
+
+  const startPinch = () => {
+    const points = pointerEntries();
+    if (points.length < 2) return;
+    const [first, second] = points;
+    pinchState.active = true;
+    pinchState.startDistance = Math.hypot(second.x - first.x, second.y - first.y);
+    pinchState.startZoom = state.zoom;
+    pinchState.startCenterX = (first.x + second.x) / 2;
+    pinchState.startCenterY = (first.y + second.y) / 2;
+    pinchState.startPanX = state.panX;
+    pinchState.startPanY = state.panY;
+    dragState.active = false;
+    dragState.pointerId = null;
+    dragState.moved = false;
+    els.occupationUniverse.classList.add("is-dragging");
+    hideQuadrantTooltip();
+  };
+
+  const updatePinch = () => {
+    const points = pointerEntries();
+    if (!pinchState.active || points.length < 2) return;
+    const [first, second] = points;
+    const distance = Math.max(Math.hypot(second.x - first.x, second.y - first.y), 1);
+    const centerX = (first.x + second.x) / 2;
+    const centerY = (first.y + second.y) / 2;
+    const nextZoom = clamp(pinchState.startZoom * Math.pow(distance / Math.max(pinchState.startDistance, 1), 0.96), 0.78, 4.2);
+    state.zoom = nextZoom;
+    state.panX = pinchState.startPanX + ((centerX - pinchState.startCenterX) * 0.9);
+    state.panY = pinchState.startPanY + ((centerY - pinchState.startCenterY) * 0.9);
+    updateCanvasTransform();
+  };
+
+  const releasePointer = (pointerId?: number | null) => {
+    if (pointerId !== null && pointerId !== undefined) {
+      activePointers.delete(pointerId);
+    }
+    if (activePointers.size < 2) {
+      pinchState.active = false;
+    }
+    if (!activePointers.size) {
+      els.occupationUniverse.classList.remove("is-dragging");
+    }
   };
 
   const endDrag = (event) => {
+    releasePointer(event.pointerId);
     if (dragState.pointerId !== null && event.pointerId !== dragState.pointerId) return;
     dragState.active = false;
     dragState.pointerId = null;
-    els.occupationUniverse.classList.remove("is-dragging");
     window.setTimeout(() => { dragState.moved = false; }, 0);
   };
 
   els.occupationUniverse.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0) return;
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    activePointers.set(event.pointerId, {
+      x: event.clientX,
+      y: event.clientY,
+      pointerType: event.pointerType
+    });
+    if (activePointers.size >= 2) {
+      startPinch();
+      els.occupationUniverse.setPointerCapture(event.pointerId);
+      return;
+    }
     dragState.active = true;
     dragState.moved = false;
     dragState.pointerId = event.pointerId;
@@ -1243,7 +1401,18 @@ function bindUniverseInteractions() {
     els.occupationUniverse.setPointerCapture(event.pointerId);
   });
   els.occupationUniverse.addEventListener("pointermove", (event) => {
-    updatePointer(event);
+    if (activePointers.has(event.pointerId)) {
+      activePointers.set(event.pointerId, {
+        x: event.clientX,
+        y: event.clientY,
+        pointerType: event.pointerType
+      });
+    }
+    updatePointer(event, !isTouchPointer(event.pointerType));
+    if (pinchState.active) {
+      updatePinch();
+      return;
+    }
     if (!dragState.active || event.pointerId !== dragState.pointerId) return;
     const dx = event.clientX - dragState.startX;
     const dy = event.clientY - dragState.startY;
@@ -1253,21 +1422,31 @@ function bindUniverseInteractions() {
       hideQuadrantTooltip();
     }
     if (!dragState.moved) return;
-    state.panX = dragState.originPanX + dx;
-    state.panY = dragState.originPanY + dy;
+    const dragFactor = isCompactViewport() ? 0.86 : 1;
+    state.panX = dragState.originPanX + dx * dragFactor;
+    state.panY = dragState.originPanY + dy * dragFactor;
     updateCanvasTransform();
   });
   els.occupationUniverse.addEventListener("pointerup", endDrag);
   els.occupationUniverse.addEventListener("pointercancel", endDrag);
-  els.occupationUniverse.addEventListener("lostpointercapture", () => {
+  els.occupationUniverse.addEventListener("lostpointercapture", (event) => {
+    releasePointer(event.pointerId);
     dragState.active = false;
     dragState.pointerId = null;
-    els.occupationUniverse.classList.remove("is-dragging");
+    dragState.moved = false;
   });
-  els.occupationUniverse.addEventListener("pointerleave", () => {
+  els.occupationUniverse.addEventListener("pointerleave", (event) => {
+    if (isTouchPointer(event.pointerType) && activePointers.size) return;
     els.occupationUniverse.style.setProperty("--pointer-x", "50%");
     els.occupationUniverse.style.setProperty("--pointer-y", "42%");
     hideQuadrantTooltip();
+  });
+  els.occupationUniverse.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    if (target?.closest(".occupation-node")) return;
+    if (!state.focusLockedSocCode || dragState.moved) return;
+    state.focusLockedSocCode = null;
+    renderUniverse();
   });
 }
 
@@ -1373,6 +1552,7 @@ function bindActions() {
     state.zoom = VIEW_PRESETS[state.viewMode] ?? 1;
     state.panX = 0;
     state.panY = 0;
+    state.focusLockedSocCode = null;
     updateCanvasTransform();
   });
   els.portalButton.addEventListener("click", () => navigateToDetail(els.portalButton.dataset.href || els.detailLink.href));
