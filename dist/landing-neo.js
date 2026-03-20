@@ -67,6 +67,10 @@ const els = {
     focusPostings: byId("focusPostings"),
     focusDelta: byId("focusDelta"),
     occupationLabelLayer: byId("occupationLabelLayer"),
+    universeZoomBadge: byId("universeZoomBadge"),
+    zoomInButton: byId("zoomInButton"),
+    zoomOutButton: byId("zoomOutButton"),
+    resetViewButton: byId("resetViewButton"),
     replacementBar: byId("replacementBar"),
     augmentationBar: byId("augmentationBar"),
     hiringBar: byId("hiringBar"),
@@ -928,6 +932,13 @@ function syncFocusLockVisualState() {
     const signalPanel = els.signalSelectionTitle?.closest(".signal-panel");
     signalPanel?.classList.toggle("is-focus-locked", locked);
 }
+function updateZoomReadout() {
+    const text = `${Math.round(camera.zoom * 100)}%`;
+    els.zoomIndicator.textContent = text;
+    if (els.universeZoomBadge) {
+        els.universeZoomBadge.textContent = text;
+    }
+}
 function setMeter(bar, label, value) {
     bar.style.width = `${Math.round((value || 0) * 100)}%`;
     label.textContent = Number(value || 0).toFixed(2);
@@ -1003,7 +1014,7 @@ function updateCanvasTransform() {
         els.occupationCanvas.style.setProperty("--node-scale", `${(1 / Math.max(camera.zoom, 0.0001)).toFixed(5)}`);
         els.occupationCanvas.dataset.zoomState = camera.zoom > 1.45 ? "close" : "far";
         syncFocusLockVisualState();
-        els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
+        updateZoomReadout();
         queueQuadrantTooltipOverlapSync();
         return;
     }
@@ -1019,7 +1030,7 @@ function stepCamera() {
     els.occupationCanvas.style.setProperty("--node-scale", `${(1 / Math.max(camera.zoom, 0.0001)).toFixed(5)}`);
     els.occupationCanvas.dataset.zoomState = camera.zoom > 1.45 ? "close" : "far";
     syncFocusLockVisualState();
-    els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
+    updateZoomReadout();
     queueQuadrantTooltipOverlapSync();
     const settled = Math.abs(camera.targetZoom - camera.zoom) < 0.01 &&
         Math.abs(camera.targetOffsetX - camera.offsetX) < 0.8 &&
@@ -1031,7 +1042,7 @@ function stepCamera() {
         els.occupationCanvas.style.transform = `translate(-50%, -50%) translate(${camera.offsetX}px, ${camera.offsetY}px) scale(${camera.zoom})`;
         els.occupationCanvas.style.setProperty("--node-scale", `${(1 / Math.max(camera.zoom, 0.0001)).toFixed(5)}`);
         syncFocusLockVisualState();
-        els.zoomIndicator.textContent = `${Math.round(camera.zoom * 100)}%`;
+        updateZoomReadout();
         queueQuadrantTooltipOverlapSync();
         cameraFrame = 0;
         return;
@@ -1052,6 +1063,16 @@ function updateNodeElement(node, row) {
     node.style.setProperty("--node-edge", palette.edge);
     node.style.setProperty("--node-glow", palette.glow);
     node.setAttribute("aria-label", `${displayTitle(row)} AIRS ${row.airs.toFixed(0)}`);
+}
+function createCanvasAxes() {
+    const fragment = document.createDocumentFragment();
+    const axisX = document.createElement("div");
+    axisX.className = "universe-stage__axis universe-stage__axis--x universe-stage__axis--world";
+    const axisY = document.createElement("div");
+    axisY.className = "universe-stage__axis universe-stage__axis--y universe-stage__axis--world";
+    fragment.appendChild(axisX);
+    fragment.appendChild(axisY);
+    return fragment;
 }
 function createNodeElement(row) {
     const node = document.createElement("button");
@@ -1107,6 +1128,7 @@ function renderUniverse() {
     }
     const fragment = document.createDocumentFragment();
     const seen = new Set();
+    fragment.appendChild(createCanvasAxes());
     state.rows.forEach((row) => {
         let node = nodeElements.get(row.socCode);
         if (!node) {
@@ -1274,6 +1296,19 @@ function activateStoryStep(stepId) {
         return;
     state.storyStep = scene.id;
     setViewMode(scene.viewMode, { zoom: scene.zoom, preserveStory: true, resetPan: true });
+}
+function resetUniverseView(unlockFocus = true) {
+    state.zoom = VIEW_PRESETS[state.viewMode] ?? 1;
+    state.panX = 0;
+    state.panY = 0;
+    if (unlockFocus) {
+        state.focusLockedSocCode = null;
+    }
+    updateCanvasTransform();
+}
+function zoomAroundViewportCenter(multiplier) {
+    const rect = els.occupationUniverse.getBoundingClientRect();
+    setZoomAroundClient(state.zoom * multiplier, rect.left + (rect.width / 2), rect.top + (rect.height / 2));
 }
 function bindUniverseInteractions() {
     const updatePointer = (event, showTooltip = true) => {
@@ -1531,12 +1566,11 @@ function bindActions() {
         setZoomAroundClient(state.zoom * zoomFactor, event.clientX, event.clientY);
     }, { passive: false });
     els.occupationUniverse.addEventListener("dblclick", () => {
-        state.zoom = VIEW_PRESETS[state.viewMode] ?? 1;
-        state.panX = 0;
-        state.panY = 0;
-        state.focusLockedSocCode = null;
-        updateCanvasTransform();
+        resetUniverseView(true);
     });
+    els.zoomInButton.addEventListener("click", () => zoomAroundViewportCenter(1.2));
+    els.zoomOutButton.addEventListener("click", () => zoomAroundViewportCenter(1 / 1.2));
+    els.resetViewButton.addEventListener("click", () => resetUniverseView(true));
     els.portalButton.addEventListener("click", () => navigateToDetail(els.portalButton.dataset.href || els.detailLink.href));
     els.detailLink.addEventListener("click", (event) => { event.preventDefault(); navigateToDetail(els.detailLink.href); });
     els.downButton.addEventListener("click", () => {

@@ -128,7 +128,11 @@ const TEXT = {
             detailPromptKicker: "Next move",
             detailPromptTitle: "Drop into one occupation when the macro picture is clear.",
             detailPromptText: "The detail page keeps the selected occupation, date, region, and language so the transition feels like a continuation of the same analysis.",
-            focusGroup: "Group"
+            focusGroup: "Group",
+            mapControlsAria: "Map zoom controls",
+            mapZoomIn: "Zoom in",
+            mapZoomOut: "Zoom out",
+            mapResetView: "Return to full view"
         },
         detail: {
             pageTitle: "AIRS Occupation Detail",
@@ -329,7 +333,11 @@ const TEXT = {
             detailPromptKicker: "下一步",
             detailPromptTitle: "看清整体之后，再进入某一个职业。",
             detailPromptText: "详情页会保留你当前的职业、日期、地区和语言，让分析可以直接接着往下看。",
-            focusGroup: "大类"
+            focusGroup: "大类",
+            mapControlsAria: "地图缩放控制",
+            mapZoomIn: "放大",
+            mapZoomOut: "缩小",
+            mapResetView: "回到全局视图"
         },
         detail: {
             pageTitle: "AIRS 职业详情",
