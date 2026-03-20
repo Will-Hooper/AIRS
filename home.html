@@ -124,8 +124,6 @@
 
           <div class="universe-stage" id="occupationUniverse">
             <div class="universe-stage__viewport">
-              <div class="universe-stage__axis universe-stage__axis--x"></div>
-              <div class="universe-stage__axis universe-stage__axis--y"></div>
               <div class="universe-stage__quadrants" aria-hidden="true">
                 <div class="quadrant-marker quadrant-marker--top-left">
                   <strong data-i18n="home.quadrantTopLeftTitle">AI 压缩更强，招聘也偏弱</strong>
@@ -142,6 +140,14 @@
                 <div class="quadrant-marker quadrant-marker--bottom-right">
                   <strong data-i18n="home.quadrantBottomRightTitle">需求较强，AI 影响也相对较小</strong>
                   <span data-i18n="home.quadrantBottomRightShort">高 AIRS + 高招聘热度</span>
+                </div>
+              </div>
+              <div class="universe-stage__map-ui">
+                <div class="universe-stage__zoom-badge" id="universeZoomBadge">100%</div>
+                <div class="universe-stage__controls" aria-label="地图缩放控制" data-i18n-aria-label="home.mapControlsAria">
+                  <button id="zoomInButton" class="universe-stage__control" type="button" aria-label="放大" data-i18n-aria-label="home.mapZoomIn">+</button>
+                  <button id="zoomOutButton" class="universe-stage__control" type="button" aria-label="缩小" data-i18n-aria-label="home.mapZoomOut">−</button>
+                  <button id="resetViewButton" class="universe-stage__control universe-stage__control--home" type="button" aria-label="回到全局视图" data-i18n-aria-label="home.mapResetView">⌂</button>
                 </div>
               </div>
               <div class="quadrant-tooltip" id="quadrantTooltip" hidden>
