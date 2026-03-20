@@ -128,7 +128,11 @@ const TEXT = {
       detailPromptKicker: "Next move",
       detailPromptTitle: "Drop into one occupation when the macro picture is clear.",
       detailPromptText: "The detail page keeps the selected occupation, date, region, and language so the transition feels like a continuation of the same analysis.",
-      focusGroup: "Group"
+      focusGroup: "Group",
+      mapControlsAria: "Map zoom controls",
+      mapZoomIn: "Zoom in",
+      mapZoomOut: "Zoom out",
+      mapResetView: "Return to full view"
     },
     detail: {
       pageTitle: "AIRS Occupation Detail",
@@ -148,6 +152,9 @@ const TEXT = {
       evidenceTitle: "Recruitment-side proof points",
       taskKicker: "Task exposure",
       taskTitle: "What AI can reach inside the job",
+      taskIntro: "These work items are more likely to be assisted, rewritten, or structurally compressed by AI first, so they usually show up earlier in hiring requirements and role design.",
+      taskLabel: "Task",
+      taskCountUnit: "items",
       signal: "Signal",
       exposure: "Exposure",
       navOverview: "Overview",
@@ -326,7 +333,11 @@ const TEXT = {
       detailPromptKicker: "下一步",
       detailPromptTitle: "看清整体之后，再进入某一个职业。",
       detailPromptText: "详情页会保留你当前的职业、日期、地区和语言，让分析可以直接接着往下看。",
-      focusGroup: "大类"
+      focusGroup: "大类",
+      mapControlsAria: "地图缩放控制",
+      mapZoomIn: "放大",
+      mapZoomOut: "缩小",
+      mapResetView: "回到全局视图"
     },
     detail: {
       pageTitle: "AIRS 职业详情",
@@ -346,6 +357,9 @@ const TEXT = {
       evidenceTitle: "招聘市场里看到的证据",
       taskKicker: "任务暴露",
       taskTitle: "AI 更容易影响这个职业的哪些工作内容",
+      taskIntro: "下面这些工作内容更容易先被 AI 辅助、重写或压缩，因此通常会更早反映到招聘要求和岗位结构变化上。",
+      taskLabel: "工作内容",
+      taskCountUnit: "项",
       signal: "证据",
       exposure: "影响程度",
       navOverview: "概览",
