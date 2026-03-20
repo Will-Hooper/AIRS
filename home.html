@@ -13,6 +13,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="maze-theme.css">
+  <link rel="modulepreload" href="dist/landing-neo.js?v=20260320-2">
+  <link rel="modulepreload" href="dist/api-client.js">
+  <link rel="modulepreload" href="dist/i18n-neo.js">
+  <link rel="modulepreload" href="dist/runtime-config.js">
+  <link rel="modulepreload" href="dist/occupation-translation.js">
 </head>
 <body class="maze-page maze-page--home">
   <div class="maze-ambient maze-ambient--home" aria-hidden="true"></div>
@@ -59,8 +64,10 @@
         <img
           src="https://commons.wikimedia.org/wiki/Special:FilePath/Edouard%20Manet,%20A%20Bar%20at%20the%20Folies-Berg%C3%A8reFXD.jpg"
           alt="Edouard Manet painting at the Folies-Bergere bar"
-          loading="eager"
-          fetchpriority="high"
+          width="1828"
+          height="1440"
+          loading="lazy"
+          fetchpriority="low"
           decoding="async"
         >
       </div>
@@ -492,6 +499,6 @@
     </button>
   </main>
 
-  <script type="module" src="dist/landing-neo.js?v=20260319-2"></script>
+  <script type="module" src="dist/landing-neo.js?v=20260320-2"></script>
 </body>
 </html>
