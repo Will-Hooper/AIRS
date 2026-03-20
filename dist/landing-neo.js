@@ -27,7 +27,8 @@ const state = {
     hoverPointerY: 42,
     loadError: null,
     dataMode: null,
-    dataSource: null
+    dataSource: null,
+    pendingFitView: true
 };
 const els = {
     riskTickerTrack: byId("riskTickerTrack"),
@@ -114,6 +115,9 @@ const AUTO_LABEL_ROW_LIMIT = 140;
 const UNIVERSE_CANVAS_WIDTH = 1800;
 const UNIVERSE_CANVAS_HEIGHT = 1400;
 const UNIVERSE_VIEW_PADDING = 42;
+const UNIVERSE_MIN_ZOOM = 0.52;
+const UNIVERSE_MAX_ZOOM = 4.2;
+const UNIVERSE_NODE_FIT_MARGIN = 28;
 const camera = {
     initialized: false,
     zoom: 1,
@@ -457,6 +461,36 @@ function clampPanToBounds(zoom = state.zoom) {
         state.panY = clamp(state.panY, minTotalY - focusOffset.y, maxTotalY - focusOffset.y);
     }
 }
+function fitViewToRows(rows) {
+    if (!rows.length)
+        return;
+    const rect = els.occupationUniverse.getBoundingClientRect();
+    const viewportWidth = rect.width || 1280;
+    const viewportHeight = rect.height || 720;
+    const fitPadding = Math.max(UNIVERSE_VIEW_PADDING + 56, Math.min(viewportWidth, viewportHeight) * 0.11);
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    rows.forEach((row) => {
+        const radius = (row.size / 2) + UNIVERSE_NODE_FIT_MARGIN;
+        minX = Math.min(minX, row.x - radius);
+        maxX = Math.max(maxX, row.x + radius);
+        minY = Math.min(minY, row.y - radius);
+        maxY = Math.max(maxY, row.y + radius);
+    });
+    const contentWidth = Math.max(1, maxX - minX);
+    const contentHeight = Math.max(1, maxY - minY);
+    const fitWidth = Math.max(1, viewportWidth - fitPadding * 2);
+    const fitHeight = Math.max(1, viewportHeight - fitPadding * 2);
+    const nextZoom = clamp(Math.min(fitWidth / contentWidth, fitHeight / contentHeight), UNIVERSE_MIN_ZOOM, UNIVERSE_MAX_ZOOM);
+    const centerX = (minX + maxX) / 2;
+    const centerY = (minY + maxY) / 2;
+    state.zoom = nextZoom;
+    state.panX = -centerX * nextZoom;
+    state.panY = -centerY * nextZoom;
+    clampPanToBounds(nextZoom);
+}
 function worldPointFromClient(clientX, clientY) {
     const rect = els.occupationUniverse.getBoundingClientRect();
     return {
@@ -467,7 +501,7 @@ function worldPointFromClient(clientX, clientY) {
 function setZoomAroundClient(nextZoom, clientX, clientY) {
     if (!els.occupationUniverse)
         return;
-    const clampedZoom = clamp(nextZoom, 0.78, 4.2);
+    const clampedZoom = clamp(nextZoom, UNIVERSE_MIN_ZOOM, UNIVERSE_MAX_ZOOM);
     const rect = els.occupationUniverse.getBoundingClientRect();
     const anchorWorld = worldPointFromClient(clientX, clientY);
     const focusOffset = currentFocusOffset(clampedZoom);
@@ -1126,6 +1160,10 @@ function renderUniverse() {
     if (state.focusLockedSocCode && !state.rows.some((row) => row.socCode === state.focusLockedSocCode)) {
         state.focusLockedSocCode = null;
     }
+    if (!state.focusLockedSocCode && state.pendingFitView) {
+        fitViewToRows(state.rows);
+        state.pendingFitView = false;
+    }
     const fragment = document.createDocumentFragment();
     const seen = new Set();
     fragment.appendChild(createCanvasAxes());
@@ -1277,6 +1315,7 @@ function setViewMode(mode, options = {}) {
     if (resetPan) {
         state.panX = 0;
         state.panY = 0;
+        state.pendingFitView = true;
     }
     if (mode !== "focus" && state.focusLockedSocCode && !preserveStory) {
         state.focusLockedSocCode = null;
@@ -1298,11 +1337,15 @@ function activateStoryStep(stepId) {
     setViewMode(scene.viewMode, { zoom: scene.zoom, preserveStory: true, resetPan: true });
 }
 function resetUniverseView(unlockFocus = true) {
-    state.zoom = VIEW_PRESETS[state.viewMode] ?? 1;
     state.panX = 0;
     state.panY = 0;
+    state.pendingFitView = true;
     if (unlockFocus) {
         state.focusLockedSocCode = null;
+    }
+    if (state.rows.length) {
+        renderUniverse();
+        return;
     }
     updateCanvasTransform();
 }
@@ -1358,7 +1401,7 @@ function bindUniverseInteractions() {
         const distance = Math.max(Math.hypot(second.x - first.x, second.y - first.y), 1);
         const centerX = (first.x + second.x) / 2;
         const centerY = (first.y + second.y) / 2;
-        const nextZoom = clamp(pinchState.startZoom * Math.pow(distance / Math.max(pinchState.startDistance, 1), 0.96), 0.78, 4.2);
+        const nextZoom = clamp(pinchState.startZoom * Math.pow(distance / Math.max(pinchState.startDistance, 1), 0.96), UNIVERSE_MIN_ZOOM, UNIVERSE_MAX_ZOOM);
         const rect = els.occupationUniverse.getBoundingClientRect();
         const focusOffset = currentFocusOffset(nextZoom);
         const desiredX = centerX - rect.left - (rect.width / 2);
@@ -1614,6 +1657,9 @@ async function load() {
         }
         syncReleaseNotes(summary.mode, summary.updatedAt, state.dataSource);
         state.rows = payload.occupations.slice();
+        if (!state.focusLockedSocCode) {
+            state.pendingFitView = true;
+        }
         renderUniverse();
         renderSummary(summary);
         updateSelectedPanel();
